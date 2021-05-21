@@ -6,6 +6,7 @@ import get from 'lodash/get';
 import { synthWeight } from '../utils/synthOrdering';
 
 import { SYNTHS_MAP, CurrencyKeys, CurrencyKey, Category } from '../constants/currency';
+import { bytesFormatter, bigNumberFormatter, parseBytes32String } from 'utils/formatters';
 
 import { RootState } from './types';
 import {
@@ -155,7 +156,7 @@ export const getSynthsWithRates = createSelector(
 		availableSynths.map((synth) => ({
 			...synth,
 			historicalRates: historicalRates[synth.name] || null,
-			lastPrice: exchangeRates != null ? exchangeRates[synth.name] : null,
+			lastPrice: exchangeRates != null ? bigNumberFormatter(exchangeRates[synth.name]) : null,
 		}))
 );
 

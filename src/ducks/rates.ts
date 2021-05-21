@@ -75,7 +75,7 @@ export const getIsLoadedRates = (state: RootState) => getRatesState(state).isLoa
 export const getRatesLoadingError = (state: RootState) => getRatesState(state).loadingError;
 export const getRatesExchangeRates = (state: RootState) => getRatesState(state).exchangeRates;
 export const getEthRate = createSelector(getRatesExchangeRates, (exchangeRates) =>
-	get(exchangeRates, SYNTHS_MAP.oETH, null)
+	get(exchangeRates, SYNTHS_MAP.oBNB, null)
 );
 
 export const { fetchRatesRequest, fetchRatesSuccess, fetchRatesFailure } = ratesSlice.actions;
@@ -85,8 +85,6 @@ function* fetchRates() {
 	// @ts-ignore
 	const { ExchangeRates } = snxJSConnector;
 	const synths = yield select(getAvailableSynths);
- 
-	 
 	try {
 		let exchangeRates: Rates = {}; 
  

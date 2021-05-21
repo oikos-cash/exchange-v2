@@ -1,4 +1,4 @@
-import { SynthetixJs, ContractSettings } from 'synthetix-js';
+import { OikosJs, ContractSettings } from '@oikos/oikos-js-bsc';
 
 import { ethers } from 'ethers';
 import {
@@ -12,31 +12,32 @@ import {
 import { synthSummaryUtilContract } from './contracts/synthSummaryUtilContract';
 import binaryOptionsMarketDataContract from './contracts/binaryOptionsMarketDataContract';
 
+console.log(OikosJs)
 type SnxJSConnector = {
 	initialized: boolean;
-	snxJS: SynthetixJs;
-	synths: SynthetixJs['contractSettings']['synths'];
-	provider: SynthetixJs['contractSettings']['provider'];
-	signer: SynthetixJs['contractSettings']['signer'];
-	signers: typeof SynthetixJs.signers;
-	utils: SynthetixJs['utils'];
+	snxJS: OikosJs;
+	synths: OikosJs['contractSettings']['synths'];
+	provider: OikosJs['contractSettings']['provider'];
+	signer: OikosJs['contractSettings']['signer'];
+	signers: typeof OikosJs.signers;
+	utils: OikosJs['utils'];
 	ethers: typeof ethers;
-	ethersUtils: SynthetixJs['ethers']['utils'];
+	ethersUtils: OikosJs['ethers']['utils'];
 	synthSummaryUtilContract: ethers.Contract;
 	binaryOptionsMarketDataContract: ethers.Contract;
 	setContractSettings: (contractSettings: ContractSettings) => void;
-	binaryOptionsUtils: SynthetixJs['binaryOptionsUtils'];
+	binaryOptionsUtils: OikosJs['binaryOptionsUtils'];
 	contractSettings: ContractSettings;
 };
 
 // @ts-ignore
 const snxJSConnector: SnxJSConnector = {
 	initialized: false,
-	signers: SynthetixJs.signers,
+	signers: OikosJs.signers,
 
 	setContractSettings: function (contractSettings: ContractSettings) {
 		this.initialized = true;
-		this.snxJS = new SynthetixJs(contractSettings);
+		this.snxJS = new OikosJs(contractSettings);
 		this.synths = this.snxJS.contractSettings.synths;
 		this.signer = this.snxJS.contractSettings.signer;
 		this.provider = this.snxJS.contractSettings.provider;
@@ -45,7 +46,7 @@ const snxJSConnector: SnxJSConnector = {
 		this.binaryOptionsUtils = this.snxJS.binaryOptionsUtils;
 		this.ethers = ethers;
 		this.contractSettings = contractSettings;
-		this.synthSummaryUtilContract = new ethers.Contract(
+		/*this.synthSummaryUtilContract = new ethers.Contract(
 			synthSummaryUtilContract.addresses[contractSettings.networkId],
 			synthSummaryUtilContract.abi,
 			this.provider
@@ -54,7 +55,7 @@ const snxJSConnector: SnxJSConnector = {
 			binaryOptionsMarketDataContract.addresses[contractSettings.networkId],
 			binaryOptionsMarketDataContract.abi,
 			this.provider
-		);
+		);*/
 	},
 };
 
@@ -71,7 +72,7 @@ const connectToMetamask = async (networkId: NetworkId, networkName: string) => {
 				currentWallet: accounts[0],
 				unlocked: true,
 				networkId,
-				networkName: networkName.toLowerCase(),
+				networkName: "bsc",//networkName.toLowerCase(),
 			};
 		} else {
 			return {

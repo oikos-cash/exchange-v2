@@ -1,14 +1,11 @@
 import throttle from 'lodash/throttle';
 
-export type NetworkId = 1 | 3 | 4 | 42;
+export type NetworkId = 56;
 
 export const GWEI_UNIT = 1000000000;
 
 export const SUPPORTED_NETWORKS: Record<NetworkId, string> = {
-	1: 'MAINNET',
-	3: 'ROPSTEN',
-	4: 'RINKEBY',
-	42: 'KOVAN',
+	56: 'BSC',
 };
 
 export const DEFAULT_GAS_LIMIT = {
@@ -24,10 +21,7 @@ export const DEFAULT_GAS_LIMIT = {
 export const INFURA_PROJECT_ID = process.env.REACT_APP_INFURA_PROJECT_ID;
 
 export const INFURA_JSON_RPC_URLS: Record<NetworkId, string> = {
-	1: `https://mainnet.infura.io/v3/${INFURA_PROJECT_ID}`,
-	3: `https://ropsten.infura.io/v3/${INFURA_PROJECT_ID}`,
-	4: `https://rinkeby.infura.io/v3/${INFURA_PROJECT_ID}`,
-	42: `https://kovan.infura.io/v3/${INFURA_PROJECT_ID}`,
+	56: `https://bsc-dataseed.binance.org`,
 };
 
 export const PORTIS_APP_ID = '26e198be-a8bb-4240-ad78-ae88579085bc';
@@ -54,7 +48,7 @@ export const hasEthereumInjected = () => !!window.ethereum;
 
 export const defaultNetwork: { name: string; networkId: NetworkId } = {
 	name: 'MAINNET',
-	networkId: 1,
+	networkId: 56,
 };
 
 export async function getEthereumNetwork() {
@@ -62,7 +56,7 @@ export async function getEthereumNetwork() {
 		return defaultNetwork;
 	}
 
-	let networkId: NetworkId = 1;
+	let networkId: NetworkId = 56;
 
 	try {
 		if (window.ethereum?.networkVersion) {
@@ -151,4 +145,4 @@ export function hasMetamaskInstalled() {
 	return window.ethereum?.isMetaMask || false;
 }
 
-export const isMainNet = (networkId: NetworkId) => networkId === 1;
+export const isMainNet = (networkId: NetworkId) => networkId === 56;

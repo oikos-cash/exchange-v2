@@ -1,11 +1,15 @@
 import { createSlice, createSelector, PayloadAction } from '@reduxjs/toolkit';
 import get from 'lodash/get';
-
+ 
 import snxJSConnector from '../utils/snxJSConnector';
-import { bigNumberFormatter, parseBytes32String } from '../utils/formatters';
+import { bigNumberFormatter, parseBytes32String, bytesFormatter } from '../utils/formatters';
 import { SYNTHS_MAP, CurrencyKey } from '../constants/currency';
 import { RootState } from './types';
-import { takeLatest, put } from 'redux-saga/effects';
+import { takeLatest, put, select} from 'redux-saga/effects';
+import { FetchRates } from '../dataFetcher';
+
+import { getAvailableSynths } from './synths';
+
 
 export type Rates = Record<CurrencyKey, number>;
 
@@ -79,17 +83,15 @@ export const { fetchRatesRequest, fetchRatesSuccess, fetchRatesFailure } = rates
 // @ts-ignore
 function* fetchRates() {
 	// @ts-ignore
-	const { synthSummaryUtilContract } = snxJSConnector;
-
+	const { ExchangeRates } = snxJSConnector;
+	const synths = yield select(getAvailableSynths);
+ 
+	 
 	try {
-		let exchangeRates: Rates = {};
-
-		const [synths, rates] = yield synthSummaryUtilContract.synthsRates();
-		synths.forEach((synth: CurrencyKey, idx: number) => {
-			const synthName = parseBytes32String(synth);
-			exchangeRates[synthName] = bigNumberFormatter(rates[idx]);
-		});
-
+		let exchangeRates: Rates = {}; 
+ 
+		exchangeRates = yield FetchRates(synths)
+		console.log(exchangeRates)
 		yield put(fetchRatesSuccess({ exchangeRates }));
 	} catch (e) {
 		yield put(fetchRatesFailure({ error: e.message }));

@@ -4,10 +4,10 @@ const getEtherScanBaseURL = (networkId) => {
 	const network = SUPPORTED_NETWORKS[networkId];
 
 	if (isMainNet(networkId) || network == null) {
-		return 'https://etherscan.io';
+		return 'https://bscscan.com';
 	}
 
-	return `https://${network.toLowerCase()}.etherscan.io`;
+	return `https://${network.toLowerCase()}.bscscan.com`;
 };
 
 export const getEtherscanTxLink = (networkId, txId) => {

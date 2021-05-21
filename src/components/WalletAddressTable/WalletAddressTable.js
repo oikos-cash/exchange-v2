@@ -44,7 +44,7 @@ const WalletAddressTable = ({ data, walletInfo, onWalletSelection }) => {
 								<Balance
 									value={
 										wallet.balances.oksBalance != null
-											? bigNumberFormatter(wallet.balances.snxBalance)
+											? bigNumberFormatter(wallet.balances.oksBalance)
 											: undefined
 									}
 								/>

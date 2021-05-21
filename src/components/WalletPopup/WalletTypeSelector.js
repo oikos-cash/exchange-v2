@@ -25,15 +25,15 @@ import { ReactComponent as Portis } from 'assets/images/wallets/portis.svg';
 
 import { media } from 'shared/media';
 
-const { METAMASK, LEDGER, TREZOR, COINBASE, WALLET_CONNECT, PORTIS } = SUPPORTED_WALLETS_MAP;
+const { METAMASK, LEDGER/*, TREZOR, COINBASE, WALLET_CONNECT, PORTIS*/ } = SUPPORTED_WALLETS_MAP;
 
 const walletTypeToIconMap = {
 	[METAMASK]: MetamaskWallet,
 	[LEDGER]: LedgerWallet,
-	[TREZOR]: TrezorWallet,
+	/*[TREZOR]: TrezorWallet,
 	[COINBASE]: MetamaskWallet,
 	[WALLET_CONNECT]: WalletConnect,
-	[PORTIS]: Portis,
+	[PORTIS]: Portis,*/
 };
 
 const WalletTypeSelector = ({

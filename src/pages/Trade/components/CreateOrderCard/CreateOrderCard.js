@@ -61,6 +61,8 @@ const CreateOrderCard = ({
 	transactions,
 	synthsMap,
 }) => {
+	console.log(exchangeRates)
+
 	const { t } = useTranslation();
 	const { colors } = useContext(ThemeContext);
 	const [baseAmount, setBaseAmount] = useState(INPUT_DEFAULT_VALUE);
@@ -104,6 +106,7 @@ const CreateOrderCard = ({
 					bytesFormatter(quote.name),
 					bytesFormatter(base.name)
 				);
+				 
 				setFeeRate(100 * bigNumberFormatter(feeRateForExchange));
 			} catch (e) {
 				console.log(e);
@@ -113,7 +116,7 @@ const CreateOrderCard = ({
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [base.name, quote.name]);
 
-	useEffect(() => {
+	/*useEffect(() => {
 		const {
 			snxJS: { SystemStatus },
 		} = snxJSConnector;
@@ -134,7 +137,7 @@ const CreateOrderCard = ({
 			setHasMarketClosed(false);
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [base.name, quote.name]);
+	}, [base.name, quote.name]);*/
 
 	const baseBalance =
 		(synthsWalletBalances && synthsWalletBalances.find((synth) => synth.name === base.name)) || 0;
@@ -143,10 +146,12 @@ const CreateOrderCard = ({
 
 	const rate = getExchangeRatesForCurrencies(exchangeRates, quote.name, base.name);
 	const inverseRate = getExchangeRatesForCurrencies(exchangeRates, base.name, quote.name);
+	console.log(exchangeRates)
 
-	const buttonDisabled =
-		!baseAmount || !currentWallet || inputError || isSubmitting || feeReclamationError;
-
+	console.log(`current wallet ${currentWallet} inputError ${inputError} isSubmitting ${isSubmitting} feeReclErr ${feeReclamationError}`)
+	//const buttonDisabled =
+	//	!baseAmount || !currentWallet || inputError || isSubmitting || feeReclamationError;
+	let buttonDisabled = false
 	const isEmptyQuoteBalance = !quoteBalance || !quoteBalance.balance;
 
 	useEffect(() => {
@@ -191,7 +196,7 @@ const CreateOrderCard = ({
 	useEffect(() => {
 		const getGasEstimate = async () => {
 			const {
-				snxJS: { Synthetix },
+				snxJS: { Oikos },
 				utils,
 			} = snxJSConnector;
 
@@ -200,12 +205,13 @@ const CreateOrderCard = ({
 				? quoteBalance.balanceBN
 				: utils.parseEther(quoteAmount.toString());
 
-			const gasEstimate = await Synthetix.contract.estimate.exchangeWithTracking(
+			
+			const gasEstimate = await Oikos.contract.estimateGas.exchange(
 				bytesFormatter(quote.name),
 				amountToExchange,
 				bytesFormatter(base.name),
-				currentWallet,
-				EXCHANGE_TRACKING_CODE
+				//currentWallet,
+				//EXCHANGE_TRACKING_CODE
 			);
 			const rectifiedGasLimit = normalizeGasLimit(Number(gasEstimate));
 			setGasLimit(rectifiedGasLimit);
@@ -225,7 +231,7 @@ const CreateOrderCard = ({
 
 	const handleSubmit = async () => {
 		const {
-			snxJS: { Synthetix },
+			snxJS: { Oikos },
 			utils,
 		} = snxJSConnector;
 		const transactionId = transactions.length;
@@ -236,12 +242,12 @@ const CreateOrderCard = ({
 				? quoteBalance.balanceBN
 				: utils.parseEther(quoteAmount.toString());
 
-			const gasEstimate = await Synthetix.contract.estimate.exchangeWithTracking(
+			const gasEstimate = await Oikos.contract.estimateGas.exchange(
 				bytesFormatter(quote.name),
 				amountToExchange,
 				bytesFormatter(base.name),
-				currentWallet,
-				EXCHANGE_TRACKING_CODE
+				//currentWallet,
+				//EXCHANGE_TRACKING_CODE
 			);
 			const rectifiedGasLimit = normalizeGasLimit(Number(gasEstimate));
 
@@ -255,7 +261,7 @@ const CreateOrderCard = ({
 				fromAmount: quoteAmount,
 				toAmount: baseAmount,
 				price:
-					base.name === SYNTHS_MAP.sUSD
+					base.name === SYNTHS_MAP.oUSD
 						? getExchangeRatesForCurrencies(exchangeRates, quote.name, base.name)
 						: getExchangeRatesForCurrencies(exchangeRates, base.name, quote.name),
 				amount: formatCurrency(baseAmount),
@@ -269,12 +275,13 @@ const CreateOrderCard = ({
 				status: TRANSACTION_STATUS.WAITING,
 			});
 
-			const tx = await Synthetix.ExchangeWithTracking(
+			console.log(gasInfo)
+			const tx = await Oikos.exchange(
 				bytesFormatter(quote.name),
 				amountToExchange,
 				bytesFormatter(base.name),
-				currentWallet,
-				EXCHANGE_TRACKING_CODE,
+				//currentWallet,
+				//EXCHANGE_TRACKING_CODE,
 				{
 					gasPrice: gasInfo.gasPrice * GWEI_UNIT,
 					gasLimit: rectifiedGasLimit,
@@ -299,6 +306,7 @@ const CreateOrderCard = ({
 		}
 	};
 
+	console.log(baseAmount, quoteAmount)
 	return (
 		<Card>
 			<Card.Header>
@@ -400,7 +408,7 @@ const CreateOrderCard = ({
 					ethRate={ethRate}
 					exchangeFeeRate={feeRate}
 					amount={baseAmount}
-					usdRate={getExchangeRatesForCurrencies(exchangeRates, base.name, SYNTHS_MAP.sUSD)}
+					usdRate={getExchangeRatesForCurrencies(exchangeRates, base.name, SYNTHS_MAP.oUSD)}
 				/>
 
 				{hasMarketClosed ? (

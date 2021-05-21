@@ -65,7 +65,7 @@ export const CreateLoanCard = ({
 
 	const handleSubmit = async () => {
 		const {
-			snxJS: { EtherCollateral },
+			snxJS: { BNBCollateral },
 			utils,
 		} = snxJSConnector;
 
@@ -78,12 +78,12 @@ export const CreateLoanCard = ({
 				gasLimit,
 			};
 
-			const gasEstimate = await EtherCollateral.contract.estimate.openLoan(openLoanArgs);
+			const gasEstimate = await BNBCollateral.contract.estimateGas.openLoan(openLoanArgs);
 			const updatedGasEstimate = normalizeGasLimit(Number(gasEstimate));
 
 			setLocalGasLimit(updatedGasEstimate);
 
-			const tx = await EtherCollateral.openLoan({
+			const tx = await BNBCollateral.openLoan({
 				...openLoanArgs,
 				gasLimit: updatedGasEstimate,
 			});

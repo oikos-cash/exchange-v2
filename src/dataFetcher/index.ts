@@ -8,6 +8,7 @@ import { bytesFormatter, bigNumberFormatter, parseBytes32String } from 'utils/fo
 
 import { SYNTHS_MAP, CurrencyKey } from 'constants/currency';
 import { BigNumberish } from 'ethers/utils';
+import { takeLatest, put, select} from 'redux-saga/effects';
 
 const getNetworkPrices = async () => {
 	return await getGasInfo();
@@ -129,3 +130,32 @@ export const fetchEthBalance = async (walletAddress: string) => {
 		usdBalance: bigNumberFormatter(usdBalance),
 	};
 };
+
+export type Rates = Record<CurrencyKey, number>;
+
+export const FetchRates = async (availableSynths: Array<{name: string}>)  => {
+ 
+ 	//@ts-ignore
+	console.log(snxJSConnector.snxJS.ExchangeRates)
+ 
+	let exchangeRates: Rates = {}; 
+
+	//@ts-ignore
+	const synthRates = await snxJSConnector.snxJS.ExchangeRates.ratesForCurrencies(
+		
+		//@ts-ignore
+		availableSynths.map(synth => {
+			console.log( bytesFormatter(synth.name))
+			return bytesFormatter(synth.name)
+		})
+	);
+
+	availableSynths.forEach((synth, i) => {
+
+		exchangeRates[synth.name] = synthRates[i]
+	})
+
+	console.log(exchangeRates)
+	 
+	return exchangeRates
+}

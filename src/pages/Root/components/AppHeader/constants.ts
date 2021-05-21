@@ -25,11 +25,11 @@ export const MENU_LINKS: MenuLinks = [
 		i18nLabel: 'header.links.loans',
 		link: ROUTES.Loans,
 	},
-	{
-		i18nLabel: 'header.links.options',
-		link: ROUTES.Options.Home,
-		isBeta: true,
-	},
+	//{
+	//	i18nLabel: 'header.links.options',
+	//	link: ROUTES.Options.Home,
+	//	isBeta: true,
+	//},
 ];
 
 export const MENU_LINKS_WALLET_CONNECTED: MenuLinks = [

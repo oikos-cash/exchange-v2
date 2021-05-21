@@ -42,10 +42,10 @@ export const roundedLimit = (entry: number, limit: number) => {
 
 const SYNTH_CONTRACT_DECIMALS = 18;
 
-export const SynthInfo: FC<SynthInfoProps> = ({ synth, networkId }) => {
+export const SynthInfo: FC<SynthInfoProps> = ({ synth, networkId = 56}) => {
 	const { t } = useTranslation();
-
-	const assetDesc = synth.description.replace(/^Inverse /, '');
+	console.log(synth)
+	const assetDesc = "";//synth.description.replace(/^Inverse /, '');
 	const assetSymbol = synth.description !== synth.asset ? ` (${synth.asset})` : '';
 
 	const { snxJS } = snxJSConnector;

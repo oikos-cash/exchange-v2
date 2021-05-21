@@ -5,7 +5,7 @@ import format from 'date-fns/format';
 import isNumber from 'lodash/isNumber';
 import { useTranslation } from 'react-i18next';
 import { useQuery } from 'react-query';
-import snxData from 'synthetix-data';
+import snxData from '@oikos/oikos-data-bsc';
 
 import { ReactComponent as ExclamationIcon } from 'assets/images/exclamation.svg';
 

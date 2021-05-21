@@ -37,7 +37,7 @@ type MarketsTableProps = StateProps & Props;
 export const MarketsTable: FC<MarketsTableProps> = memo(
 	({ markets, synthsMap, marketsLoaded, noResultsMessage }) => {
 		const { t } = useTranslation();
-
+		console.log(synthsMap)
 		return (
 			<TableOverflowContainer>
 				<StyledTable
@@ -121,7 +121,7 @@ export const MarketsTable: FC<MarketsTableProps> = memo(
 							accessor: 'rates24hVol',
 							sortType: 'basic',
 							Cell: (cellProps: CellProps<MarketPair, MarketPair['rates24hVol']>) => (
-								<CurrencyCol sign={synthsMap[SYNTHS_MAP.sUSD]?.sign} value={cellProps.cell.value} />
+								<CurrencyCol sign={synthsMap[SYNTHS_MAP.oUSD]?.sign} value={cellProps.cell.value} />
 							),
 							width: 150,
 							sortable: true,

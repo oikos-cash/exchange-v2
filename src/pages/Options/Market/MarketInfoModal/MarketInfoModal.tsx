@@ -155,7 +155,7 @@ export const MarketInfoModal: FC<MarketInfoModalProps> = ({
 								<TableCellLabel>
 									<Trans
 										i18nKey="options.market.info-modal.table.deposited-currency-col"
-										values={{ currencyKey: SYNTHS_MAP.sUSD }}
+										values={{ currencyKey: SYNTHS_MAP.oUSD }}
 										components={[<CurrencyKey />]}
 									/>
 								</TableCellLabel>

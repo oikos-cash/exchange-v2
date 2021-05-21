@@ -201,7 +201,7 @@ export const YourSynths: FC<YourSynthsProps> = memo(
 												>
 													{t('common.actions.trade')}
 												</Button>
-												{[SYNTHS_MAP.sUSD, SYNTHS_MAP.sETH].includes(currencyKey) && (
+												{[SYNTHS_MAP.oUSD, SYNTHS_MAP.oETH].includes(currencyKey) && (
 													<Link
 														to={LINKS.Trading.OneInchLink(currencyKey, CRYPTO_CURRENCY_MAP.ETH)}
 														isExternal={true}

@@ -39,10 +39,10 @@ const GlobalEventsGate: FC<GlobalEventsGateProps> = ({
 	useEffect(() => {
 		if (!currentWallet) return;
 		const {
-			snxJS: { Synthetix },
+			snxJS: { Oikos },
 		} = snxJSConnector as any;
 
-		Synthetix.contract.on(EXCHANGE_EVENTS.SYNTH_EXCHANGE, (address: string) => {
+		Oikos.contract.on(EXCHANGE_EVENTS.SYNTH_EXCHANGE, (address: string) => {
 			if (address === currentWallet) {
 				fetchWalletBalancesRequest();
 			}
@@ -50,7 +50,7 @@ const GlobalEventsGate: FC<GlobalEventsGateProps> = ({
 
 		return () => {
 			Object.values(EXCHANGE_EVENTS).forEach((event) =>
-				Synthetix.contract.removeAllListeners(event)
+				Oikos.contract.removeAllListeners(event)
 			);
 		};
 		// eslint-disable-next-line react-hooks/exhaustive-deps

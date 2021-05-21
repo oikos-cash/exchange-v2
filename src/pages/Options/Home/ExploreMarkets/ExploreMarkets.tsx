@@ -4,7 +4,7 @@ import styled, { css } from 'styled-components';
 import { useTranslation } from 'react-i18next';
 import Tooltip from '@material-ui/core/Tooltip';
 import { withStyles } from '@material-ui/core';
-import snxData from 'synthetix-data';
+import snxData from '@oikos/oikos-data-bsc';
 import { useQuery } from 'react-query';
 
 import { OptionsMarkets } from 'pages/Options/types';

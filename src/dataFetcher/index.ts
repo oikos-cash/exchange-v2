@@ -48,7 +48,7 @@ export const fetchSynthsBalance = async (walletAddress: string) => {
 		(snxJSConnector as any).synthSummaryUtilContract.synthsBalances(walletAddress),
 		(snxJSConnector as any).synthSummaryUtilContract.totalSynthsInKey(
 			walletAddress,
-			bytesFormatter(SYNTHS_MAP.sUSD)
+			bytesFormatter(SYNTHS_MAP.oUSD)
 		),
 	]);
 
@@ -72,9 +72,9 @@ export const fetchSynthsBalance = async (walletAddress: string) => {
 export const fetchEthBalance = async (walletAddress: string) => {
 	const balance = await (snxJSConnector as any).provider.getBalance(walletAddress);
 	const usdBalance = await (snxJSConnector as any).snxJS.ExchangeRates.effectiveValue(
-		bytesFormatter(SYNTHS_MAP.sETH),
+		bytesFormatter(SYNTHS_MAP.oETH),
 		balance,
-		bytesFormatter(SYNTHS_MAP.sUSD)
+		bytesFormatter(SYNTHS_MAP.oUSD)
 	);
 
 	return {

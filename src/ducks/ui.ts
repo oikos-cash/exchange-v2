@@ -24,7 +24,7 @@ const initialState: UISliceState = {
 	walletPopupIsVisible: false,
 	fiatCurrency: FIAT_CURRENCY_MAP.USD,
 	hideSmallValueAssets: false,
-	marketsAssetFilter: SYNTHS_MAP.sUSD,
+	marketsAssetFilter: SYNTHS_MAP.oUSD,
 	blurBackgroundIsVisible: false,
 	synthsCategoryFilter: null,
 	...getPersistedState(sliceName),

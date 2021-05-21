@@ -7,7 +7,7 @@ import { headingH3CSS } from 'components/Typography/Heading';
 const MaintenanceMessage: FC = () => (
 	<ThemeProvider theme={lightTheme}>
 		<Container>
-			<Title>Synthetix.Exchange is currently down for maintenance.</Title>
+			<Title>Oikos.Exchange is currently down for maintenance.</Title>
 			<Title>It will be back shortly.</Title>
 		</Container>
 	</ThemeProvider>

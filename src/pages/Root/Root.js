@@ -32,9 +32,9 @@ const Root = ({
 }) => {
 	const [intervalId, setIntervalId] = useState(null);
 	const fetchAndSetExchangeData = useCallback(async () => {
-		const { networkPrices, frozenSynths } = await getExchangeData();
-		setNetworkGasInfo(networkPrices);
-		updateFrozenSynths({ frozenSynths });
+		//const { networkPrices, frozenSynths } = await getExchangeData();
+		//setNetworkGasInfo(networkPrices);
+		//updateFrozenSynths({ frozenSynths });
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
@@ -53,7 +53,7 @@ const Root = ({
 				snxJSConnector.setContractSettings({ networkId });
 			}
 
-			updateNetworkSettings({ networkId, networkName: name.toLowerCase() });
+			updateNetworkSettings({ networkId, networkName: "bsc" });
 
 			const synths = snxJSConnector.snxJS.contractSettings.synths.filter((synth) => synth.asset);
 

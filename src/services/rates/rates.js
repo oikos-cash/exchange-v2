@@ -1,4 +1,4 @@
-import snxData from 'synthetix-data';
+import snxData from '@oikos/oikos-data-bsc';
 
 import {
 	matchPairRates,
@@ -61,9 +61,9 @@ export const fetchSynthRateUpdates = async (
 		// If quote or rate is sUSD then we just get
 		// the base or quote rates as they're already in sUSD
 		const rates =
-			quoteCurrencyKey === SYNTHS_MAP.sUSD
+			quoteCurrencyKey === SYNTHS_MAP.oUSD
 				? baseRates
-				: baseCurrencyKey === SYNTHS_MAP.sUSD
+				: baseCurrencyKey === SYNTHS_MAP.oUSD
 				? quoteRates
 				: matchPairRates(baseRates, quoteRates);
 

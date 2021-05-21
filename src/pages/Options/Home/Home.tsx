@@ -1,7 +1,7 @@
 import React, { FC, useMemo } from 'react';
 import styled, { ThemeProvider } from 'styled-components';
 import { useQuery } from 'react-query';
-import snxData from 'synthetix-data';
+import snxData from '@oikos/oikos-data-bsc';
 import { ConnectedProps, connect } from 'react-redux';
 
 import { OptionsMarkets } from 'pages/Options/types';

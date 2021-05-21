@@ -156,8 +156,8 @@ export const CreateMarketModal: FC<CreateMarketModalProps> = ({
 			orderBy(
 				[
 					{
-						label: CRYPTO_CURRENCY_MAP.SNX,
-						value: CRYPTO_CURRENCY_MAP.SNX,
+						label: CRYPTO_CURRENCY_MAP.OKS,
+						value: CRYPTO_CURRENCY_MAP.OKS,
 					},
 					{
 						label: CRYPTO_CURRENCY_MAP.KNC,
@@ -176,7 +176,7 @@ export const CreateMarketModal: FC<CreateMarketModalProps> = ({
 						value: CRYPTO_CURRENCY_MAP.LEND,
 					},
 					...synths
-						.filter((synth) => !synth.inverted && synth.name !== SYNTHS_MAP.sUSD)
+						.filter((synth) => !synth.inverted && synth.name !== SYNTHS_MAP.oUSD)
 						.map((synth) => ({
 							label: synth.asset,
 							value: synth.name,
@@ -215,12 +215,12 @@ export const CreateMarketModal: FC<CreateMarketModalProps> = ({
 
 	useEffect(() => {
 		const {
-			snxJS: { sUSD, BinaryOptionMarketManager },
+			snxJS: { oUSD, BinaryOptionMarketManager },
 		} = snxJSConnector as any;
 		const getAllowanceForCurrentWallet = async () => {
 			try {
 				const [allowance, fees] = await Promise.all([
-					sUSD.allowance(currentWallet, BinaryOptionMarketManager.contract.address),
+					oUSD.allowance(currentWallet, BinaryOptionMarketManager.contract.address),
 					BinaryOptionMarketManager.fees(),
 				]);
 				setIsManagerApproved(!!bigNumberFormatter(allowance));
@@ -235,7 +235,7 @@ export const CreateMarketModal: FC<CreateMarketModalProps> = ({
 			}
 		};
 		const setEventListeners = () => {
-			sUSD.contract.on(APPROVAL_EVENTS.APPROVAL, (owner: string, spender: string) => {
+			oUSD.contract.on(APPROVAL_EVENTS.APPROVAL, (owner: string, spender: string) => {
 				if (owner === currentWallet && spender === BinaryOptionMarketManager.contract.address) {
 					setIsManagerApproved(true);
 				}
@@ -244,7 +244,7 @@ export const CreateMarketModal: FC<CreateMarketModalProps> = ({
 		getAllowanceForCurrentWallet();
 		setEventListeners();
 		return () => {
-			sUSD.contract.removeAllListeners(APPROVAL_EVENTS.APPROVAL);
+			oUSD.contract.removeAllListeners(APPROVAL_EVENTS.APPROVAL);
 		};
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
@@ -309,16 +309,16 @@ export const CreateMarketModal: FC<CreateMarketModalProps> = ({
 
 	const handleApproveManager = async () => {
 		const {
-			snxJS: { sUSD, BinaryOptionMarketManager },
+			snxJS: { oUSD, BinaryOptionMarketManager },
 		} = snxJSConnector as any;
 		try {
 			setIsManagerApprovalPending(true);
 			const maxInt = `0x${'f'.repeat(64)}`;
-			const gasEstimate = await sUSD.contract.estimate.approve(
+			const gasEstimate = await oUSD.contract.estimate.approve(
 				BinaryOptionMarketManager.contract.address,
 				maxInt
 			);
-			await sUSD.approve(BinaryOptionMarketManager.contract.address, maxInt, {
+			await oUSD.approve(BinaryOptionMarketManager.contract.address, maxInt, {
 				gasLimit: normalizeGasLimit(Number(gasEstimate)),
 				gasPrice: gasInfo.gasPrice * GWEI_UNIT,
 			});
@@ -468,13 +468,13 @@ export const CreateMarketModal: FC<CreateMarketModalProps> = ({
 												</FormInputDesc>
 											</div>
 											<StyledNumericInputWithCurrency
-												currencyKey={SYNTHS_MAP.sUSD}
+												currencyKey={SYNTHS_MAP.oUSD}
 												value={initialFundingAmount}
 												onChange={(e) => setInitialFundingAmount(e.target.value)}
 												inputProps={{
 													id: 'funding-amount',
 													placeholder: t('common.eg-val', {
-														val: `${USD_SIGN}1000.00 ${SYNTHS_MAP.sUSD}`,
+														val: `${USD_SIGN}1000.00 ${SYNTHS_MAP.oUSD}`,
 													}),
 												}}
 											/>

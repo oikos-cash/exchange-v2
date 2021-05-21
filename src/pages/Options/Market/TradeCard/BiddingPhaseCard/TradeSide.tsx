@@ -89,7 +89,7 @@ const TradeSide: FC<TradeSideProps> = ({
 							</MaxButton>
 						</FormInputLabelRow>
 						<StyledNumericInputWithCurrency
-							currencyKey={SYNTHS_MAP.sUSD}
+							currencyKey={SYNTHS_MAP.oUSD}
 							value={amount}
 							onChange={onAmountChange}
 							showIcon={false}

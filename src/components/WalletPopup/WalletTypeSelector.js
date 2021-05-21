@@ -16,7 +16,7 @@ import { getWalletInfo } from 'ducks/wallet/walletDetails';
 
 import { headingH3CSS, headingH5CSS } from 'components/Typography/Heading';
 
-import { ReactComponent as CoinbaseWallet } from 'assets/images/wallets/coinbase.svg';
+//import { ReactComponent as CoinbaseWallet } from 'assets/images/wallets/coinbase.svg';
 import { ReactComponent as LedgerWallet } from 'assets/images/wallets/ledger.svg';
 import { ReactComponent as MetamaskWallet } from 'assets/images/wallets/metamask.svg';
 import { ReactComponent as TrezorWallet } from 'assets/images/wallets/trezor.svg';
@@ -31,7 +31,7 @@ const walletTypeToIconMap = {
 	[METAMASK]: MetamaskWallet,
 	[LEDGER]: LedgerWallet,
 	[TREZOR]: TrezorWallet,
-	[COINBASE]: CoinbaseWallet,
+	[COINBASE]: MetamaskWallet,
 	[WALLET_CONNECT]: WalletConnect,
 	[PORTIS]: Portis,
 };
@@ -54,7 +54,7 @@ const WalletTypeSelector = ({
 					if (accounts && accounts.length > 0) {
 						const signer = new snxJSConnector.signers[METAMASK]({});
 						snxJSConnector.setContractSettings({
-							networkId: walletStatus.networkId,
+							networkId: 56,//walletStatus.networkId,
 							signer,
 						});
 						updateWalletReducer({ currentWallet: accounts[0] });

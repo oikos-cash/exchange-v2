@@ -8,7 +8,7 @@ import { SynthDefinition, getSynthsWithRatesMap, SynthDefinitionWithRatesMap } f
 import { RootState } from 'ducks/types';
 import { fetchHistoricalRatesRequest, HistoricalRatesData } from 'ducks/historicalRates';
 
-import { SYNTHS_MAP, sUSD_EXCHANGE_RATE, USD_SIGN } from 'constants/currency';
+import { SYNTHS_MAP, oUSD_EXCHANGE_RATE, USD_SIGN } from 'constants/currency';
 import { BaseRateUpdates } from 'constants/rates';
 import { DEFAULT_REQUEST_REFRESH_INTERVAL } from 'constants/ui';
 import { PeriodLabel, PERIOD_LABELS_MAP } from 'constants/period';
@@ -51,7 +51,7 @@ export const SynthChart: FC<SynthChartProps> = ({
 	const [historicalRateChange, setHistoricalRatesChange] = useState<number | null>(0);
 	const [loading, setLoading] = useState<boolean>(true);
 
-	const isUSD = synth.name === SYNTHS_MAP.sUSD;
+	const isUSD = synth.name === SYNTHS_MAP.oUSD;
 
 	useEffect(() => {
 		if (!isUSD) {
@@ -74,7 +74,7 @@ export const SynthChart: FC<SynthChartProps> = ({
 
 	useEffect(() => {
 		if (isUSD) {
-			const rates = mockRates(selectedPeriod.value, sUSD_EXCHANGE_RATE);
+			const rates = mockRates(selectedPeriod.value, oUSD_EXCHANGE_RATE);
 
 			setLoading(false);
 			setHistoricalRatesUpdates(rates);

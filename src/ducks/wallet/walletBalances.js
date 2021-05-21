@@ -111,6 +111,7 @@ function* fetchWalletBalances() {
 
 	if (currentWalletAddress != null) {
 		try {
+			console.log(`fetching balances for ${synths}`)
 			const [synthsBalance, ethBalance] = yield Promise.all([
 				fetchSynthsBalance(currentWalletAddress, synths),
 				fetchEthBalance(currentWalletAddress),

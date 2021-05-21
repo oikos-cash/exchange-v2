@@ -2,7 +2,7 @@ import { createSlice, createSelector } from '@reduxjs/toolkit';
 import keyBy from 'lodash/keyBy';
 import snxJSConnector from '../../utils/snxJSConnector';
 import { bigNumberFormatter } from '../../utils/formatters';
-import snxData from 'synthetix-data';
+import snxData from '@oikos/oikos-data-bsc';
 import { getEthRate } from 'ducks/rates';
 
 export const liquidationsSlice = createSlice({
@@ -68,7 +68,7 @@ export const fetchLiquidations = () => async (dispatch, getState) => {
 	dispatch(fetchLiquidationsRequest());
 
 	try {
-		let loans = await snxData.etherCollateral.loans({ isOpen: true, collateralMinted: 'sUSD' });
+		let loans = await snxData.etherCollateral.loans({ isOpen: true, collateralMinted: 'oUSD' });
 
 		const liquidatedLoans = loans.map(async (loan) => {
 			const loanMetaData = await contract.getLoan(loan.account, loan.id);

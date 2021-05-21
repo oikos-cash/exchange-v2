@@ -10,7 +10,7 @@ import { SynthDefinitionMap, getAvailableSynthsMap, SynthDefinitionWithRates } f
 
 import { RootState } from 'ducks/types';
 
-import { SYNTHS_MAP, CurrencyKey, sUSD_EXCHANGE_RATE } from 'constants/currency';
+import { SYNTHS_MAP, CurrencyKey, oUSD_EXCHANGE_RATE } from 'constants/currency';
 import { RateUpdates } from 'constants/rates';
 import { EMPTY_VALUE } from 'constants/placeholder';
 import { PERIOD_IN_HOURS } from 'constants/period';
@@ -131,7 +131,7 @@ export const SynthsTable: FC<SynthsTableProps> = memo(
 										return (
 											<TrendLineChart
 												change={0}
-												chartData={mockRates(PERIOD_IN_HOURS.ONE_DAY, sUSD_EXCHANGE_RATE)}
+												chartData={mockRates(PERIOD_IN_HOURS.ONE_DAY, oUSD_EXCHANGE_RATE)}
 											/>
 										);
 									}

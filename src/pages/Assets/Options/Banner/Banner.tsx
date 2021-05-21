@@ -29,7 +29,7 @@ const Banner: FC<BannerProps> = ({ hasMarkets, noSUSD }) => {
 		title = t('assets.options.banner.has-markets.title');
 		subTitle = t('assets.options.banner.has-markets.subtitle');
 	} else if (noSUSD) {
-		title = t('assets.options.banner.no-susd.title', { currencyKey: SYNTHS_MAP.sUSD });
+		title = t('assets.options.banner.no-susd.title', { currencyKey: SYNTHS_MAP.oUSD });
 	} else {
 		title = t('assets.options.banner.no-markets.title');
 	}
@@ -44,13 +44,13 @@ const Banner: FC<BannerProps> = ({ hasMarkets, noSUSD }) => {
 					{noSUSD ? (
 						<>
 							<Link
-								to={LINKS.Trading.OneInchLink(SYNTHS_MAP.sUSD, CRYPTO_CURRENCY_MAP.ETH)}
+								to={LINKS.Trading.OneInchLink(SYNTHS_MAP.oUSD, CRYPTO_CURRENCY_MAP.ETH)}
 								isExternal={true}
 							>
 								<Button palette="primary" size="md">
 									<Trans
 										i18nKey="common.currency.buy-currency"
-										values={{ currencyKey: SYNTHS_MAP.sUSD }}
+										values={{ currencyKey: SYNTHS_MAP.oUSD }}
 										components={[<CurrencyKey />]}
 									/>
 								</Button>
@@ -58,7 +58,7 @@ const Banner: FC<BannerProps> = ({ hasMarkets, noSUSD }) => {
 							<Button palette="primary" size="md" onClick={() => navigateTo(ROUTES.Trade)}>
 								<Trans
 									i18nKey="common.currency.trade-synths-for-currency"
-									values={{ currencyKey: SYNTHS_MAP.sUSD }}
+									values={{ currencyKey: SYNTHS_MAP.oUSD }}
 									components={[<CurrencyKey />]}
 								/>
 							</Button>

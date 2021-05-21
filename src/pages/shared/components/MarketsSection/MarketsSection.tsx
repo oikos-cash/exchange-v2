@@ -62,6 +62,8 @@ export const MarketsSection: FC<MarketSectionProps> = ({
 	setMarketsAssetFilter,
 	isOnSplashPage,
 }) => {
+
+	console.log(markets, marketsLoaded)
 	const marketPairs = getFilteredMarketNames(marketsAssetFilter, 'quote');
 
 	const [assetSearch, setAssetSearch] = useState<string>('');

@@ -4,7 +4,7 @@ import snxJSConnector from '../../utils/snxJSConnector';
 import { getWalletInfo } from '../wallet/walletDetails';
 import { bigNumberFormatter } from '../../utils/formatters';
 import { getEthRate } from 'ducks/rates';
-import snxData from 'synthetix-data';
+import snxData from '@oikos/oikos-data-bsc';
 
 export const LOAN_STATUS = {
 	OPEN: 'open',

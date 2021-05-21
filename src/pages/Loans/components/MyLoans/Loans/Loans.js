@@ -153,7 +153,7 @@ const Loans = ({
 					const isLoanClosed = loanData.status === LOAN_STATUS.CLOSED;
 					return (
 						<>
-							{contractType === 'sUSD' && loanData.hasPartialLiquidations && (
+							{contractType === 'oUSD' && loanData.hasPartialLiquidations && (
 								<ButtonPrimarySmall
 									onClick={() => {
 										const expandedRow = rows.find((row) => row.isExpanded);

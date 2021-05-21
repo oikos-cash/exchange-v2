@@ -137,12 +137,12 @@ export const Dashboard = ({
 								{t('loans.dashboard.tabs.sETH')}
 							</StyledButton>
 							<StyledButton
-								isActive={contractType === 'sUSD'}
+								isActive={contractType === 'oUSD'}
 								size="sm"
 								palette="secondary"
-								onClick={() => setSelectedContractType('sUSD')}
+								onClick={() => setSelectedContractType('oUSD')}
 							>
-								{t('loans.dashboard.tabs.sUSD')}
+								{t('loans.dashboard.tabs.oUSD')}
 							</StyledButton>
 						</FlexDiv>
 					</>

@@ -147,8 +147,8 @@ const BiddingPhaseCard: FC<BiddingPhaseCardProps> = ({
 		? 'options.market.trade-card.bidding.bid'
 		: 'options.market.trade-card.bidding.refund';
 
-	const sUSDBalance = getCurrencyKeyBalance(walletBalancesMap, SYNTHS_MAP.sUSD) || 0;
-	const sUSDBalanceBN = getCurrencyKeyUSDBalanceBN(walletBalancesMap, SYNTHS_MAP.sUSD) || 0;
+	const oUSDBalance = getCurrencyKeyBalance(walletBalancesMap, SYNTHS_MAP.oUSD) || 0;
+	const sUSDBalanceBN = getCurrencyKeyUSDBalanceBN(walletBalancesMap, SYNTHS_MAP.oUSD) || 0;
 
 	useEffect(() => {
 		const fetchGasLimit = async (isShort: boolean, amount: string) => {
@@ -157,7 +157,7 @@ const BiddingPhaseCard: FC<BiddingPhaseCardProps> = ({
 			} = snxJSConnector as any;
 			try {
 				const bidOrRefundAmount =
-					amount === sUSDBalance ? sUSDBalanceBN : parseEther(amount.toString());
+					amount === oUSDBalance ? sUSDBalanceBN : parseEther(amount.toString());
 				const BOMContractWithSigner = BOMContract.connect((snxJSConnector as any).signer);
 				const bidOrRefundFunction = isBid
 					? BOMContractWithSigner.estimate.bid
@@ -177,16 +177,16 @@ const BiddingPhaseCard: FC<BiddingPhaseCardProps> = ({
 
 	useEffect(() => {
 		const {
-			snxJS: { sUSD },
+			snxJS: { oUSD },
 		} = snxJSConnector as any;
 
 		const getAllowance = async () => {
-			const allowance = await sUSD.allowance(currentWalletAddress, BOMContract.address);
+			const allowance = await oUSD.allowance(currentWalletAddress, BOMContract.address);
 			setAllowance(!!Number(allowance));
 		};
 
 		const registerAllowanceListener = () => {
-			sUSD.contract.on(APPROVAL_EVENTS.APPROVAL, (owner: string, spender: string) => {
+			oUSD.contract.on(APPROVAL_EVENTS.APPROVAL, (owner: string, spender: string) => {
 				if (owner === currentWalletAddress && spender === getAddress(BOMContract.address)) {
 					setAllowance(true);
 					setIsAllowing(false);
@@ -198,20 +198,20 @@ const BiddingPhaseCard: FC<BiddingPhaseCardProps> = ({
 			registerAllowanceListener();
 		}
 		return () => {
-			sUSD.contract.removeAllListeners(APPROVAL_EVENTS.APPROVAL);
+			oUSD.contract.removeAllListeners(APPROVAL_EVENTS.APPROVAL);
 		};
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [currentWalletAddress, isWalletConnected]);
 
 	const handleAllowance = async () => {
 		const {
-			snxJS: { sUSD },
+			snxJS: { oUSD },
 		} = snxJSConnector as any;
 		try {
 			setIsAllowing(true);
 			const maxInt = `0x${'f'.repeat(64)}`;
-			const gasEstimate = await sUSD.contract.estimate.approve(BOMContract.address, maxInt);
-			await sUSD.approve(BOMContract.address, maxInt, {
+			const gasEstimate = await oUSD.contract.estimate.approve(BOMContract.address, maxInt);
+			await oUSD.approve(BOMContract.address, maxInt, {
 				gasLimit: normalizeGasLimit(Number(gasEstimate)),
 				gasPrice: gasInfo.gasPrice * GWEI_UNIT,
 			});
@@ -232,7 +232,7 @@ const BiddingPhaseCard: FC<BiddingPhaseCardProps> = ({
 			const BOMContractWithSigner = BOMContract.connect((snxJSConnector as any).signer);
 			const bidOrRefundFunction = isBid ? BOMContractWithSigner.bid : BOMContractWithSigner.refund;
 			const bidOrRefundAmount =
-				amount === sUSDBalance ? sUSDBalanceBN : parseEther(amount.toString());
+				amount === oUSDBalance ? sUSDBalanceBN : parseEther(amount.toString());
 			const tx = (await bidOrRefundFunction(isShort ? 1 : 0, bidOrRefundAmount, {
 				gasLimit,
 				gasPrice: gasInfo.gasPrice * GWEI_UNIT,
@@ -349,7 +349,7 @@ const BiddingPhaseCard: FC<BiddingPhaseCardProps> = ({
 		}
 		try {
 			const bidOrRefundAmount =
-				amount === sUSDBalance ? sUSDBalanceBN : parseEther(amount.toString());
+				amount === oUSDBalance ? sUSDBalanceBN : parseEther(amount.toString());
 
 			const estimatedPrice = pricesAfterBidOrRefund({
 				side: isShort ? 1 : 0,
@@ -438,7 +438,7 @@ const BiddingPhaseCard: FC<BiddingPhaseCardProps> = ({
 						<WalletBalance>
 							<WalletIcon />
 							{isWalletConnected
-								? formatCurrencyWithKey(SYNTHS_MAP.sUSD, sUSDBalance)
+								? formatCurrencyWithKey(SYNTHS_MAP.oUSD, oUSDBalance)
 								: EMPTY_VALUE}
 						</WalletBalance>
 					</FlexDivRowCentered>
@@ -450,7 +450,7 @@ const BiddingPhaseCard: FC<BiddingPhaseCardProps> = ({
 						isActive={isLong}
 						amount={longSideAmount}
 						onAmountChange={(e) => handleBidAmount(e.target.value)}
-						onMaxClick={() => handleBidAmount(isRefund ? longPosition.bid : sUSDBalance)}
+						onMaxClick={() => handleBidAmount(isRefund ? longPosition.bid : oUSDBalance)}
 						price={longPriceAmount}
 						onPriceChange={(e) => handleTargetPrice(e.target.value, false, false, isRefund)}
 						onClick={() => handleSideChange('long')}
@@ -465,7 +465,7 @@ const BiddingPhaseCard: FC<BiddingPhaseCardProps> = ({
 						isActive={isShort}
 						amount={shortSideAmount}
 						onAmountChange={(e) => handleBidAmount(e.target.value)}
-						onMaxClick={() => handleBidAmount(isRefund ? shortPosition.bid : sUSDBalance)}
+						onMaxClick={() => handleBidAmount(isRefund ? shortPosition.bid : oUSDBalance)}
 						price={shortPriceAmount}
 						onPriceChange={(e) => handleTargetPrice(e.target.value, true, true, isRefund)}
 						onClick={() => handleSideChange('short')}
@@ -507,7 +507,7 @@ const BiddingPhaseCard: FC<BiddingPhaseCardProps> = ({
 									<ActionButton
 										size="lg"
 										palette="primary"
-										disabled={isBidding || !isWalletConnected || !sUSDBalance || !gasLimit}
+										disabled={isBidding || !isWalletConnected || !oUSDBalance || !gasLimit}
 										onClick={handleBidOrRefund}
 									>
 										{!isBidding

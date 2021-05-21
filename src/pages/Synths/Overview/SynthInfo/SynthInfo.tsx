@@ -57,8 +57,8 @@ export const SynthInfo: FC<SynthInfoProps> = ({ synth, networkId }) => {
 	const addSign = (num: number | string) => `${synthSign}${num}`;
 
 	const getInfo = () => {
-		if (synth.name === SYNTHS_MAP.sUSD) {
-			return t('synths.overview.info.sUSD');
+		if (synth.name === SYNTHS_MAP.oUSD) {
+			return t('synths.overview.info.oUSD');
 		}
 		if (synth.inverted) {
 			const { entryPoint, upperLimit, lowerLimit } = synth.inverted;

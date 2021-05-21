@@ -29,7 +29,7 @@ type NumericInputWithCurrencyProps = {
 const TradeInput: FC<NumericInputWithCurrencyProps> = ({
 	className,
 	label,
-	currencyKey = SYNTHS_MAP.sUSD,
+	currencyKey = SYNTHS_MAP.oUSD,
 	onChange,
 	value,
 	inputProps,

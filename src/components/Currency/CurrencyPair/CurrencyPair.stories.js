@@ -9,16 +9,16 @@ export default {
 
 export const withIcon = () => (
 	<CurrencyPair
-		baseCurrencyKey={SYNTHS_MAP.sBTC}
-		quoteCurrencyKey={SYNTHS_MAP.sETH}
+		baseCurrencyKey={SYNTHS_MAP.oBTC}
+		quoteCurrencyKey={SYNTHS_MAP.oETH}
 		showIcon={true}
 	/>
 );
 
 export const withoutIcon = () => (
 	<CurrencyPair
-		baseCurrencyKey={SYNTHS_MAP.sBTC}
-		quoteCurrencyKey={SYNTHS_MAP.sETH}
+		baseCurrencyKey={SYNTHS_MAP.oBTC}
+		quoteCurrencyKey={SYNTHS_MAP.oETH}
 		showIcon={false}
 	/>
 );

@@ -2,7 +2,7 @@ import React, { FC, useMemo } from 'react';
 import { connect, ConnectedProps } from 'react-redux';
 import styled from 'styled-components';
 import { GridDiv } from 'shared/commonStyles';
-import snxData from 'synthetix-data';
+import snxData from '@oikos/oikos-data-bsc';
 
 import { SYNTHS_MAP } from 'constants/currency';
 import { getCurrencyKeyBalance } from 'utils/balances';
@@ -40,7 +40,7 @@ const Options: FC<OptionsProps> = ({
 	currentWalletAddress,
 	synthsMap,
 }) => {
-	const sUSDBalance = getCurrencyKeyBalance(walletBalancesMap, SYNTHS_MAP.sUSD) || 0;
+	const sUSDBalance = getCurrencyKeyBalance(walletBalancesMap, SYNTHS_MAP.oUSD) || 0;
 
 	const marketsQuery = useQuery<OptionsMarkets, any>(QUERY_KEYS.BinaryOptions.Markets, () =>
 		snxData.binaryOptions.markets({ max: Infinity })

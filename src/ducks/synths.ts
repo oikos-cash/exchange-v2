@@ -67,8 +67,8 @@ const sortSynths = (a: SynthDefinition, b: SynthDefinition): number => {
 	return 0;
 };
 
-const DEFAULT_BASE_SYNTH = SYNTHS_MAP.sBTC;
-const DEFAULT_QUOTE_SYNTH = SYNTHS_MAP.sUSD;
+const DEFAULT_BASE_SYNTH = SYNTHS_MAP.oBTC;
+const DEFAULT_QUOTE_SYNTH = SYNTHS_MAP.oUSD;
 
 export type SynthDefinitionMap = Record<string, SynthDefinition>;
 

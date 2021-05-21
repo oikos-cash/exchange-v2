@@ -115,7 +115,7 @@ export const MarketsTable: FC<MarketsTableProps> = memo(
 							Header: (
 								<Trans
 									i18nKey="options.home.markets-table.pool-size-col"
-									values={{ currencyKey: `${SYNTHS_MAP.sUSD}` }}
+									values={{ currencyKey: `${SYNTHS_MAP.oUSD}` }}
 									components={[<CurrencyKey />]}
 								/>
 							),

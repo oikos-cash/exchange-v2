@@ -260,16 +260,16 @@ const CreateOrderCard = ({
 						: getExchangeRatesForCurrencies(exchangeRates, base.name, quote.name),
 				amount: formatCurrency(baseAmount),
 				priceUSD:
-					base.name === SYNTHS_MAP.sUSD
-						? getExchangeRatesForCurrencies(exchangeRates, quote.name, SYNTHS_MAP.sUSD)
-						: getExchangeRatesForCurrencies(exchangeRates, base.name, SYNTHS_MAP.sUSD),
+					base.name === SYNTHS_MAP.oUSD
+						? getExchangeRatesForCurrencies(exchangeRates, quote.name, SYNTHS_MAP.oUSD)
+						: getExchangeRatesForCurrencies(exchangeRates, base.name, SYNTHS_MAP.oUSD),
 				totalUSD: formatCurrency(
-					baseAmount * getExchangeRatesForCurrencies(exchangeRates, base.name, SYNTHS_MAP.sUSD)
+					baseAmount * getExchangeRatesForCurrencies(exchangeRates, base.name, SYNTHS_MAP.oUSD)
 				),
 				status: TRANSACTION_STATUS.WAITING,
 			});
 
-			const tx = await Synthetix.exchangeWithTracking(
+			const tx = await Synthetix.ExchangeWithTracking(
 				bytesFormatter(quote.name),
 				amountToExchange,
 				bytesFormatter(base.name),

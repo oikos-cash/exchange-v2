@@ -54,8 +54,8 @@ const useGetWallets = () => {
 				const nextWallets = nextWalletAddresses.map((address) => ({
 					address,
 					balances: {
-						snxBalance: null,
-						sUSDBalance: null,
+						oksBalance: null,
+						oUSDBalance: null,
 						ethBalance: null,
 					},
 				}));
@@ -75,8 +75,8 @@ const useGetWallets = () => {
 					nextWalletsWithBalances.push({
 						address: nextWallet.address,
 						balances: {
-							snxBalance: await snxJSConnector.snxJS.Synthetix.collateral(nextWallet.address),
-							sUSDBalance: await snxJSConnector.snxJS.sUSD.balanceOf(nextWallet.address),
+							oksBalance: await snxJSConnector.snxJS.Oikos.collateral(nextWallet.address),
+							oUSDBalance: await snxJSConnector.snxJS.oUSD.balanceOf(nextWallet.address),
 							ethBalance: await snxJSConnector.provider.getBalance(nextWallet.address),
 						},
 					});

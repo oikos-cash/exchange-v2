@@ -1,5 +1,5 @@
 import { useQuery } from 'react-query';
-import snxData from 'synthetix-data';
+import snxData from '@oikos/oikos-data-bsc';
 
 import { HistoricalTrades } from 'ducks/trades/types';
 import { CurrencyKey, SYNTHS_MAP } from 'constants/currency';
@@ -86,7 +86,7 @@ const mergeSettledTradesQueryData = (trades: HistoricalTrades, settledTrades: Se
 
 			// special case for when the currency is priced in sUSD
 			const feeReclaimRebateAmount =
-				trade.toCurrencyKey === SYNTHS_MAP.sUSD
+				trade.toCurrencyKey === SYNTHS_MAP.oUSD
 					? settledTrade.rebate - settledTrade.reclaim
 					: settledTrade.reclaim - settledTrade.rebate;
 

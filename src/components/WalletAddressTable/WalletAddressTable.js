@@ -11,7 +11,7 @@ import { getWalletInfo } from '../../ducks/wallet/walletDetails';
 
 import EtherScanImage from '../../assets/images/etherscan-logo.png';
 
-const HEADER_LABELS = ['Wallet Address', 'SNX', 'sUSD', 'ETH', ''];
+const HEADER_LABELS = ['Wallet Address', 'OKS', 'oUSD', 'BNB', ''];
 
 const Balance = ({ value }) => {
 	if (value === undefined) return <Spinner size="sm" />;
@@ -43,7 +43,7 @@ const WalletAddressTable = ({ data, walletInfo, onWalletSelection }) => {
 							<Td>
 								<Balance
 									value={
-										wallet.balances.snxBalance != null
+										wallet.balances.oksBalance != null
 											? bigNumberFormatter(wallet.balances.snxBalance)
 											: undefined
 									}
@@ -52,8 +52,8 @@ const WalletAddressTable = ({ data, walletInfo, onWalletSelection }) => {
 							<Td>
 								<Balance
 									value={
-										wallet.balances.sUSDBalance != null
-											? bigNumberFormatter(wallet.balances.sUSDBalance)
+										wallet.balances.oUSDBalance != null
+											? bigNumberFormatter(wallet.balances.oUSDBalance)
 											: undefined
 									}
 								/>

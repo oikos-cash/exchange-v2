@@ -89,7 +89,7 @@ export const fetchLoansContractInfo = () => async (dispatch, getState) => {
 
 		const collateralPair = {
 			collateralCurrencyKey: CRYPTO_CURRENCY_MAP.ETH,
-			loanCurrencyKey: contractType === 'sETH' ? SYNTHS_MAP.sETH : SYNTHS_MAP.sUSD,
+			loanCurrencyKey: contractType === 'sETH' ? SYNTHS_MAP.sETH : SYNTHS_MAP.oUSD,
 			minLoanSize:
 				contractType === 'sETH'
 					? bigNumberFormatter(contractInfo._minLoanSize)

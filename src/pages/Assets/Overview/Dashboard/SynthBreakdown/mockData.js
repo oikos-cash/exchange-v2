@@ -10,7 +10,7 @@ export const MOCK_DATA = [
 		portfolioPercent: 0.2,
 	},
 	{
-		name: SYNTHS_MAP.sUSD,
+		name: SYNTHS_MAP.oUSD,
 		portfolioPercent: 0.2,
 	},
 	{

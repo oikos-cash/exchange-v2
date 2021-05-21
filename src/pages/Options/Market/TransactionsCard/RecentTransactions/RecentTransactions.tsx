@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useQuery } from 'react-query';
 
-import snxData from 'synthetix-data';
+import snxData from '@oikos/oikos-data-bsc';
 
 import { OptionsMarketInfo, OptionsTransactions } from 'pages/Options/types';
 

@@ -42,8 +42,8 @@
 		"redux-thunk": "~2.3.0",
 		"styled-components": "5.0.1",
 		"styled-system": "5.1.2",
-		"synthetix-data": "2.1.37",
-		"synthetix-js": "2.45.2",
+		"@oikos/oikos-data-bsc": "0.1.6",
+		"@oikos/oikos-js-bsc": "0.2.17",
 		"typescript": "3.7.2",
 		"use-immer": "0.4.0"
 	},

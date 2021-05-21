@@ -127,9 +127,9 @@ export const CloseLoanCard = ({
 								i18nKey="loans.loan-card.close-loan.currency-burned"
 								values={{
 									currencyKey: selectedLoan
-										? loanType === 'sETH'
-											? 'sETH'
-											: 'sUSD'
+										? loanType === 'oETH'
+											? 'oETH'
+											: 'oUSD'
 										: contractType,
 								}}
 								components={[<CurrencyKey />]}
@@ -139,11 +139,11 @@ export const CloseLoanCard = ({
 							{t('common.wallet.balance-currency', { balance: loanAmount })}
 						</InfoBoxValue>
 					</InfoBox>
-					{loanType === 'sUSD' && (
+					{loanType === 'oUSD' && (
 						<InfoBox>
 							<InfoBoxLabel>
 								<Trans
-									i18nKey="loans.loan-card.close-loan.min-susd"
+									i18nKey="loans.loan-card.close-loan.min-oUSD"
 									components={[<CurrencyKey />]}
 								/>
 							</InfoBoxLabel>

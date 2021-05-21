@@ -140,13 +140,13 @@ const TradeSide: FC<TradeSideProps> = ({
 				<SectionBody>
 					{t('options.market.trade-card.bidding.common.bid')}{' '}
 					<StyledCurrencyKey>
-						{formatCurrencyWithKey(SYNTHS_MAP.sUSD, currentPosition.bid)}
+						{formatCurrencyWithKey(SYNTHS_MAP.oUSD, currentPosition.bid)}
 					</StyledCurrencyKey>
 				</SectionBody>
 				<SectionBody>
 					{t('options.market.trade-card.bidding.common.payout')}{' '}
 					<StyledCurrencyKey>
-						{formatCurrencyWithKey(SYNTHS_MAP.sUSD, currentPosition.payout)}
+						{formatCurrencyWithKey(SYNTHS_MAP.oUSD, currentPosition.payout)}
 					</StyledCurrencyKey>
 				</SectionBody>
 			</CurrentPositionSection>

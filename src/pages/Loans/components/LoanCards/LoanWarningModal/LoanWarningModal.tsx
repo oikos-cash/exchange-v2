@@ -14,7 +14,7 @@ import { connect } from 'react-redux';
 
 const TRANSLATION_KEY = 'loans.modal.loan-trial';
 const sETH_BLOG_LINK = 'https://blog.synthetix.io/ether-collateral-second-trial/';
-const sUSD_BLOG_LINK = 'https://blog.synthetix.io/ether-collateral-trial-susd/';
+const sUSD_BLOG_LINK = 'https://blog.synthetix.io/ether-collateral-trial-oUSD/';
 
 type LoanWarningModalProps = {
 	onClose: () => void;
@@ -26,7 +26,7 @@ type LoanWarningModalProps = {
 const LoanWarningModal: FC<LoanWarningModalProps> = memo(
 	({ isOpen, onClose, onConfirm, contractType }) => {
 		const { t } = useTranslation();
-		const BLOG_LINK = contractType === 'sETH' ? sETH_BLOG_LINK : sUSD_BLOG_LINK;
+		const BLOG_LINK = contractType === 'oETH' ? sETH_BLOG_LINK : sUSD_BLOG_LINK;
 		return (
 			<StyledModal open={isOpen}>
 				<Container>

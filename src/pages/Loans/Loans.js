@@ -153,13 +153,13 @@ const Loans = ({ collateralPair, fetchLoansContractInfo, contractType, networkId
 				/>
 			</OverviewContainer>
 			<LoanCardsContainer>
-				{contractType === 'sETH' ? (
+				{contractType === 'oETH' ? (
 					<CreateLoanCard notify={notify} collateralPair={collateralPair} />
 				) : (
 					<CreateLoanCardsUSD notify={notify} collateralPair={collateralPair} />
 				)}
 				<SectionVerticalSpacer />
-				{contractType === 'sETH' ? (
+				{contractType === 'oETH' ? (
 					<CloseLoanCard
 						notify={notify}
 						collateralPair={collateralPair}

@@ -66,7 +66,7 @@ const Loans = ({
 						<Tooltip title={formatCurrency(cellProps.cell.value, 18)}>
 							<span>
 								{formatCurrencyWithKey(
-									loanType === 'sETH' ? 'sETH' : 'sUSD',
+									loanType === 'oETH' ? 'oETH' : 'oUSD',
 									cellProps.cell.value,
 									4
 								)}
@@ -111,7 +111,7 @@ const Loans = ({
 						<Tooltip title={formatCurrency(cellProps.cell.value, 18)}>
 							<span>
 								{formatCurrencyWithKey(
-									loanType === 'sETH' ? 'sETH' : 'sUSD',
+									loanType === 'oETH' ? 'oETH' : 'oUSD',
 									cellProps.cell.value,
 									4
 								)}
@@ -193,7 +193,7 @@ const Loans = ({
 										onSelectLoan(loanData);
 									}}
 								>
-									{contractType === 'sETH'
+									{contractType === 'oETH'
 										? t('common.actions.close')
 										: t('common.actions.options')}
 								</ButtonPrimarySmall>

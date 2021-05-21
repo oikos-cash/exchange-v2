@@ -13,7 +13,7 @@ export const contractInfoSlice = createSlice({
 		isLoading: false,
 		isLoaded: false,
 		isRefreshing: false,
-		contractType: 'sETH',
+		contractType: 'oETH',
 		contract: null,
 	},
 	reducers: {
@@ -72,7 +72,7 @@ export const fetchLoansContractInfo = () => async (dispatch, getState) => {
 	const state = getState();
 	const { contractType } = state.loans.contractInfo;
 
-	if (contractType === 'sETH') {
+	if (contractType === 'oETH') {
 		contract = EtherCollateral.contract;
 	} else {
 		contract = EtherCollateralsUSD.contract;
@@ -89,9 +89,9 @@ export const fetchLoansContractInfo = () => async (dispatch, getState) => {
 
 		const collateralPair = {
 			collateralCurrencyKey: CRYPTO_CURRENCY_MAP.ETH,
-			loanCurrencyKey: contractType === 'sETH' ? SYNTHS_MAP.sETH : SYNTHS_MAP.oUSD,
+			loanCurrencyKey: contractType === 'oETH' ? SYNTHS_MAP.oETH : SYNTHS_MAP.oUSD,
 			minLoanSize:
-				contractType === 'sETH'
+				contractType === 'oETH'
 					? bigNumberFormatter(contractInfo._minLoanSize)
 					: bigNumberFormatter(contractInfo._minLoanCollateralSize),
 			issuanceRatio: 100 / bigNumberFormatter(contractInfo._collateralizationRatio),

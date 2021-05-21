@@ -71,7 +71,7 @@ export const getIsLoadedRates = (state: RootState) => getRatesState(state).isLoa
 export const getRatesLoadingError = (state: RootState) => getRatesState(state).loadingError;
 export const getRatesExchangeRates = (state: RootState) => getRatesState(state).exchangeRates;
 export const getEthRate = createSelector(getRatesExchangeRates, (exchangeRates) =>
-	get(exchangeRates, SYNTHS_MAP.sETH, null)
+	get(exchangeRates, SYNTHS_MAP.oETH, null)
 );
 
 export const { fetchRatesRequest, fetchRatesSuccess, fetchRatesFailure } = ratesSlice.actions;

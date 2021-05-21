@@ -84,7 +84,7 @@ const mergeSettledTradesQueryData = (trades: HistoricalTrades, settledTrades: Se
 			trade.rebate = settledTrade.rebate;
 			trade.reclaim = settledTrade.reclaim;
 
-			// special case for when the currency is priced in sUSD
+			// special case for when the currency is priced in oUSD
 			const feeReclaimRebateAmount =
 				trade.toCurrencyKey === SYNTHS_MAP.oUSD
 					? settledTrade.rebate - settledTrade.reclaim

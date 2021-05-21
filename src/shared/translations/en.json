@@ -157,7 +157,7 @@
 			},
 			"info": {
 				"title": "{{name}} | <0>{{desc}}</0>",
-				"sUSD": "Tracks the price of a single US Dollar (USD). This Synth always remains constant at 1.",
+				"oUSD": "Tracks the price of a single US Dollar (USD). This Synth always remains constant at 1.",
 				"iSynth": "Inversely tracks the price of {{assetDesc}}{{assetSymbol}} through price feeds supplied by an oracle. The entry point is {{entryPoint}} (the approximate market price at time of creation). This Synth freezes when it reaches its upper limit of {{upperLimit}} (i.e. when {{assetDesc}}'s value reaches {{roundedUpper}}) or its lower limit of {{lowerLimit}} (i.e. when {{assetDesc}}’s value reaches {{roundedLower}}). If it reaches either of its limits and gets frozen, it will no longer be able to be purchased on Oikos.Exchange, but can still be traded for other Synths at its frozen value. At some point after it has reached either of its limits, it will be substituted for another {{synthName}} with different limits.",
 				"index": "Tracks the price of the index: {{assetDesc}}{{assetSymbol}} through price feeds supplied by an oracle. This index is made up of the following assets and weights:",
 				"generic": "Tracks the price of {{assetDesc}}{{assetSymbol}} through price feeds supplied by an oracle."
@@ -225,7 +225,7 @@
 				"long-short-skew-label": "long/short price skew:",
 				"funding-amount": {
 					"label": "market funding amount:",
-					"desc": "Note: your sUSD will be locked up in this contract until the market maturity date"
+					"desc": "Note: your oUSD will be locked up in this contract until the market maturity date"
 				}
 			},
 			"summary": {
@@ -332,8 +332,8 @@
 							"progress-label": "withdrawal in progress..."
 						},
 						"disabled": {
-							"tooltip": "Market Creator has disabled all withdrawals - sUSD bids are final",
-							"first-time-tooltip": "WARNING: market creator has disabled withdrawals on this market. All sUSD bids are final."
+							"tooltip": "Market Creator has disabled all withdrawals - oUSD bids are final",
+							"first-time-tooltip": "WARNING: market creator has disabled withdrawals on this market. All oUSD bids are final."
 						}
 					},
 					"common": {
@@ -464,8 +464,8 @@
 		"dashboard": {
 			"title": "{{currencyKey}} as collateral",
 			"tabs": {
-				"sUSD": "sUSD",
-				"sETH": "sETH"
+				"oUSD": "oUSD",
+				"oETH": "oETH"
 			},
 			"loan-info": {
 				"interest-fee": "interest fee",
@@ -559,7 +559,7 @@
 				"title": "close loan",
 				"currency-unlocked": "<0>{{currencyKey}}</0> being unlocked:",
 				"currency-burned": "<0>{{currencyKey}}</0> being burned:",
-				"min-susd": "Min sUSD required to close loan"
+				"min-oUSD": "Min oUSD required to close loan"
 			},
 			"errors": {
 				"min-loan-size": "You need at least {{minLoanSize}} {{currencyKey}} to create a loan",
@@ -649,7 +649,7 @@
 					"title": "Binary Options",
 					"subtitle": "Here you can see all the binary options markets you’ve bid on or markets you’ve created."
 				},
-				"no-susd": {
+				"no-oUSD": {
 					"title": "Get {{currencyKey}} to start bidding"
 				},
 				"no-markets": {

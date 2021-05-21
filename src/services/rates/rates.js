@@ -58,8 +58,8 @@ export const fetchSynthRateUpdates = async (
 			)
 		);
 
-		// If quote or rate is sUSD then we just get
-		// the base or quote rates as they're already in sUSD
+		// If quote or rate is oUSD then we just get
+		// the base or quote rates as they're already in oUSD
 		const rates =
 			quoteCurrencyKey === SYNTHS_MAP.oUSD
 				? baseRates

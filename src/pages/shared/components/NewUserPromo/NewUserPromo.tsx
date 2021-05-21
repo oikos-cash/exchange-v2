@@ -35,8 +35,8 @@ export const NewUserPromo = () => {
 						<BuysETHIcon />
 						<PromoCardLabel>
 							{t('common.currency.buy-currencyA-with-currencyB', {
-								currencyKeyA: SYNTHS_MAP.sETH,
-								currencyKeyB: CRYPTO_CURRENCY_MAP.ETH,
+								currencyKeyA: SYNTHS_MAP.oETH,
+								currencyKeyB: CRYPTO_CURRENCY_MAP.BNB,
 							})}
 						</PromoCardLabel>
 					</PromoCard>
@@ -46,8 +46,8 @@ export const NewUserPromo = () => {
 						<BuysUSDIcon />
 						<PromoCardLabel>
 							{t('common.currency.buy-currencyA-with-currencyB', {
-								currencyKeyA: SYNTHS_MAP.sUSD,
-								currencyKeyB: CRYPTO_CURRENCY_MAP.ETH,
+								currencyKeyA: SYNTHS_MAP.oUSD,
+								currencyKeyB: CRYPTO_CURRENCY_MAP.BNB,
 							})}
 						</PromoCardLabel>
 					</PromoCard>
@@ -57,7 +57,7 @@ export const NewUserPromo = () => {
 						<BorrowsETHIcon />
 						<PromoCardLabel>
 							{t('common.currency.borrow-currency', {
-								currencyKey: SYNTHS_MAP.sETH,
+								currencyKey: SYNTHS_MAP.oETH,
 							})}
 						</PromoCardLabel>
 					</PromoCard>

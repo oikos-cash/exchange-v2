@@ -145,7 +145,7 @@ const MaturityPhaseCard: FC<MaturityPhaseCardProps> = ({
 					<PayoutTitle>{t('options.market.trade-card.maturity.payout-amount')}</PayoutTitle>
 					<PayoutAmount>
 						{formatCurrencyWithSign(USD_SIGN, isLongResult ? longAmount : shortAmount)}{' '}
-						{SYNTHS_MAP.sUSD}
+						{SYNTHS_MAP.oUSD}
 					</PayoutAmount>
 				</Payout>
 				<StyledCardContent>

@@ -49,7 +49,7 @@ const WalletMenu = ({
 		resetWalletReducer();
 		setDropdownIsOpen(false);
 	};
-
+	console.log(synthsWalletBalances, isFetchingWalletBalances)
 	return (
 		<Content>
 			<Card>

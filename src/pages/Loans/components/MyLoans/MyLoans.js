@@ -43,7 +43,7 @@ export const MyLoans = ({
 				>
 					<HeadingSmall>{t('loans.my-loans.title')}</HeadingSmall>
 				</StyledButton>
-				{contractType === 'sUSD' && (
+				{contractType === 'oUSD' && (
 					<StyledButton
 						isActive={activeTab === 1}
 						size="sm"

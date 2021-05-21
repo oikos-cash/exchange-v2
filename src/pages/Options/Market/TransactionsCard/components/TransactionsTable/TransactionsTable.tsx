@@ -71,7 +71,7 @@ export const TransactionsTable: FC<TransactionsTableProps> = memo(
 							sortType: 'basic',
 							accessor: 'amount',
 							Cell: (cellProps: CellProps<OptionsTransaction, OptionsTransaction['amount']>) => (
-								<span>{formatCurrencyWithKey(SYNTHS_MAP.sUSD, cellProps.cell.value)}</span>
+								<span>{formatCurrencyWithKey(SYNTHS_MAP.oUSD, cellProps.cell.value)}</span>
 							),
 							width: 150,
 							sortable: true,

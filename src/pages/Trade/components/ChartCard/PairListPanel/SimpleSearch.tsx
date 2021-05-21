@@ -10,7 +10,7 @@ import SearchInput from 'components/Input/SearchInput';
 
 import { StyledButton, IconButton } from './common';
 
-const ASSET_FILTERS: CurrencyKeys = [SYNTHS_MAP.sUSD, SYNTHS_MAP.sBTC, SYNTHS_MAP.sETH];
+const ASSET_FILTERS: CurrencyKeys = [SYNTHS_MAP.oUSD, SYNTHS_MAP.oBTC, SYNTHS_MAP.oETH];
 
 type SimpleSearchProps = {
 	search: string;
@@ -38,7 +38,7 @@ const SimpleSearch: FC<SimpleSearchProps> = ({
 				value={search}
 				onChange={onSearchChange}
 				placeholder={t('common.currency.try-currencyA-currencyB-or-currencyC-currencyD', {
-					currencyA: SYNTHS_MAP.sETH,
+					currencyA: SYNTHS_MAP.oETH,
 					currencyB: SYNTHS_MAP.iBTC,
 					currencyC: CRYPTO_CURRENCY_MAP.LINK,
 					currencyD: CRYPTO_CURRENCY_MAP.ETH,

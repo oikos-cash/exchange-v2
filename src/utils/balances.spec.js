@@ -4,7 +4,7 @@ import { CRYPTO_CURRENCY_MAP, SYNTHS_MAP } from '../constants/currency';
 const balances = {
 	synths: {
 		balances: {
-			sBTC: {
+			oBTC: {
 				balance: 0.000628320060412509,
 				usdBalance: 6.50700536879026,
 			},
@@ -23,8 +23,8 @@ describe('Balances', () => {
 			expect(getCurrencyKeyBalance(balances, CRYPTO_CURRENCY_MAP.ETH)).toEqual(0.04243316499453552);
 		});
 
-		it('returns the correct currency balance for sBTC', () => {
-			expect(getCurrencyKeyBalance(balances, SYNTHS_MAP.sBTC)).toEqual(0.000628320060412509);
+		it('returns the correct currency balance for oBTC', () => {
+			expect(getCurrencyKeyBalance(balances, SYNTHS_MAP.oBTC)).toEqual(0.000628320060412509);
 		});
 	});
 
@@ -35,8 +35,8 @@ describe('Balances', () => {
 			);
 		});
 
-		it('returns the correct USD balance for sBTC', () => {
-			expect(getCurrencyKeyUSDBalance(balances, SYNTHS_MAP.sBTC)).toEqual(6.50700536879026);
+		it('returns the correct USD balance for oBTC', () => {
+			expect(getCurrencyKeyUSDBalance(balances, SYNTHS_MAP.oBTC)).toEqual(6.50700536879026);
 		});
 	});
 });

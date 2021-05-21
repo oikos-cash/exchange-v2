@@ -101,7 +101,7 @@ export const SynthsTable: FC<SynthsTableProps> = memo(
 									>
 								) => (
 									<CurrencyCol
-										sign={synthsMap[SYNTHS_MAP.sUSD]?.sign}
+										sign={synthsMap[SYNTHS_MAP.oUSD]?.sign}
 										value={cellProps.cell.value}
 									/>
 								),
@@ -127,7 +127,7 @@ export const SynthsTable: FC<SynthsTableProps> = memo(
 								Header: <>{t('synths.home.table.24h-trend-col')}</>,
 								id: '24trend-col',
 								Cell: (cellProps: CellProps<SynthDefinitionWithRates>) => {
-									if (cellProps.row.original.name === SYNTHS_MAP.sUSD) {
+									if (cellProps.row.original.name === SYNTHS_MAP.oUSD) {
 										return (
 											<TrendLineChart
 												change={0}

@@ -29,7 +29,7 @@ const Banner: FC<BannerProps> = ({ hasMarkets, noSUSD }) => {
 		title = t('assets.options.banner.has-markets.title');
 		subTitle = t('assets.options.banner.has-markets.subtitle');
 	} else if (noSUSD) {
-		title = t('assets.options.banner.no-susd.title', { currencyKey: SYNTHS_MAP.oUSD });
+		title = t('assets.options.banner.no-oUSD.title', { currencyKey: SYNTHS_MAP.oUSD });
 	} else {
 		title = t('assets.options.banner.no-markets.title');
 	}

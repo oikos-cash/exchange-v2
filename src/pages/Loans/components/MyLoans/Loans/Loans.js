@@ -52,6 +52,8 @@ const Loans = ({
 	showWalletPopup,
 	contractType,
 }) => {
+
+	console.log(loans)
 	const { t } = useTranslation();
 	const { collateralCurrencyKey } = collateralPair;
 

@@ -65,18 +65,19 @@ const {
 
 export const fetchLoansContractInfo = () => async (dispatch, getState) => {
 	const {
-		snxJS: { EtherCollateral, EtherCollateralsUSD },
+		snxJS: { BNBCollateral, EtherCollateralsUSD },
 	} = snxJSConnector;
 	let contract;
 
+	console.log(snxJSConnector.snxJS)
 	const state = getState();
 	const { contractType } = state.loans.contractInfo;
 
 	if (contractType === 'oETH') {
-		contract = EtherCollateral.contract;
-	} else {
-		contract = EtherCollateralsUSD.contract;
-	}
+		contract = BNBCollateral.contract;
+	}// else {
+	//	contract = EtherCollateralsUSD.contract;
+	//}
 
 	dispatch(setContract({ contract }));
 	dispatch(fetchLoansContractInfoRequest());

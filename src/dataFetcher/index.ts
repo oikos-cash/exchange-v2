@@ -34,7 +34,7 @@ export const getExchangeData = async () => {
 	}
 };
 
-export const fetchSynthsBalance = async (walletAddress: string) => {
+export const fetchSynthsBalance = async (walletAddress: string, availableSynths: Array<{name: string}>) => {
 	let balances: Record<
 		CurrencyKey,
 		{
@@ -44,7 +44,7 @@ export const fetchSynthsBalance = async (walletAddress: string) => {
 		}
 	> = {};
 
-	const [balanceResults, totalBalanceResults] = await Promise.all([
+	/*const [balanceResults, totalBalanceResults] = await Promise.all([
 		(snxJSConnector as any).synthSummaryUtilContract.synthsBalances(walletAddress),
 		(snxJSConnector as any).synthSummaryUtilContract.totalSynthsInKey(
 			walletAddress,
@@ -66,6 +66,53 @@ export const fetchSynthsBalance = async (walletAddress: string) => {
 	return {
 		balances: isEmpty(balances) ? 0 : balances,
 		usdBalance: totalBalanceResults ? bigNumberFormatter(totalBalanceResults) : 0,
+	};*/
+
+	const balanceResults = await Promise.all(
+		availableSynths.map(synth => {
+			//@ts-ignore
+			return snxJSConnector.snxJS[synth.name].balanceOf(walletAddress);
+		}) 
+	);
+			
+
+	//const synthsBalance = {};
+	const totalBalance = await Promise.all(
+		balanceResults.map((balance, i) => {
+			//@ts-ignore
+			return snxJSConnector.snxJS.ExchangeRates.effectiveValue(
+			bytesFormatter(availableSynths[i].name),
+			balance,
+			bytesFormatter(SYNTHS_MAP.oUSD)
+			);
+		})
+	);
+
+	//const [synthsKeys, balanceResults, totalBalance] = balanceResults;
+
+	//synthsKeys.forEach((key: string, i: string) => {
+	availableSynths.map((synth, i) => {
+		const synthName = synth.name as CurrencyKey;
+		balances[synthName] = {
+			balance: bigNumberFormatter(balanceResults[i]),
+			balanceBN: balanceResults[i],
+			usdBalance: bigNumberFormatter(totalBalance[i]),
+		};
+	});
+
+	let total = 0
+
+	//@ts-ignore
+	balanceResults.map(el => {
+		if (!isNaN(el)) {
+			total = total +  Number(bigNumberFormatter(el))
+
+		}
+	})
+
+	return {
+		balances: isEmpty(balances) ? 0 : balances,
+		usdBalance: total,
 	};
 };
 

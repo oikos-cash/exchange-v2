@@ -85,7 +85,7 @@ export const fetchLoans = () => async (dispatch, getState) => {
 
 	const { contractType } = state.loans.contractInfo;
 
-	let contract = contractType === 'oETH' ? BNBCollateral.contract : EtherCollateralsUSD.contract;
+	let contract = contractType === 'oBNB' ? BNBCollateral.contract : EtherCollateralsUSD.contract;
 
 	dispatch(fetchLoansRequest());
 

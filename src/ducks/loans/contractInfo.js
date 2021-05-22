@@ -13,7 +13,7 @@ export const contractInfoSlice = createSlice({
 		isLoading: false,
 		isLoaded: false,
 		isRefreshing: false,
-		contractType: 'oETH',
+		contractType: 'oBNB',
 		contract: null,
 	},
 	reducers: {
@@ -73,7 +73,7 @@ export const fetchLoansContractInfo = () => async (dispatch, getState) => {
 	const state = getState();
 	const { contractType } = state.loans.contractInfo;
 
-	if (contractType === 'oETH') {
+	if (contractType === 'oBNB') {
 		contract = BNBCollateral.contract;
 	}// else {
 	//	contract = EtherCollateralsUSD.contract;
@@ -89,10 +89,10 @@ export const fetchLoansContractInfo = () => async (dispatch, getState) => {
 		]);
 
 		const collateralPair = {
-			collateralCurrencyKey: CRYPTO_CURRENCY_MAP.ETH,
-			loanCurrencyKey: contractType === 'oETH' ? SYNTHS_MAP.oETH : SYNTHS_MAP.oUSD,
+			collateralCurrencyKey: CRYPTO_CURRENCY_MAP.BNB,
+			loanCurrencyKey: contractType === 'oBNB' ? SYNTHS_MAP.oBNB : SYNTHS_MAP.oUSD,
 			minLoanSize:
-				contractType === 'oETH'
+				contractType === 'oBNB'
 					? bigNumberFormatter(contractInfo._minLoanSize)
 					: bigNumberFormatter(contractInfo._minLoanCollateralSize),
 			issuanceRatio: 100 / bigNumberFormatter(contractInfo._collateralizationRatio),

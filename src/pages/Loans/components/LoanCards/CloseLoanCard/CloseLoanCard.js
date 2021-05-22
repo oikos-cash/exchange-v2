@@ -127,8 +127,8 @@ export const CloseLoanCard = ({
 								i18nKey="loans.loan-card.close-loan.currency-burned"
 								values={{
 									currencyKey: selectedLoan
-										? loanType === 'oETH'
-											? 'oETH'
+										? loanType === 'oBNB'
+											? 'oBNB'
 											: 'oUSD'
 										: contractType,
 								}}

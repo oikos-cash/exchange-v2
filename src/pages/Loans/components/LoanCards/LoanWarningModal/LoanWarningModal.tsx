@@ -26,7 +26,7 @@ type LoanWarningModalProps = {
 const LoanWarningModal: FC<LoanWarningModalProps> = memo(
 	({ isOpen, onClose, onConfirm, contractType }) => {
 		const { t } = useTranslation();
-		const BLOG_LINK = contractType === 'oETH' ? sETH_BLOG_LINK : sUSD_BLOG_LINK;
+		const BLOG_LINK = contractType === 'oBNB' ? sETH_BLOG_LINK : sUSD_BLOG_LINK;
 		return (
 			<StyledModal open={isOpen}>
 				<Container>

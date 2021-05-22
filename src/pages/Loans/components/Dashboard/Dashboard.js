@@ -18,7 +18,7 @@ import { getIsFetchingWalletBalances, getWalletBalancesMap } from 'ducks/wallet/
 import { getWalletInfo, getNetworkId } from 'ducks/wallet/walletDetails';
 
 import { getCurrencyKeyBalance } from 'utils/balances';
-import { formatPercentage, formatCurrency, formatCurrencyWithKey } from 'utils/formatters';
+import { formatPercentage, formatCurrency, formatCurrencyWithKey, bigNumberFormatter } from 'utils/formatters';
 
 import { CARD_HEIGHT } from 'constants/ui';
 
@@ -115,7 +115,7 @@ export const Dashboard = ({
 		},
 		{
 			label: t('common.wallet.eth-value'),
-			value: formatCurrency(ethRate),
+			value: formatCurrency(bigNumberFormatter(ethRate)),
 		},
 	];
 

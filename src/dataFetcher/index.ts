@@ -104,7 +104,7 @@ export const fetchSynthsBalance = async (walletAddress: string, availableSynths:
 	let total = 0
 
 	//@ts-ignore
-	balanceResults.map(el => {
+	totalBalance.map(el => {
 		if (!isNaN(el)) {
 			total = total +  Number(bigNumberFormatter(el))
 
@@ -119,12 +119,13 @@ export const fetchSynthsBalance = async (walletAddress: string, availableSynths:
 
 export const fetchEthBalance = async (walletAddress: string) => {
 	const balance = await (snxJSConnector as any).provider.getBalance(walletAddress);
+	
 	const usdBalance = await (snxJSConnector as any).snxJS.ExchangeRates.effectiveValue(
-		bytesFormatter(SYNTHS_MAP.oETH),
+		bytesFormatter(SYNTHS_MAP.oBNB),
 		balance,
 		bytesFormatter(SYNTHS_MAP.oUSD)
 	);
-
+	//console.log(`got BNB balance of ${bigNumberFormatter(balance)} $dollar value of ${bigNumberFormatter(usdBalance)}`)
 	return {
 		balance: bigNumberFormatter(balance),
 		usdBalance: bigNumberFormatter(usdBalance),

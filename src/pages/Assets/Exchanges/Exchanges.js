@@ -35,14 +35,14 @@ export const Exchanges = ({ networkId, walletAddress }) => {
 
 	const myTradesQuery = useTradesQuery({ walletAddress: walletAddress });
 
-	return (
+ 	return (
 		<StyledCard>
 			<Card.Header>
 				<HeadingSmall>{t('assets.exchanges.title')}</HeadingSmall>
 				{myTradesQuery.isFetching && <Spinner size="sm" />}
 			</Card.Header>
 			<StyledCardBody>
-				<Table
+			{typeof myTradesQuery.data !== "undefined" ? <Table
 					palette="striped"
 					columns={[
 						{
@@ -159,7 +159,7 @@ export const Exchanges = ({ networkId, walletAddress }) => {
 							<TableNoResults>{t('assets.exchanges.table.no-results')}</TableNoResults>
 						) : undefined
 					}
-				/>
+				/> : null}
 			</StyledCardBody>
 		</StyledCard>
 	);

@@ -224,6 +224,8 @@ export const CRYPTO_SYNTHS_BY_MC = {
 };
 
 export const currencyKeyToIconMap = {
+	[CRYPTO_CURRENCY_MAP.BNB]: { AssetIcon: BNBIcon },
+
 	[CRYPTO_CURRENCY_MAP.SNX]: { AssetIcon: SNXIcon },
 	[CRYPTO_CURRENCY_MAP.KNC]: { AssetIcon: KNCIcon },
 	[CRYPTO_CURRENCY_MAP.LEND]: { AssetIcon: LENDIcon },

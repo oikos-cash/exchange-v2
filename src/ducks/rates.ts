@@ -75,7 +75,9 @@ export const getIsLoadedRates = (state: RootState) => getRatesState(state).isLoa
 export const getRatesLoadingError = (state: RootState) => getRatesState(state).loadingError;
 export const getRatesExchangeRates = (state: RootState) => getRatesState(state).exchangeRates;
 export const getEthRate = createSelector(getRatesExchangeRates, (exchangeRates) =>
-	get(exchangeRates, SYNTHS_MAP.oBNB, null)
+	//@ts-ignore
+	get(exchangeRates, SYNTHS_MAP.oBNB, null) !== null ? bigNumberFormatter(get(exchangeRates, SYNTHS_MAP.oBNB, null)) : 0
+	
 );
 
 export const { fetchRatesRequest, fetchRatesSuccess, fetchRatesFailure } = ratesSlice.actions;

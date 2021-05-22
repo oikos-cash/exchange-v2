@@ -46,14 +46,14 @@ export const getWalletBalances = createSelector(getWalletBalancesMap, (walletBal
 		return [];
 	}
 
-	const { eth, synths } = walletBalancesMap;
+	const { bnb, synths } = walletBalancesMap;
 
 	let assets = [];
 
-	if (eth) {
+	if (bnb) {
 		assets.push({
-			...eth,
-			name: CRYPTO_CURRENCY_MAP.ETH,
+			...bnb,
+			name: CRYPTO_CURRENCY_MAP.BNB,
 		});
 	}
 
@@ -71,10 +71,10 @@ export const getWalletBalances = createSelector(getWalletBalancesMap, (walletBal
 	);
 });
 export const getTotalETHBalanceUSD = createSelector(getWalletBalancesMap, (walletBalancesMap) =>
-	walletBalancesMap == null ? 0 : walletBalancesMap.eth.usdBalance
+	walletBalancesMap == null ? 0 : walletBalancesMap.bnb.usdBalance
 );
 export const getTotalETHBalance = createSelector(getWalletBalancesMap, (walletBalancesMap) =>
-	walletBalancesMap == null ? 0 : walletBalancesMap.eth.balance
+	walletBalancesMap == null ? 0 : walletBalancesMap.bnb.balance
 );
 export const getTotalSynthsBalanceUSD = createSelector(getWalletBalancesMap, (walletBalancesMap) =>
 	walletBalancesMap == null ? 0 : walletBalancesMap.synths.usdBalance
@@ -97,10 +97,10 @@ export const getSynthsWalletBalances = createSelector(
 	getHideSmallValueAssets,
 	(walletBalances, hideSmallValueAssets) =>
 		walletBalances.filter(({ name, usdBalance }) => {
-			const filterETH = name !== CRYPTO_CURRENCY_MAP.ETH;
+			const filterBNB = name !== CRYPTO_CURRENCY_MAP.BNB;
 			const filterSmallValueAssets = hideSmallValueAssets ? usdBalance > LOW_ASSET_VALUE_USD : true;
 
-			return filterETH && filterSmallValueAssets;
+			return filterBNB && filterSmallValueAssets;
 		})
 );
 
@@ -112,12 +112,12 @@ function* fetchWalletBalances() {
 	if (currentWalletAddress != null) {
 		try {
 			console.log(synths)
-			const [synthsBalance, ethBalance] = yield Promise.all([
+			const [synthsBalance, bnbBalance] = yield Promise.all([
 				fetchSynthsBalance(currentWalletAddress, synths),
 				fetchEthBalance(currentWalletAddress),
 			]);
 
-			const balances = { synths: synthsBalance, eth: ethBalance };
+			const balances = { synths: synthsBalance, bnb: bnbBalance };
 
 			yield put(fetchWalletBalancesSuccess({ balances }));
 

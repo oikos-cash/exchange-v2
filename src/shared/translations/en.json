@@ -465,7 +465,8 @@
 			"title": "{{currencyKey}} as collateral",
 			"tabs": {
 				"oUSD": "oUSD",
-				"oETH": "oETH"
+				"oETH": "oETH",
+				"oBNB": "oBNB"
 			},
 			"loan-info": {
 				"interest-fee": "interest fee",

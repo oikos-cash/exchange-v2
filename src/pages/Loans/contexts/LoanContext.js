@@ -4,7 +4,7 @@ import snxJSConnector from 'utils/snxJSConnector';
 const LoanContext = createContext(null);
 
 export const LoanProvider = ({ children }) => {
-	const [contractType, setContractType] = useState('oETH');
+	const [contractType, setContractType] = useState('oBNB');
 	const [contract, setContract] = useState(null);
 
 	useEffect(() => {
@@ -12,7 +12,7 @@ export const LoanProvider = ({ children }) => {
 			const {
 				snxJS: { BNBCollateral, EtherCollateralsUSD },
 			} = snxJSConnector;
-			if (contractType === 'oETH') {
+			if (contractType === 'oBNB') {
 				setContract(BNBCollateral.contract);
 			} //else {
 			//	setContract(EtherCollateralsUSD.contract);

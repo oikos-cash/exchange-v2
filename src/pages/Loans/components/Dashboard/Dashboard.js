@@ -115,7 +115,7 @@ export const Dashboard = ({
 		},
 		{
 			label: t('common.wallet.eth-value'),
-			value: formatCurrency(bigNumberFormatter(ethRate)),
+			value: (ethRate !== null ? formatCurrency(ethRate) : 0),
 		},
 	];
 
@@ -136,14 +136,14 @@ export const Dashboard = ({
 							>
 								{t('loans.dashboard.tabs.oBNB')}
 							</StyledButton>
-							<StyledButton
+							{/*<StyledButton
 								isActive={contractType === 'oUSD'}
 								size="sm"
 								palette="secondary"
 								onClick={() => setSelectedContractType('oUSD')}
 							>
 								{t('loans.dashboard.tabs.oUSD')}
-							</StyledButton>
+							</StyledButton>*/}
 						</FlexDiv>
 					</>
 					{isRefreshingLoansContractInfo && <Spinner size="sm" />}

@@ -23,6 +23,7 @@ import NetworkInfo from 'components/NetworkInfo';
 import { TxErrorMessage } from '../commonStyles';
 import { getContract, getContractType } from 'ducks/loans/contractInfo';
 import { getEtherscanTxLink } from 'utils/explorers';
+import snxJSConnector from 'utils/snxJSConnector';
 
 export const CloseLoanCard = ({
 	gasInfo,
@@ -51,6 +52,7 @@ export const CloseLoanCard = ({
 	let loanType = contractType;
 	let minimumAmountToClose = null;
 
+	console.log(selectedLoan)
 	if (selectedLoan != null) {
 		collateralAmount = selectedLoan.collateralAmount;
 		loanAmount = selectedLoan.loanAmount;
@@ -64,7 +66,8 @@ export const CloseLoanCard = ({
 		if (walletBalance) {
 			const { synths } = walletBalance;
 			setTxErrorMessage(null);
-			if (synths.balances[contractType].balance < minimumAmountToClose) {
+			console.log(`${synths.balances[contractType].balance} < ${minimumAmountToClose} || ${currentInterest}`)
+			if (synths.balances[contractType].balance < minimumAmountToClose ) {
 				setTxErrorMessage(
 					t('loans.loan-card.errors.insufficient-balance', {
 						currencyKey: contractType,
@@ -81,12 +84,18 @@ export const CloseLoanCard = ({
 
 		try {
 			const loanIDStr = loanID.toString();
-
-			const tx = await contract.closeLoan(loanIDStr, {
-				gasPrice: gasInfo.gasPrice * GWEI_UNIT,
+			const { utils, signer } = snxJSConnector;
+			const ContractWithSigner = contract.connect(signer);
+			console.log(signer)
+ 
+ 	
+			console.log(`closing loan ${loanIDStr}`)
+			//TODO fix gas price gasInfo.gasPrice
+			let tx = await ContractWithSigner.closeLoan(loanIDStr, {
+				gasPrice: 15 * GWEI_UNIT,
 				gasLimit: 600000,
 			});
-
+/*
 			if (notify) {
 				const { emitter } = notify.hash(tx.hash);
 				emitter.on('txConfirmed', () => {
@@ -96,8 +105,9 @@ export const CloseLoanCard = ({
 						onclick: () => window.open(getEtherscanTxLink(networkId, tx.hash), '_blank'),
 					};
 				});
-			}
+			}*/
 		} catch (e) {
+			console.log(e)
 			setTxErrorMessage(t('common.errors.unknown-error-try-again'));
 		}
 	};
@@ -105,14 +115,14 @@ export const CloseLoanCard = ({
 	return (
 		<StyledCard isInteractive={isInteractive}>
 			<Card.Header>
-				<HeadingSmall>{t('loans.loan-card.close-loan.title')}</HeadingSmall>
+				<HeadingSmall>{t('loans.loan-card..title')}</HeadingSmall>
 			</Card.Header>
 			<Card.Body>
 				<LoanInfoContainer>
 					<InfoBox>
 						<InfoBoxLabel>
 							<Trans
-								i18nKey="loans.loan-card.close-loan.currency-unlocked"
+								i18nKey="loans.loan-card..currency-unlocked"
 								values={{ currencyKey: collateralCurrencyKey }}
 								components={[<CurrencyKey />]}
 							/>

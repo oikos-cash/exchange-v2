@@ -2,7 +2,7 @@ import { CurrencyKey } from './currency';
 
 export const LINKS = {
 	Support: 'https://synthetix.community/docs/other',
-	Tokens: 'https://www.synthetix.io/tokens/',
+	Tokens: 'https://docs.oikos.cash/tokens/',
 	Trading: {
 		DexAG: 'https://dex.ag/',
 		Uniswap: 'https://uniswap.exchange/',
@@ -10,19 +10,19 @@ export const LINKS = {
 			`https://1inch.exchange/#/${base}/${quote}`,
 	},
 	Learn: {
-		Litepaper: 'https://docs.synthetix.io/litepaper/',
-		Tokens: 'https://docs.synthetix.io/tokens/',
-		Blog: 'https://blog.synthetix.io/',
+		Litepaper: 'https://docs.oikos.cash/litepaper/',
+		Tokens: 'https://docs.oikos.cash/tokens/',
+		Blog: 'https://blog.oikos.cash',
 	},
 	Products: {
-		Mintr: 'https://mintr.synthetix.io',
-		Dashboard: 'https://dashboard.synthetix.io/',
+		Mintr: 'https://minter.oikos.cash',
+		Dashboard: 'https://stats.oikos.cash/',
 	},
 	Social: {
-		Twitter: 'https://twitter.com/synthetix_io',
-		Medium: 'https://blog.synthetix.io/',
+		Twitter: 'https://twitter.com/oikos_cash',
+		Medium: 'https://blog.oikos.cash',
 		Discord: 'https://discordapp.com/invite/AEdUHzt',
-		GitHub: 'https://github.com/synthetixio',
+		GitHub: 'https://github.com/oikos-cash',
 	},
 	Misc: {
 		EthereumOrg: 'https://ethereum.org/',

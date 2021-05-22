@@ -15,7 +15,7 @@
 			"dark": "dark mode"
 		},
 		"announcements": {
-			"ether-collateral": "NEW: ETH Collateral is live!"
+			"ether-collateral": "NEW: BNB Collateral is live!"
 		},
 		"wallet-menu": {
 			"cards": {
@@ -71,7 +71,7 @@
 		},
 		"new-user-promo": {
 			"title": "New to Oikos.Exchange?",
-			"subtitle": "ETH holders can start trading through any of the following methods:"
+			"subtitle": "BNB holders can start trading through any of the following methods:"
 		},
 		"exchange-features": {
 			"title": "A unique trading experience on Ethereum",
@@ -536,11 +536,11 @@
 			"new-c-ratio": "New C-Ratio",
 			"withdraw-collateral": {
 				"title": "WITHDRAW COLLATERAL",
-				"subtitle": "ETH being withdrawn"
+				"subtitle": "BNB being withdrawn"
 			},
 			"add-collateral": {
 				"title": "ADD COLLATERAL",
-				"subtitle": "ETH being added"
+				"subtitle": "BNB being added"
 			},
 			"repay": {
 				"title": "REPAY LOAN",
@@ -711,7 +711,7 @@
 		"wallet": {
 			"your-wallet": "YOUR WALLET",
 			"currency-balance": "{{currencyKey}} BALANCE",
-			"eth-value": "ETH PRICE (USD)",
+			"eth-value": "BNB PRICE (USD)",
 			"balance-currency": "Balance: {{balance}}",
 			"no-wallet-connected": "No wallet currently connected",
 			"connect-currency-wallet": "connect {{currencyKey}} wallet to start",

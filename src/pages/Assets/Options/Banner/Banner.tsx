@@ -44,7 +44,7 @@ const Banner: FC<BannerProps> = ({ hasMarkets, noSUSD }) => {
 					{noSUSD ? (
 						<>
 							<Link
-								to={LINKS.Trading.OneInchLink(SYNTHS_MAP.oUSD, CRYPTO_CURRENCY_MAP.ETH)}
+								to={LINKS.Trading.OneInchLink(SYNTHS_MAP.oUSD, CRYPTO_CURRENCY_MAP.BNB)}
 								isExternal={true}
 							>
 								<Button palette="primary" size="md">

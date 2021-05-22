@@ -50,7 +50,7 @@ export const TotalBalance = ({
 					<FlexDivRow>
 						<HeadingSmall>
 							{t('common.wallet.currency-balance', {
-								currencyKey: CRYPTO_CURRENCY_MAP.ETH,
+								currencyKey: CRYPTO_CURRENCY_MAP.BNB,
 							})}
 						</HeadingSmall>
 						<ETHBalance>

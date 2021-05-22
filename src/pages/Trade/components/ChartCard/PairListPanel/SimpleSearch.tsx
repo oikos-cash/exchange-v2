@@ -41,7 +41,7 @@ const SimpleSearch: FC<SimpleSearchProps> = ({
 					currencyA: SYNTHS_MAP.oETH,
 					currencyB: SYNTHS_MAP.iBTC,
 					currencyC: CRYPTO_CURRENCY_MAP.LINK,
-					currencyD: CRYPTO_CURRENCY_MAP.ETH,
+					currencyD: CRYPTO_CURRENCY_MAP.BNB,
 				})}
 			/>
 			<ButtonsRow>

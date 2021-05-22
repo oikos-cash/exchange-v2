@@ -21,7 +21,7 @@ import { getNetworkId } from 'ducks/wallet/walletDetails';
 const MOCK_TRANSFERS = [
 	{
 		time: Date.now(),
-		currencyKey: CRYPTO_CURRENCY_MAP.ETH,
+		currencyKey: CRYPTO_CURRENCY_MAP.BNB,
 		status: 'in',
 		txid: '0x327632ccb6d7bb47b455383e936b2f14e6dc50dbefdc214870b446603b468675',
 		amount: 2000000,

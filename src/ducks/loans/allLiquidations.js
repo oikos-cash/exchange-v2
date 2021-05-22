@@ -68,7 +68,7 @@ export const fetchLiquidations = () => async (dispatch, getState) => {
 	dispatch(fetchLiquidationsRequest());
 
 	try {
-		let loans = await snxData.etherCollateral.loans({ isOpen: true, collateralMinted: 'oUSD' });
+		let loans = await snxData.etherCollateral.loans({ isOpen: true });
 
 		const liquidatedLoans = loans.map(async (loan) => {
 			const loanMetaData = await contract.getLoan(loan.account, loan.id);
@@ -87,22 +87,22 @@ export const fetchLiquidations = () => async (dispatch, getState) => {
 
 			let partialLiquidations = [];
 			if (loan.hasPartialLiquidations) {
-				partialLiquidations = await snxData.etherCollateral.partiallyLiquidatedLoans({
-					loanId: loan.id,
-				});
+				//partialLiquidations = await snxData.etherCollateral.partiallyLiquidatedLoans({
+				//	loanId: loan.id,
+				//});
 			}
 
 			return {
 				account: loan.account,
-				collateralAmount: collateralAmount,
+				//collateralAmount: collateralAmount,
 				loanAmount: loan.amount,
 				loanId: loan.id,
-				currentInterest: currentInterest,
-				totalDebtToCover: totalDebtToCover,
+				//currentInterest: currentInterest,
+				//totalDebtToCover: totalDebtToCover,
 				penaltyPercentage: PENALTY,
 				liquidatable: cRatio < C_RATIO,
 				cRatioPercentage: cRatio * 100,
-				partialLiquidations: partialLiquidations,
+				//partialLiquidations: partialLiquidations,
 			};
 		});
 

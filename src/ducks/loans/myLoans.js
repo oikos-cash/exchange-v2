@@ -92,7 +92,7 @@ export const fetchLoans = () => async (dispatch, getState) => {
 	try {
 		let loansResponse = await snxData.etherCollateral.loans({
 			account: walletInfo.currentWallet,
-			collateralMinted: contractType,
+			//collateralMinted: contractType,
 		});
 
 		const loans = loansResponse.map(async (loan) => {
@@ -101,29 +101,29 @@ export const fetchLoans = () => async (dispatch, getState) => {
 				loanMetaData.interest ?? loanMetaData.accruedInterest
 			);
 			const collateralAmount = bigNumberFormatter(loanMetaData.collateralAmount);
-			const cRatio = ((ethRate * collateralAmount) / (loan.amount + currentInterest)) * 100;
+			const cRatio = (((ethRate) * 1) / ((loan.amount * (ethRate)) + currentInterest)) * 100;
 			const totalFees = bigNumberFormatter(loanMetaData.totalFees);
-
+			
 			let partialLiquidations = [];
 			if (loan.hasPartialLiquidations) {
-				partialLiquidations = await snxData.etherCollateral.partiallyLiquidatedLoans({
-					loanId: loan.id,
-				});
+				//partialLiquidations = await snxData.etherCollateral.partiallyLiquidatedLoans({
+				//	loanId: loan.id,
+				//});
 			}
 
 			return {
-				collateralAmount: collateralAmount,
+				//collateralAmount: collateralAmount,
 				loanAmount: loan.amount,
-				timeCreated: loan.createdAt,
-				timeClosed: loan.closedAt,
+				timeCreated: 1621712189, //loan.createdAt,
+				timeClosed: null,
 				loanID: loan.id,
-				feesPayable: totalFees,
+				//feesPayable: totalFees,
 				currentInterest: currentInterest,
 				status: !loan.isOpen ? LOAN_STATUS.CLOSED : LOAN_STATUS.OPEN,
 				cRatio: cRatio,
 				loanType: contractType,
-				txHash: loan.txHash,
-				partialLiquidations: partialLiquidations,
+				//txHash: loan.txHash,
+				//partialLiquidations: partialLiquidations,
 			};
 		});
 

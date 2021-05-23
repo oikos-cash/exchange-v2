@@ -1,7 +1,7 @@
 import { CurrencyKey } from './currency';
 
 export const LINKS = {
-	Support: 'https://synthetix.community/docs/other',
+	Support: 'https://t.me/oikoscash',
 	Tokens: 'https://docs.oikos.cash/tokens/',
 	Trading: {
 		DexAG: 'https://dex.ag/',

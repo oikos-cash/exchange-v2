@@ -97,7 +97,7 @@ export const Dashboard = ({
 				/>
 			),
 
-			value: formatCurrency(totalIssuedSynths, 0),
+			value: formatCurrency(totalIssuedSynths, 2),
 		},
 		{
 			label: t('loans.dashboard.loan-info.min-loan-size'),

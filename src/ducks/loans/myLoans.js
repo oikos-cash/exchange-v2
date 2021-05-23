@@ -112,17 +112,17 @@ export const fetchLoans = () => async (dispatch, getState) => {
 			}
 
 			return {
-				//collateralAmount: collateralAmount,
+				collateralAmount: collateralAmount,
 				loanAmount: loan.amount,
-				timeCreated: 1621712189, //loan.createdAt,
+				timeCreated: 1621712189*1000, //loan.createdAt,
 				timeClosed: null,
 				loanID: loan.id,
-				//feesPayable: totalFees,
+				feesPayable: totalFees,
 				currentInterest: currentInterest,
 				status: !loan.isOpen ? LOAN_STATUS.CLOSED : LOAN_STATUS.OPEN,
 				cRatio: cRatio,
 				loanType: contractType,
-				//txHash: loan.txHash,
+				txHash: loan.txHash,
 				//partialLiquidations: partialLiquidations,
 			};
 		});

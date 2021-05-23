@@ -115,7 +115,7 @@ export const CloseLoanCard = ({
 	return (
 		<StyledCard isInteractive={isInteractive}>
 			<Card.Header>
-				<HeadingSmall>{t('loans.loan-card..title')}</HeadingSmall>
+				<HeadingSmall>{t('loans.loan-card.close-loan.title')}</HeadingSmall>
 			</Card.Header>
 			<Card.Body>
 				<LoanInfoContainer>

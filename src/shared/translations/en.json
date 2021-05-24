@@ -730,10 +730,10 @@
 		},
 		"currency": {
 			"buy-currencyA-with-currencyB": "Buy {{currencyKeyA}} with {{currencyKeyB}}",
-			"buy-currencyA-with-currencyB-on-uniswap": "Buy {{currencyKeyA}} with {{currencyKeyB}} on Uniswap",
+			"buy-currencyA-with-currencyB-on-uniswap": "Buy {{currencyKeyA}} with {{currencyKeyB}} on Pancake swap",
 			"borrow-currency": "Borrow {{currencyKey}}",
 			"synthetic-currency": "Synthetic {{currencyKey}}",
-			"fiat-synths": "sFiat",
+			"fiat-synths": "oFiat",
 			"decimals": "decimals",
 			"contract-address": "contract address",
 			"lower-limit": "lower limit",

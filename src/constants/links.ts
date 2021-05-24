@@ -27,7 +27,7 @@ export const LINKS = {
 	Misc: {
 		EthereumOrg: 'https://ethereum.org/',
 		DefiNetwork: 'https://defi.network/',
-		Messari: 'https://messari.io/asset/synthetix',
+		Messari: 'https://github.com/oikos-cash/oikos-bsc/raw/master/audit/AUDIT.pdf',
 	},
 	Blog: {
 		HowBinaryOptionsWork: 'https://blog.synthetix.io/how-binary-options-work/',

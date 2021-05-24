@@ -24,6 +24,7 @@ export type SynthDefinition = {
 	category: Category;
 	sign: string;
 	description: string;
+	desc: string;
 	aggregator: string;
 	inverted?: {
 		entryPoint: number;

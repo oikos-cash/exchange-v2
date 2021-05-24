@@ -74,7 +74,7 @@
 			"subtitle": "BNB holders can start trading through any of the following methods:"
 		},
 		"exchange-features": {
-			"title": "A unique trading experience on Ethereum",
+			"title": "A unique trading experience on Binance Smart Chain",
 			"subtitle": "With on-chain features you won’t find anywhere else",
 			"features": {
 				"infinite-liquidity": {
@@ -105,7 +105,7 @@
 				"title": "products",
 				"links": {
 					"synthetix-exchange": "Oikos.Exchange",
-					"mintr": "Mintr",
+					"minter": "Minter",
 					"dashboard": "Dashboard"
 				}
 			}

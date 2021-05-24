@@ -16,7 +16,7 @@ import { ReactComponent as LINKIcon } from 'assets/currencies/crypto/LINK.svg';
 // import { ReactComponent as TRXIcon } from 'assets/currencies/crypto/TRX.svg';
 // import { ReactComponent as DASHIcon } from 'assets/currencies/crypto/DASH.svg';
 // import { ReactComponent as ETCIcon } from 'assets/currencies/crypto/ETC.svg';
-import { ReactComponent as SNXIcon } from '@synthetixio/assets/snx/SNX.svg';
+import { ReactComponent as SNXIcon } from 'assets/currencies/svg/SNX.svg';
 import { ReactComponent as COMPIcon } from 'assets/currencies/crypto/COMP.svg';
 import { ReactComponent as RENIcon } from 'assets/currencies/crypto/REN.svg';
 import { ReactComponent as LENDIcon } from 'assets/currencies/crypto/LEND.svg';
@@ -41,13 +41,13 @@ import { ReactComponent as USDIcon } from 'assets/currencies/fiat/USD.svg';
 import { ReactComponent as DEFIIcon } from 'assets/currencies/indices/DEFI.svg';
 
 // Crypto Synths
-import { ReactComponent as sBTCIcon } from '@synthetixio/assets/synths/sBTC.svg';
-import { ReactComponent as sETHIcon } from '@synthetixio/assets/synths/sETH.svg';
+import { ReactComponent as sBTCIcon } from 'assets/currencies/svg/oBTC.svg';
+import { ReactComponent as sETHIcon } from 'assets/currencies/svg/oETH.svg';
 import { ReactComponent as sXRPIcon } from '@synthetixio/assets/synths/sXRP.svg';
 import { ReactComponent as sBCHIcon } from '@synthetixio/assets/synths/sBCH.svg';
 import { ReactComponent as sLTCIcon } from '@synthetixio/assets/synths/sLTC.svg';
 // import { ReactComponent as sEOSIcon } from '@synthetixio/assets/synths/sEOS.svg';
-import { ReactComponent as sBNBIcon } from '@synthetixio/assets/synths/sBNB.svg';
+import { ReactComponent as sBNBIcon } from 'assets/currencies/svg/oBNB.svg';
 import { ReactComponent as sXTZIcon } from '@synthetixio/assets/synths/sXTZ.svg';
 // import { ReactComponent as sXMRIcon } from '@synthetixio/assets/synths/sXMR.svg';
 import { ReactComponent as sADAIcon } from '@synthetixio/assets/synths/sADA.svg';
@@ -55,13 +55,13 @@ import { ReactComponent as sLINKIcon } from '@synthetixio/assets/synths/sLINK.sv
 // import { ReactComponent as sTRXIcon } from '@synthetixio/assets/synths/sTRX.svg';
 // import { ReactComponent as sDASHIcon } from '@synthetixio/assets/synths/sDASH.svg';
 // import { ReactComponent as sETCIcon } from '@synthetixio/assets/synths/sETC.svg';
-import { ReactComponent as iBTCIcon } from '@synthetixio/assets/synths/iBTC.svg';
-import { ReactComponent as iETHIcon } from '@synthetixio/assets/synths/iETH.svg';
+import { ReactComponent as iBTCIcon } from 'assets/currencies/svg/iBTC.svg';
+import { ReactComponent as iETHIcon } from 'assets/currencies/svg/iETH.svg';
 import { ReactComponent as iXRPIcon } from '@synthetixio/assets/synths/iXRP.svg';
 import { ReactComponent as iBCHIcon } from '@synthetixio/assets/synths/iBCH.svg';
 import { ReactComponent as iLTCIcon } from '@synthetixio/assets/synths/iLTC.svg';
 // import { ReactComponent as iEOSIcon } from '@synthetixio/assets/synths/iEOS.svg';
-import { ReactComponent as iBNBIcon } from '@synthetixio/assets/synths/iBNB.svg';
+import { ReactComponent as iBNBIcon } from 'assets/currencies/svg/iBNB.svg';
 import { ReactComponent as iXTZIcon } from '@synthetixio/assets/synths/iXTZ.svg';
 // import { ReactComponent as iXMRIcon } from '@synthetixio/assets/synths/iXMR.svg';
 import { ReactComponent as iADAIcon } from '@synthetixio/assets/synths/iADA.svg';
@@ -70,7 +70,7 @@ import { ReactComponent as iLINKIcon } from '@synthetixio/assets/synths/iLINK.sv
 // import { ReactComponent as iDASHIcon } from '@synthetixio/assets/synths/iDASH.svg';
 // import { ReactComponent as iETCIcon } from '@synthetixio/assets/synths/iETC.svg';
 // Commoditiy Synths
-import { ReactComponent as sXAUIcon } from '@synthetixio/assets/synths/sXAU.svg';
+import { ReactComponent as sXAUIcon } from 'assets/currencies/svg/oXAU.svg';
 import { ReactComponent as sXAGIcon } from '@synthetixio/assets/synths/sXAG.svg';
 import { ReactComponent as sOILIcon } from '@synthetixio/assets/synths/sOIL.svg';
 import { ReactComponent as iOILIcon } from '@synthetixio/assets/synths/iOIL.svg';
@@ -86,7 +86,7 @@ import { ReactComponent as iDEFIIcon } from '@synthetixio/assets/synths/iDEFI.sv
 // Forex Synths
 import { ReactComponent as sEURIcon } from '@synthetixio/assets/synths/sEUR.svg';
 // import { ReactComponent as sJPYIcon } from '@synthetixio/assets/synths/sJPY.svg';
-import { ReactComponent as sUSDIcon } from '@synthetixio/assets/synths/sUSD.svg';
+import { ReactComponent as sUSDIcon } from 'assets/currencies/svg/oUSD.svg';
 import { ReactComponent as sAUDIcon } from '@synthetixio/assets/synths/sAUD.svg';
 // import { ReactComponent as sGBPIcon } from '@synthetixio/assets/synths/sGBP.svg';
 // import { ReactComponent as sCHFIcon } from '@synthetixio/assets/synths/sCHF.svg';
@@ -262,7 +262,7 @@ export const currencyKeyToIconMap = {
 	// [SYNTHS_MAP.iETC]: { SynthIcon: iETCIcon, AssetIcon: ETCIcon },
 	//[SYNTHS_MAP.sEUR]: { SynthIcon: sEURIcon, AssetIcon: EURIcon },
 	// [SYNTHS_MAP.sJPY]: { SynthIcon: sJPYIcon, AssetIcon: JPYIcon },
-	[SYNTHS_MAP.oUSD]: { SynthIcon: sUSDIcon, AssetIcon: USDIcon },
+	[SYNTHS_MAP.oUSD]: { SynthIcon: sUSDIcon, AssetIcon: sUSDIcon },
 	//[SYNTHS_MAP.sAUD]: { SynthIcon: sAUDIcon, AssetIcon: AUDIcon },
 	// [SYNTHS_MAP.sGBP]: { SynthIcon: sGBPIcon, AssetIcon: GBPIcon },
 	// [SYNTHS_MAP.sCHF]: { SynthIcon: sCHFIcon, AssetIcon: CHFIcon },

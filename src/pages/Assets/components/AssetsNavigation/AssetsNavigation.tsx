@@ -34,12 +34,12 @@ const MENU_LINKS: Array<{ route: string; i18nKey: string; icon: React.ReactNode 
 		i18nKey: 'assets.navigation.transfers',
 		icon: <ArrowsSquareIcon />,
 	},
-	*/
+	
 	{
 		route: ROUTES.Assets.Options.Home,
 		i18nKey: 'assets.navigation.options',
 		icon: <ArrowsRotatedSquareIcon />,
-	},
+	},*/
 ];
 
 const mapStateToProps = (state: RootState) => ({

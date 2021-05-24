@@ -51,7 +51,7 @@ export const NewUserPromo = () => {
 						</PromoCardLabel>
 					</PromoCard>
 				</Link>
-				<Link to={LINKS.Trading.DexAG} isExternal={true} >
+				<Link to={LINKS.Trading.PancakeswapoUSD} isExternal={true} >
 					<PromoCard>
 						<BuysUSDIcon />
 						<PromoCardLabel>

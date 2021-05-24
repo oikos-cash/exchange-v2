@@ -16,7 +16,7 @@ import { ReactComponent as MediumLogoIcon } from 'assets/images/splash/medium-lo
 import { ReactComponent as DiscordLogoIcon } from 'assets/images/splash/discord-logo.svg';
 import { ReactComponent as GithubLogoIcon } from 'assets/images/splash/github-logo.svg';
 
-import { ReactComponent as MessariLogoIcon } from 'assets/images/splash/messari-logo.svg';
+import { ReactComponent as MessariLogoIcon } from 'assets/images/splash/cybercrime-logo.svg';
 import { ReactComponent as EthereumLogoIcon } from 'assets/images/splash/ethereum-logo.svg';
 import { ReactComponent as DefiNetworkLogoIcon } from 'assets/images/splash/defi-network-logo.svg';
 
@@ -87,14 +87,14 @@ const MISC_LINKS = [
 		icon: <MessariLogoIcon />,
 		link: LINKS.Misc.Messari,
 	},
-	{
-		icon: <EthereumLogoIcon />,
-		link: LINKS.Misc.EthereumOrg,
-	},
-	{
-		icon: <DefiNetworkLogoIcon />,
-		link: LINKS.Misc.DefiNetwork,
-	},
+	//{
+	//	icon: <EthereumLogoIcon />,
+	//	link: LINKS.Misc.EthereumOrg,
+	//},
+	//{
+	//	icon: <DefiNetworkLogoIcon />,
+	//	link: LINKS.Misc.DefiNetwork,
+	//},
 ];
 
 export const Footer: FC = () => {
@@ -136,7 +136,7 @@ export const Footer: FC = () => {
 							</FooterLink>
 						))}
 					</MiscLinks>
-					<VersionLabel>v{process.env.REACT_APP_VERSION}</VersionLabel>
+					<VersionLabel>v{"0.2.22"}</VersionLabel>
 				</StyledFlexDivRow>
 			</Content>
 		</Container>

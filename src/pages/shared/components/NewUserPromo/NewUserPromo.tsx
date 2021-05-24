@@ -7,9 +7,9 @@ import { dataLargeCSS } from 'components/Typography/Data';
 import { headingH3CSS } from 'components/Typography/Heading';
 import Link from 'components/Link';
 
-import { ReactComponent as BorrowsETHIcon } from 'assets/images/splash/borrow-sETH.svg';
-import { ReactComponent as BuysETHIcon } from 'assets/images/splash/buy-sETH.svg';
-import { ReactComponent as BuysUSDIcon } from 'assets/images/splash/buy-sUSD.svg';
+import { ReactComponent as BorrowsETHIcon } from 'assets/images/splash/borrow-oBNB.svg';
+import { ReactComponent as BuysETHIcon } from 'assets/images/splash/buy-oBNB.svg';
+import { ReactComponent as BuysUSDIcon } from 'assets/images/splash/buy-oUSD.svg';
 
 import { lightTheme } from 'styles/theme';
 

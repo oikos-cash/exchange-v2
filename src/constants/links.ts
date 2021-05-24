@@ -22,7 +22,7 @@ export const LINKS = {
 	Social: {
 		Twitter: 'https://twitter.com/oikos_cash',
 		Medium: 'https://blog.oikos.cash',
-		Discord: 'https://discordapp.com/invite/AEdUHzt',
+		Discord: 'https://t.me/oikos_cash',
 		GitHub: 'https://github.com/oikos-cash',
 	},
 	Misc: {

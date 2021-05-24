@@ -50,8 +50,8 @@ const FOOTER_LINKS = [
 				isExternal: false,
 			},
 			{
-				i18nLabel: 'home.footer.products.links.mintr',
-				link: LINKS.Products.Mintr,
+				i18nLabel: 'home.footer.products.links.minter',
+				link: LINKS.Products.Minter,
 				isExternal: true,
 			},
 			{

@@ -44,9 +44,10 @@ const SYNTH_CONTRACT_DECIMALS = 18;
 
 export const SynthInfo: FC<SynthInfoProps> = ({ synth, networkId = 56}) => {
 	const { t } = useTranslation();
-	console.log(synth)
-	const assetDesc = "";//synth.description.replace(/^Inverse /, '');
-	const assetSymbol = synth.description !== synth.asset ? ` (${synth.asset})` : '';
+	 
+	let desc = typeof synth.desc !== "undefined" ? synth.desc.replace(/^Inverse /, '') : synth.description.replace(/^Inverse /, '')
+	const assetDesc = desc;
+	const assetSymbol = synth.desc !== synth.asset ? ` (${synth.asset})` : '';
 
 	const { snxJS } = snxJSConnector;
 	// @ts-ignore

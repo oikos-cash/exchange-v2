@@ -97,6 +97,7 @@ export const fetchLoans = () => async (dispatch, getState) => {
 
 		const loans = loansResponse.map(async (loan) => {
 			const loanMetaData = await contract.getLoan(loan.account, loan.id);
+			console.log(loanMetaData)
 			const currentInterest = bigNumberFormatter(
 				loanMetaData.interest ?? loanMetaData.accruedInterest
 			);
@@ -110,12 +111,11 @@ export const fetchLoans = () => async (dispatch, getState) => {
 				//	loanId: loan.id,
 				//});
 			}
-
 			return {
 				collateralAmount: collateralAmount,
 				loanAmount: loan.amount,
-				timeCreated: 1621712189*1000, //loan.createdAt,
-				timeClosed: null,
+				timeCreated: (bigNumberFormatter(loanMetaData.timeCreated )* 1e18)*1000, //,
+				timeClosed: loanMetaData.timeClosed,
 				loanID: loan.id,
 				feesPayable: totalFees,
 				currentInterest: currentInterest,

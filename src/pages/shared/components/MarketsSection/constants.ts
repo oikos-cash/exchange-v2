@@ -8,6 +8,6 @@ export const ASSET_FILTERS = [
 		asset: SYNTHS_MAP.oBTC,
 	},
 	{
-		asset: SYNTHS_MAP.oETH,
+		asset: SYNTHS_MAP.oBNB,
 	},
 ];

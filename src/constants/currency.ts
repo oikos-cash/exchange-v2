@@ -16,7 +16,7 @@ import { ReactComponent as LINKIcon } from 'assets/currencies/crypto/LINK.svg';
 // import { ReactComponent as TRXIcon } from 'assets/currencies/crypto/TRX.svg';
 // import { ReactComponent as DASHIcon } from 'assets/currencies/crypto/DASH.svg';
 // import { ReactComponent as ETCIcon } from 'assets/currencies/crypto/ETC.svg';
-import { ReactComponent as SNXIcon } from 'assets/currencies/svg/SNX.svg';
+//import { ReactComponent as SNXIcon } from 'assets/currencies/svg/OKS.svg';
 import { ReactComponent as COMPIcon } from 'assets/currencies/crypto/COMP.svg';
 import { ReactComponent as RENIcon } from 'assets/currencies/crypto/REN.svg';
 import { ReactComponent as LENDIcon } from 'assets/currencies/crypto/LEND.svg';
@@ -162,7 +162,7 @@ export const CRYPTO_CURRENCY = [
 	'COMP',
 	'REN',
 	'LEND',
-	'SNX',
+	//'SNX',
 	'BTC',
 	'BNB',
 	'ETH',
@@ -226,7 +226,7 @@ export const CRYPTO_SYNTHS_BY_MC = {
 export const currencyKeyToIconMap = {
 	[CRYPTO_CURRENCY_MAP.BNB]: { AssetIcon: BNBIcon },
 
-	[CRYPTO_CURRENCY_MAP.SNX]: { AssetIcon: SNXIcon },
+	//[CRYPTO_CURRENCY_MAP.SNX]: { AssetIcon: SNXIcon },
 	[CRYPTO_CURRENCY_MAP.KNC]: { AssetIcon: KNCIcon },
 	[CRYPTO_CURRENCY_MAP.LEND]: { AssetIcon: LENDIcon },
 	[CRYPTO_CURRENCY_MAP.REN]: { AssetIcon: RENIcon },

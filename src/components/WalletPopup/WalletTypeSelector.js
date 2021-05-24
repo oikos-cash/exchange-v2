@@ -29,8 +29,8 @@ const { METAMASK, LEDGER/*, TREZOR, COINBASE, WALLET_CONNECT, PORTIS*/ } = SUPPO
 
 const walletTypeToIconMap = {
 	[METAMASK]: MetamaskWallet,
-	[LEDGER]: LedgerWallet,
-	/*[TREZOR]: TrezorWallet,
+	/*[LEDGER]: LedgerWallet,
+	[TREZOR]: TrezorWallet,
 	[COINBASE]: MetamaskWallet,
 	[WALLET_CONNECT]: WalletConnect,
 	[PORTIS]: Portis,*/

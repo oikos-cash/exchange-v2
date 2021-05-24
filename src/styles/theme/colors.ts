@@ -3,7 +3,7 @@ export default {
 	white: '#FFFFFF',
 	red: '#D94454',
 	hyperlink: '#A08AFF',
-	buttonDefault: '#795DF5',
-	buttonHover: '#947BFF',
+	buttonDefault: '#CDB96A',
+	buttonHover: '#F0D877',
 	icons: '#5641F2',
 };

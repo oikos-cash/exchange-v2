@@ -107,7 +107,7 @@ export const MarketsSection: FC<MarketSectionProps> = ({
 									{asset}
 								</FilterButton>
 							))}
-							<StyledButtonFilterWithDropdown
+							{/*<StyledButtonFilterWithDropdown
 								quote={marketsAssetFilter}
 								onClick={(synth: { name: CurrencyKey }) =>
 									setMarketsAssetFilter({ marketsAssetFilter: synth.name })
@@ -115,7 +115,7 @@ export const MarketsSection: FC<MarketSectionProps> = ({
 								synths={FIAT_SYNTHS.map((currency) => ({ name: currency }))}
 							>
 								{t('common.currency.fiat-synths')}
-							</StyledButtonFilterWithDropdown>
+							</StyledButtonFilterWithDropdown>*/}
 						</AssetFilters>
 						<AssetSearchInput
 							onChange={(e) => setAssetSearch(e.target.value)}

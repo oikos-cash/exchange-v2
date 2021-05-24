@@ -206,9 +206,9 @@ export const YourSynths: FC<YourSynthsProps> = memo(
 														to={LINKS.Trading.OneInchLink(currencyKey, CRYPTO_CURRENCY_MAP.BNB)}
 														isExternal={true}
 													>
-														<Button palette="primary" size="xs">
+														{/*<Button palette="primary" size="xs">
 															{t('common.actions.swap-via-1inch')}
-														</Button>
+												</Button>*/}
 													</Link>
 												)}
 												{hasMetamaskInstalled() && (

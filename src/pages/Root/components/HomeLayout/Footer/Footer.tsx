@@ -13,7 +13,7 @@ import { ROUTES } from 'constants/routes';
 
 import { ReactComponent as TwitterLogoIcon } from 'assets/images/splash/twitter-logo.svg';
 import { ReactComponent as MediumLogoIcon } from 'assets/images/splash/medium-logo.svg';
-import { ReactComponent as DiscordLogoIcon } from 'assets/images/splash/discord-logo.svg';
+import { ReactComponent as DiscordLogoIcon } from 'assets/images/splash/telegram.svg';
 import { ReactComponent as GithubLogoIcon } from 'assets/images/splash/github-logo.svg';
 
 import { ReactComponent as MessariLogoIcon } from 'assets/images/splash/cybercrime-logo.svg';

@@ -5,7 +5,7 @@ export const LINKS = {
 	Tokens: 'https://docs.oikos.cash/tokens/',
 	Trading: {
 		DexAG: 'https://dex.ag/',
-		Uniswap: 'https://uniswap.exchange/',
+		Pancakeswap: 'https://pancakeswap.finance/',
 		OneInchLink: (base: CurrencyKey, quote: CurrencyKey) =>
 			`https://1inch.exchange/#/${base}/${quote}`,
 	},
@@ -15,7 +15,7 @@ export const LINKS = {
 		Blog: 'https://blog.oikos.cash',
 	},
 	Products: {
-		Mintr: 'https://minter.oikos.cash',
+		Minter: 'https://minter.oikos.cash',
 		Dashboard: 'https://stats.oikos.cash/',
 	},
 	Social: {

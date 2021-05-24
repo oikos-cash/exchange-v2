@@ -40,7 +40,7 @@ type Props = {
 type AppHeaderProps = StateProps & Props;
 
 export const AppHeader: FC<AppHeaderProps> = (props) => {
-	const { showThemeToggle = true, isOnSplashPage, isWalletConnected, ...rest } = props;
+	const { showThemeToggle = false, isOnSplashPage, isWalletConnected, ...rest } = props;
 	const { t } = useTranslation();
 
 	const isTabletOrMobile = useMediaQuery({ query: mediumMediaQuery });

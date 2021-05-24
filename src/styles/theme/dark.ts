@@ -7,9 +7,9 @@ export const themeColors: ThemeColors = {
 	surfaceL3: '#1C1A28',
 	accentL1: '#262439',
 	accentL2: '#3B375B',
-	fontPrimary: '#FFFFFF',
-	fontSecondary: '#CACAF1',
-	fontTertiary: '#9492C4',
+	fontPrimary: '#F4D03F',
+	fontSecondary: '#F9E79F',
+	fontTertiary: '#B7950B',
 };
 
 export default themeColors;

@@ -26,22 +26,32 @@ export const NewUserPromo = () => {
 	const { t } = useTranslation();
 
 	return (
-		<Container>
+		<Container >
 			<Title>{t('home.new-user-promo.title')}</Title>
 			<Subtitle>{t('home.new-user-promo.subtitle')}</Subtitle>
-			<PromoCards>
-				<Link to={LINKS.Trading.DexAG} isExternal={true}>
+			<PromoCards >
+				{/*<Link to={LINKS.Trading.DexAG} isExternal={true}>
 					<PromoCard>
-						<BuysETHIcon />
+						<BuysETHIcon style={{}} />
 						<PromoCardLabel>
 							{t('common.currency.buy-currencyA-with-currencyB', {
-								currencyKeyA: SYNTHS_MAP.oETH,
+								currencyKeyA: SYNTHS_MAP.oBNB,
 								currencyKeyB: CRYPTO_CURRENCY_MAP.BNB,
 							})}
 						</PromoCardLabel>
 					</PromoCard>
+						</Link>*/}
+				<Link to={ROUTES.Loans}>
+					<PromoCard>
+						<BorrowsETHIcon />
+						<PromoCardLabel>
+							{t('common.currency.borrow-currency', {
+								currencyKey: SYNTHS_MAP.oBNB,
+							})}
+						</PromoCardLabel>
+					</PromoCard>
 				</Link>
-				<Link to={LINKS.Trading.DexAG} isExternal={true}>
+				<Link to={LINKS.Trading.DexAG} isExternal={true} >
 					<PromoCard>
 						<BuysUSDIcon />
 						<PromoCardLabel>
@@ -51,17 +61,7 @@ export const NewUserPromo = () => {
 							})}
 						</PromoCardLabel>
 					</PromoCard>
-				</Link>
-				<Link to={ROUTES.Loans}>
-					<PromoCard>
-						<BorrowsETHIcon />
-						<PromoCardLabel>
-							{t('common.currency.borrow-currency', {
-								currencyKey: SYNTHS_MAP.oETH,
-							})}
-						</PromoCardLabel>
-					</PromoCard>
-				</Link>
+				</Link>				
 			</PromoCards>
 		</Container>
 	);
@@ -93,7 +93,7 @@ const PromoCards = styled.div`
 	display: grid;
 	grid-gap: 40px;
 	margin-top: 56px;
-	grid-template-columns: repeat(3, minmax(205px, 280px));
+	grid-template-columns: repeat(2, minmax(205px, 280px));
 	justify-content: center;
 	${media.small`
 		grid-template-columns: minmax(205px, 280px);

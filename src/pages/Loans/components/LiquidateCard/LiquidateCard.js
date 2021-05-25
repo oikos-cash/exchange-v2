@@ -62,8 +62,7 @@ const LiquidateCard = ({
 		setTxErrorMessage(null);
 
 		let contract = EtherCollateralsUSD.contract;
-
-		try {
+ 		try {
 			const loanIDStr = selectedLiquidation.loanId.toString();
 			const loanOwner = selectedLiquidation.account;
 			const debtToCover = utils.parseEther(liquidateAmount.toString());

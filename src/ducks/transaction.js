@@ -13,7 +13,7 @@ const ADD_PENDING_TRANSACTION = 'TRANSACTION/ADD_PENDING_TRANSACTION';
 const REMOVE_PENDING_TRANSACTION = 'TRANSACTION/REMOVE_PENDING_TRANSACTION';
 
 const defaultState = {
-	gasPrice: null,
+	gasPrice:  10,
 	gasLimit: DEFAULT_GAS_LIMIT,
 	gasSpeed: {},
 	transactions: [],
@@ -136,7 +136,10 @@ export const updateTransaction = (updates, id) => {
 	};
 };
 
-export const getTransactionState = (state) => state.transaction;
+export const getTransactionState = (state) => {
+	 
+	return state.transaction;
+}
 export const getGasInfo = (state) => {
 	const { gasPrice, gasLimit, gasSpeed } = getTransactionState(state);
 	return { gasPrice, gasLimit, gasSpeed };

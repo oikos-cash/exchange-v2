@@ -10,7 +10,7 @@ const Home: FC = () => (
 		<Hero />
 		<MarketsSection isOnSplashPage={true} />
 		<NewUserPromo />
-		<ExchangeFeatures />
+		{/*<ExchangeFeatures />*/}
 	</>
 );
 

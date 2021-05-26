@@ -20,7 +20,7 @@ type UISliceState = {
 };
 
 const initialState: UISliceState = {
-	theme: userPrefersDarkTheme ? THEMES.DARK : THEMES.LIGHT,
+	theme: THEMES.DARK,// userPrefersDarkTheme ? THEMES.DARK : THEMES.LIGHT,
 	walletPopupIsVisible: false,
 	fiatCurrency: FIAT_CURRENCY_MAP.USD,
 	hideSmallValueAssets: false,

@@ -115,7 +115,7 @@ const ChartCard: FC<ChartCardProps> = ({ synthPair, isWalletConnected }) => {
 										price: `${USD_SIGN}${base.inverted.upperLimit}`,
 									})}
 								</InverseInfo>
-								<Link isExternal={true} to="https://blog.synthetix.io/inverse-synths-are-back/">
+								<Link isExternal={true} to="https://oikoscash.medium.com/inverse-synths-are-back-168ca4d8a0a0">
 									<QuestionMarkIcon>
 										<QuestionMarkStyled />
 									</QuestionMarkIcon>

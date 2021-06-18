@@ -110,6 +110,7 @@ export const YourSynths: FC<YourSynthsProps> = memo(
 
 		const tradeButtonPopoverOpen = Boolean(tradeButtonAnchorEl);
 		const id = tradeButtonPopoverOpen ? 'trade-button-popover' : undefined;
+		console.log(selectedSynth)
 		return (
 			<>
 				<StyledCard>

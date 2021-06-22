@@ -118,7 +118,7 @@ function* fetchWalletBalances() {
 			]);
 
 			const balances = { synths: synthsBalance, bnb: bnbBalance };
-
+			console.log(balances)
 			yield put(fetchWalletBalancesSuccess({ balances }));
 
 			return true;

@@ -13,7 +13,7 @@ import { getContractType } from 'ducks/loans/contractInfo';
 import { connect } from 'react-redux';
 
 const TRANSLATION_KEY = 'loans.modal.loan-trial';
-const sETH_BLOG_LINK = 'https://blog.synthetix.io/ether-collateral-second-trial/';
+const sETH_BLOG_LINK = 'https://oikoscash.medium.com/oikos-exchange-v2-bnb-collateral-f26042c862ef';
 const sUSD_BLOG_LINK = 'https://blog.synthetix.io/ether-collateral-trial-oUSD/';
 
 type LoanWarningModalProps = {

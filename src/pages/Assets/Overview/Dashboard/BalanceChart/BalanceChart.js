@@ -24,7 +24,7 @@ export const BalanceChart = ({ theme: { colors } }) => {
 					{t('assets.overview.dashboard.balance-chart.period.1mo')}
 				</CardHeadingDescription>
 			</Card.Header>
-			<StyledCardBody>
+			{/*<StyledCardBody>
 				<StyledResponsiveContainer width="99%" height="100%">
 					<AreaChart data={MOCK_DATA}>
 						<defs>
@@ -45,7 +45,7 @@ export const BalanceChart = ({ theme: { colors } }) => {
 					</AreaChart>
 				</StyledResponsiveContainer>
 				<Message>{t('common.features.coming-soon')}</Message>
-			</StyledCardBody>
+			</StyledCardBody>*/}
 		</Card>
 	);
 };

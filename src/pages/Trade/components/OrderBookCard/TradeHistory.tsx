@@ -58,7 +58,7 @@ const TradeHistory: FC<TradeHistoryProps> = memo(
 					{
 						Header: (
 							<FlexDivCentered>
-								{t('assets.exchanges.table.fee-reclaim-col')}
+								{/*{t('assets.exchanges.table.fee-reclaim-col')}
 								<StyledTooltip
 									title={
 										<>
@@ -66,10 +66,10 @@ const TradeHistory: FC<TradeHistoryProps> = memo(
 												i18nKey="assets.exchanges.table.fee-reclaim-tooltip"
 												components={[<Reclaim />, <Rebate />]}
 											/>{' '}
-											{/*<StyledLink isExternal={true} to={LINKS.Blog.HowFeeReclamationRebatesWork}>
+											{<StyledLink isExternal={true} to={LINKS.Blog.HowFeeReclamationRebatesWork}>
 												{t('common.more-info')}
 												<ArrowIcon />
-												</StyledLink>*/}
+												</StyledLink>}
 										</>
 									}
 									interactive={true}
@@ -79,7 +79,7 @@ const TradeHistory: FC<TradeHistoryProps> = memo(
 									<QuestionMarkIcon>
 										<QuestionMark />
 									</QuestionMarkIcon>
-								</StyledTooltip>
+								</StyledTooltip>*/}
 							</FlexDivCentered>
 						),
 						accessor: 'isSettled',
@@ -112,19 +112,6 @@ const TradeHistory: FC<TradeHistoryProps> = memo(
 								<span>{EMPTY_VALUE}</span>
 							);
 						},
-						sortable: true,
-					},
-					{
-						Header: <>{t('assets.exchanges.table.settled-price-col')}</>,
-						accessor: 'settledPrice',
-						sortType: 'basic',
-						Cell: (cellProps: CellProps<HistoricalTrade, HistoricalTrade['settledPrice']>) => (
-							<span>
-								{cellProps.row.original.isSettled
-									? formatCurrencyWithSign(USD_SIGN, cellProps.cell.value)
-									: EMPTY_VALUE}
-							</span>
-						),
 						sortable: true,
 					},
 			  ]

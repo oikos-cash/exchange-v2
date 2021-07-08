@@ -58,7 +58,7 @@ const TradeHistory: FC<TradeHistoryProps> = memo(
 					{
 						Header: (
 							<FlexDivCentered>
-								{{t('assets.exchanges.table.fee-reclaim-col')}
+								{t('assets.exchanges.table.fee-reclaim-col')}
 								<StyledTooltip
 									title={
 										<>
@@ -79,7 +79,7 @@ const TradeHistory: FC<TradeHistoryProps> = memo(
 									<QuestionMarkIcon>
 										<QuestionMark />
 									</QuestionMarkIcon>
-								</StyledTooltip>}
+								</StyledTooltip>
 							</FlexDivCentered>
 						),
 						accessor: 'isSettled',

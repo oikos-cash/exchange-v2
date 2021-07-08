@@ -114,6 +114,19 @@ const TradeHistory: FC<TradeHistoryProps> = memo(
 						},
 						sortable: true,
 					},
+					{
+						Header: <>{t('assets.exchanges.table.settled-price-col')}</>,
+						accessor: 'settledPrice',
+						sortType: 'basic',
+						Cell: (cellProps: CellProps<HistoricalTrade, HistoricalTrade['settledPrice']>) => (
+							<span>
+								{cellProps.row.original.isSettled
+									? formatCurrencyWithSign(USD_SIGN, cellProps.cell.value)
+									: EMPTY_VALUE}
+							</span>
+						),
+						sortable: true,
+					},					
 			  ]
 			: [];
 

@@ -23,6 +23,7 @@ export type HistoricalTrade = {
 	reclaim: number;
 	rebate: number;
 	settledPrice: number;
+	feeReclaimRebateAmount: number;
 };
 
 export type HistoricalTrades = HistoricalTrade[];

@@ -65,7 +65,6 @@ export const useTradesQuery = ({ walletAddress }: { walletAddress: string }) => 
 			enabled: walletAddress !== '' && !!settledTradesQuery.data,
 		}
 	);
-
 	return tradesQuery;
 };
 
@@ -94,8 +93,10 @@ const mergeSettledTradesQueryData = (trades: HistoricalTrades, settledTrades: Se
 			// to get the new price, we just add the price shift (which might be a negative or positive number)
 			trade.settledPrice = (feeReclaimRebateAmount / trade.toAmount) * trade.price + trade.price;
 			trade.isSettled = true;
-			trade.amount = Math.abs(feeReclaimRebateAmount);
+			trade.amount = trade.toAmountInUSD; //settledTrade.amount;
+			trade.feeReclaimRebateAmount = Math.abs(feeReclaimRebateAmount)
 		}
+		console.log(trade.toAmountInUSD)
 		return trade;
 	});
 };

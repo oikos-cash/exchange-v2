@@ -8,6 +8,14 @@ type AllTradesProps = {};
 const AllTrades: FC<AllTradesProps> = () => {
 	const allTradesQuery = useAllTradesQuery();
 
+
+	const arr = allTradesQuery.data;
+	arr?.forEach(obj => { 
+		obj.price = obj.toAmountInUSD / obj.toAmount;
+		obj.amount = obj.toAmountInUSD;
+		console.log(obj)
+	})
+	console.log(allTradesQuery.data)
 	return (
 		<TradeHistory
 			trades={allTradesQuery.data || []}

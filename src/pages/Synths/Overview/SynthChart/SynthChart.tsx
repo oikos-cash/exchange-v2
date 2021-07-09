@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import get from 'lodash/get';
 import { useTranslation } from 'react-i18next';
+import {fetchInvertedSynthParameters} from '../../../../services/rates/rates';
 
 import { SynthDefinition, getSynthsWithRatesMap, SynthDefinitionWithRatesMap } from 'ducks/synths';
 import { RootState } from 'ducks/types';
@@ -14,7 +15,7 @@ import { DEFAULT_REQUEST_REFRESH_INTERVAL } from 'constants/ui';
 import { PeriodLabel, PERIOD_LABELS_MAP } from 'constants/period';
 
 import { ReactComponent as SnowflakeIcon } from 'assets/images/snowflake.svg';
-import { formatCurrencyWithSign } from 'utils/formatters';
+import { formatCurrencyWithSign, bigNumberFormatter, toBigNumber, formatUnits } from 'utils/formatters';
 import { mockRates } from 'pages/Synths/mockData';
 import { darkTheme, lightTheme } from 'styles/theme';
 
@@ -50,6 +51,7 @@ export const SynthChart: FC<SynthChartProps> = ({
 	const [historicalRateUpdates, setHistoricalRatesUpdates] = useState<BaseRateUpdates>([]);
 	const [historicalRateChange, setHistoricalRatesChange] = useState<number | null>(0);
 	const [loading, setLoading] = useState<boolean>(true);
+	const [iPars, setIPars] = useState<any[]>([]);
 
 	const isUSD = synth.name === SYNTHS_MAP.oUSD;
 
@@ -60,6 +62,27 @@ export const SynthChart: FC<SynthChartProps> = ({
 				periods: [selectedPeriod.period],
 			});
 		}
+		async function fetchIPars() {
+			//@ts-ignore
+			const formatData = (data) => {
+				let entryPoint, lowerLimit, upperLimit
+				//@ts-ignore
+				data?.map(el => {
+					entryPoint = formatUnits(el.entryPoint, 2);
+					lowerLimit = formatUnits(el.lowerLimit, 2);
+					upperLimit = formatUnits(el.upperLimit, 2);
+				});
+				return [entryPoint, lowerLimit, upperLimit];
+			}
+			try {
+				const data = await fetchInvertedSynthParameters(synth.name);
+				const formattedData = formatData(data);
+				setIPars(formattedData);
+			} catch(err) {
+				console.log(err)
+			}			
+		}
+		fetchIPars()
 	}, [fetchHistoricalRatesRequest, synth, selectedPeriod.period, isUSD]);
 
 	useInterval(
@@ -93,6 +116,7 @@ export const SynthChart: FC<SynthChartProps> = ({
 				setLoading(true);
 			}
 		}
+
 	}, [synthsWithRatesMap, selectedPeriod, synth.name, isUSD]);
 
 	const lastPrice = get(synthsWithRatesMap, [synth.name, 'lastPrice'], null);
@@ -118,29 +142,29 @@ export const SynthChart: FC<SynthChartProps> = ({
 			synthSign={synthSign}
 			xAxisVisible={true}
 			yAxisDomain={
-				synth.inverted ? [synth.inverted.lowerLimit, synth.inverted.upperLimit] : undefined
+				synth.inverted ? [iPars[1], iPars[2]] : undefined
 			}
 			yAxisRefLines={
 				synth.inverted
 					? [
 							{
 								label: t('common.currency.lower-limit-price', {
-									price: `${synthSign}${synth.inverted.lowerLimit}`,
+									price: `${synthSign}${iPars[1]}`,
 								}),
-								value: synth.inverted.lowerLimit,
+								value: (iPars[1])*5,
 							},
 							{
 								label: t('common.currency.entry-limit-price', {
-									price: `${synthSign}${synth.inverted.entryPoint}`,
+									price: `${synthSign}${iPars[0]}`,
 								}),
-								value: synth.inverted.entryPoint,
+								value: (iPars[0])*5,
 							},
 							{
 								label: t('common.currency.upper-limit-price', {
-									price: `${synthSign}${synth.inverted.upperLimit}`,
+									price: `${synthSign}${iPars[2]}`,
 								}),
 								// TODO: this isn't an optimal solution... the label is cut when its using the true upper limit
-								value: synth.inverted.upperLimit * 0.95,
+								value: (iPars[2]) * 0.95 *5,
 							},
 					  ]
 					: undefined
@@ -151,7 +175,7 @@ export const SynthChart: FC<SynthChartProps> = ({
 						<SnowflakeIcon />
 						<FrozenMessageTitle>{t('common.currency.frozen-synth')}</FrozenMessageTitle>
 						<FrozenMessageSubtitle>
-							{lastPrice === synth.inverted.lowerLimit
+							{lastPrice === iPars[1]
 								? t('common.currency.lower-limit-reached-reset')
 								: t('common.currency.upper-limit-reached-reset')}
 						</FrozenMessageSubtitle>

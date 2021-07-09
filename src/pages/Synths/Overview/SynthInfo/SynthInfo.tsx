@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useState, useEffect } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
@@ -21,8 +21,9 @@ import { subtitleLargeCSS } from 'components/Typography/General';
 
 import { getNetworkId } from 'ducks/wallet/walletDetails';
 import { getEtherscanTokenLink } from 'utils/explorers';
-import { getDecimalPlaces } from 'utils/formatters';
 import { NetworkId } from 'utils/networkUtils';
+import { getDecimalPlaces,formatCurrencyWithSign, bigNumberFormatter, toBigNumber, formatUnits } from 'utils/formatters';
+import {fetchInvertedSynthParameters} from '../../../../services/rates/rates';
 
 type StateProps = {
 	networkId: NetworkId;
@@ -56,8 +57,34 @@ export const SynthInfo: FC<SynthInfoProps> = ({ synth, networkId = 56}) => {
 	const synthSign = USD_SIGN;
 
 	const addSign = (num: number | string) => `${synthSign}${num}`;
+	const [iPars, setIPars] = useState<any[]>([]);
+
+	useEffect(() => {
+		async function fetchIPars() {
+			//@ts-ignore
+			const formatData = (data) => {
+				let entryPoint, lowerLimit, upperLimit
+				//@ts-ignore
+				data?.map(el => {
+					entryPoint = formatUnits(el.entryPoint, 5);
+					lowerLimit = formatUnits(el.lowerLimit, 5);
+					upperLimit = formatUnits(el.upperLimit, 5);
+				});
+				return [entryPoint, lowerLimit, upperLimit];
+			}
+			try {
+				const data = await fetchInvertedSynthParameters(synth.name);
+				const formattedData = formatData(data);
+				setIPars(formattedData);
+			} catch(err) {
+				console.log(err)
+			}			
+		}
+		fetchIPars()
+	}, []);
 
 	const getInfo = () => {
+
 		if (synth.name === SYNTHS_MAP.oUSD) {
 			return t('synths.overview.info.oUSD');
 		}
@@ -191,9 +218,9 @@ export const SynthInfo: FC<SynthInfoProps> = ({ synth, networkId = 56}) => {
 						</thead>
 						<tbody>
 							<TableRowBody>
-								<td>{addSign(synth.inverted.lowerLimit)}</td>
-								<td>{addSign(synth.inverted.entryPoint)}</td>
-								<td>{addSign(synth.inverted.upperLimit)}</td>
+								<td>{addSign(iPars[1])}</td>
+								<td>{addSign(iPars[0])}</td>
+								<td>{addSign(iPars[2])}</td>
 							</TableRowBody>
 						</tbody>
 					</Table>

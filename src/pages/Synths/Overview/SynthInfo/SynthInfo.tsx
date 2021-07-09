@@ -89,17 +89,23 @@ export const SynthInfo: FC<SynthInfoProps> = ({ synth, networkId = 56}) => {
 			return t('synths.overview.info.oUSD');
 		}
 		if (synth.inverted) {
-			const { entryPoint, upperLimit, lowerLimit } = synth.inverted;
+			if (iPars.length) {
+				let entryPoint, lowerLimit, upperLimit
+				entryPoint = iPars[0]
+				lowerLimit = iPars[1]
+				upperLimit = iPars[2]
+	
+				return t('synths.overview.info.iSynth', {
+					assetDesc,
+					assetSymbol,
+					entryPoint: addSign(entryPoint),
+					upperLimit: addSign(upperLimit),
+					lowerLimit: addSign(lowerLimit),
+					roundedUpper: addSign(roundedLimit(entryPoint, upperLimit)),
+					roundedLower: addSign(roundedLimit(entryPoint, lowerLimit)),
+				});
+			}
 
-			return t('synths.overview.info.iSynth', {
-				assetDesc,
-				assetSymbol,
-				entryPoint: addSign(entryPoint),
-				upperLimit: addSign(upperLimit),
-				lowerLimit: addSign(lowerLimit),
-				roundedUpper: addSign(roundedLimit(entryPoint, upperLimit)),
-				roundedLower: addSign(roundedLimit(entryPoint, lowerLimit)),
-			});
 		}
 		if (synth.index) {
 			return (

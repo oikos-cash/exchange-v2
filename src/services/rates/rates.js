@@ -11,6 +11,9 @@ import {
 import { SYNTHS_MAP } from 'constants/currency';
 import { PERIOD_IN_HOURS } from 'constants/period';
 
+import snxJSConnector from 'utils/snxJSConnector';
+import {bytesFormatter} from 'utils/formatters';
+
 export const fetchSynthRateUpdate = async (
 	currencyKey,
 	periodInHours = PERIOD_IN_HOURS.ONE_DAY
@@ -27,7 +30,7 @@ export const fetchSynthRateUpdate = async (
 
 		const [low, high] = getMinAndMaxRate(rates);
 		const change = calculateRateChange(rates);
-
+		console.log(rates)
 		return {
 			rates: rates.reverse(),
 			low,
@@ -94,7 +97,25 @@ export const fetchSynthVolumeInUSD = async (
 	try {
 		const exchanges = await fetchExchanges(periodInHours);
 
+		console.log(exchanges)
 		return calculateTotalVolumeForExchanges(baseCurrencyKey, quoteCurrencyKey, exchanges);
+	} catch (e) {
+		return null;
+	}
+};
+
+export const fetchInvertedSynthParameters = async (
+	currencyKey,
+) => {
+	try {
+		//@ts-ignore
+		let synthParameters =  await Promise.all([
+			snxJSConnector.snxJS.ExchangeRates.inversePricing(
+			bytesFormatter(currencyKey)
+		),]);
+		console.log(synthParameters)
+
+		return synthParameters;
 	} catch (e) {
 		return null;
 	}

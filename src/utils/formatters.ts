@@ -83,6 +83,9 @@ export const bigNumberFormatter = (value: BigNumberish) =>
 
 export const getAddress = (addr: string) => (snxJSConnector as any).ethersUtils.getAddress(addr);
 
+export const formatUnits = (amt: number, decimals:number) => (snxJSConnector as any).ethersUtils.formatUnits(amt, decimals=18);
+
+
 export const formatTxTimestamp = (timestamp: number | Date) =>
 	format(timestamp, 'MMM d, yy | HH:mm');
 

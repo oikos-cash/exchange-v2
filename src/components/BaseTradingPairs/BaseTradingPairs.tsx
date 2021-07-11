@@ -13,10 +13,11 @@ type BaseTradingPairsProps = {
 const BaseTradingPairs: FC<BaseTradingPairsProps> = ({ currencyKey }) => (
 	<>
 		{BASE_TRADING_PAIRS.filter((quote) => quote !== currencyKey).map((quote) => {
-			const { base: baseCurrencyKey, quote: quoteCurrencyKey } = getMarketPairByMC(
+			let { base: baseCurrencyKey, quote: quoteCurrencyKey } = getMarketPairByMC(
 				currencyKey,
 				quote
 			);
+			baseCurrencyKey = baseCurrencyKey === undefined ? "oBNB" : baseCurrencyKey
 
 			return (
 				<Link

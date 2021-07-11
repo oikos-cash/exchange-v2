@@ -17,11 +17,12 @@ import { USD_SIGN } from 'constants/currency';
 import { Button } from 'components/Button';
 import PairListPanel from './PairListPanel';
 
-import { fetchSynthVolumeInUSD, fetchSynthRateUpdates } from 'services/rates/rates';
+import { fetchSynthVolumeInUSD, fetchSynthRateUpdates, fetchInvertedSynthParameters } from 'services/rates/rates';
 import Card from 'components/Card';
 import Link from 'components/Link';
 import { RootState } from 'ducks/types';
 import { ChartData } from './types';
+import { formatUnits } from 'utils/formatters';
 
 type StateProps = {
 	synthPair: SynthPair;
@@ -43,6 +44,7 @@ const ChartCard: FC<ChartCardProps> = ({ synthPair, isWalletConnected }) => {
 	const [volume24H, setVolume24H] = useState<number>(0);
 	const [isLoading, setIsLoading] = useState<boolean>(true);
 	const [selectedPeriod, setSelectedPeriod] = useState<PeriodLabel>(PERIOD_LABELS_MAP.ONE_DAY);
+	const [iPars, setIPars] = useState<any[]>([]);
 	const { base, quote } = synthPair;
 
 	// TODO: refactor this
@@ -87,6 +89,27 @@ const ChartCard: FC<ChartCardProps> = ({ synthPair, isWalletConnected }) => {
 			);
 			setVolume24H(totalVolume);
 		};
+		const fetchIPars = async () => {
+			//@ts-ignore
+			const formatData = (data) => {
+				let entryPoint, lowerLimit, upperLimit
+				//@ts-ignore
+				data?.map(el => {
+					entryPoint = formatUnits(el.entryPoint, 2);
+					lowerLimit = formatUnits(el.lowerLimit, 2);
+					upperLimit = formatUnits(el.upperLimit, 2);
+				});
+				return [entryPoint, lowerLimit, upperLimit];
+			}
+			try {
+				const data = await fetchInvertedSynthParameters(base.name);
+				const formattedData = formatData(data);
+				setIPars(formattedData);
+			} catch(err) {
+				console.log(err)
+			}			
+		}
+		fetchIPars();		
 		fetchChartData();
 		fetchVolumeData();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
@@ -102,17 +125,17 @@ const ChartCard: FC<ChartCardProps> = ({ synthPair, isWalletConnected }) => {
 							<InverseInfoWrap>
 								<InverseInfo>
 									{t('common.currency.lower-limit-price', {
-										price: `${USD_SIGN}${base.inverted.lowerLimit}`,
+										price: `${USD_SIGN}${iPars[1]}`,
 									})}
 								</InverseInfo>
 								<InverseInfo>
 									{t('common.currency.entry-limit-price', {
-										price: `${USD_SIGN}${base.inverted.entryPoint}`,
+										price: `${USD_SIGN}${iPars[0]}`,
 									})}
 								</InverseInfo>
 								<InverseInfo>
 									{t('common.currency.upper-limit-price', {
-										price: `${USD_SIGN}${base.inverted.upperLimit}`,
+										price: `${USD_SIGN}${iPars[2]}`,
 									})}
 								</InverseInfo>
 								<Link isExternal={true} to="https://oikoscash.medium.com/inverse-synths-are-back-168ca4d8a0a0">

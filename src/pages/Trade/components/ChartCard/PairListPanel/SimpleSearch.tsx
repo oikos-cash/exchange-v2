@@ -31,29 +31,36 @@ const SimpleSearch: FC<SimpleSearchProps> = ({
 	onAssetFilterClick,
 }) => {
 	const { t } = useTranslation();
-
+	ASSET_FILTERS[2] = "oBNB"
 	return (
 		<>
 			<StyledSearchInput
 				value={search}
 				onChange={onSearchChange}
 				placeholder={t('common.currency.try-currencyA-currencyB-or-currencyC-currencyD', {
-					currencyA: SYNTHS_MAP.oETH,
+					currencyA: SYNTHS_MAP.oBNB,
 					currencyB: SYNTHS_MAP.iBTC,
 					currencyC: CRYPTO_CURRENCY_MAP.LINK,
 					currencyD: CRYPTO_CURRENCY_MAP.BNB,
 				})}
 			/>
 			<ButtonsRow>
-				{ASSET_FILTERS.map((asset) => (
-					<StyledButton
-						key={`button-filter-${asset}`}
-						isActive={asset === marketsAssetFilter}
-						onClick={(e) => onAssetFilterClick(e, asset)}
-					>
-						{asset}
-					</StyledButton>
-				))}
+				{ASSET_FILTERS.map((asset) => {
+					console.log(asset)
+					if (asset != "oETH") {
+						return (
+							<StyledButton
+								key={`button-filter-${asset}`}
+								isActive={asset === marketsAssetFilter}
+								onClick={(e) => onAssetFilterClick(e, asset)}
+							>
+								{asset}
+							</StyledButton>
+						) 
+					}
+
+				})
+				}
 				<IconButton onClick={onAdvancedSearchClick}>
 					<CogIcon />
 				</IconButton>

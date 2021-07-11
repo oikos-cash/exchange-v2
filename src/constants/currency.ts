@@ -175,7 +175,7 @@ export const CRYPTO_CURRENCY = [
 	'XMR',
 	'ADA',
 	'LINK',
-	'TRX',
+	//'TRX',
 	'DASH',
 	'ETC',
 ];
@@ -287,9 +287,15 @@ export const toMarketPair = (baseCurrencyKey: CurrencyKey, quoteCurrencyKey: Cur
 	`${baseCurrencyKey}-${quoteCurrencyKey}`;
 
 // TODO: replace this with a more robust logic (like checking the asset field)
-export const toInverseSynth = (currencyKey: CurrencyKey) => currencyKey.replace(/^s/i, 'i');
-export const toStandardSynth = (currencyKey: CurrencyKey) => currencyKey.replace(/^i/i, 's');
-export const synthToAsset = (currencyKey: CurrencyKey) => currencyKey.replace(/^(i|s)/i, '');
+export const toInverseSynth = (currencyKey: CurrencyKey) => {
+	console.log(currencyKey.replace(/^o/i, 'i'))
+	return currencyKey.replace(/^o/i, 'i');
+}
+	export const toStandardSynth = (currencyKey: CurrencyKey) => {
+	console.log(currencyKey.replace(/^i/i, 'o'))
+	return currencyKey.replace(/^i/i, 'o');
+}
+export const synthToAsset = (currencyKey: CurrencyKey) => currencyKey.replace(/^(i|o)/i, '');
 
 export const oUSD_EXCHANGE_RATE = 1;
 

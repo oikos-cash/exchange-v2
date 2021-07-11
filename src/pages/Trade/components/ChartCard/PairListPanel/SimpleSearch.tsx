@@ -84,38 +84,3 @@ const StyledSearchInput = styled(SearchInput)`
 `;
 
 export default SimpleSearch;
-
-			/>
-			<ButtonsRow>
-				{ASSET_FILTERS.map((asset) => (
-					<StyledButton
-						key={`button-filter-${asset}`}
-						isActive={asset === marketsAssetFilter}
-						onClick={(e) => onAssetFilterClick(e, asset)}
-					>
-						{asset}
-					</StyledButton>
-				))}
-				<IconButton onClick={onAdvancedSearchClick}>
-					<CogIcon />
-				</IconButton>
-			</ButtonsRow>
-		</>
-	);
-};
-
-const ButtonsRow = styled.div`
-	display: grid;
-	grid-template-columns: 1fr 1fr 1fr auto;
-	grid-gap: 8px;
-`;
-
-const StyledSearchInput = styled(SearchInput)`
-	.search-input {
-		&::placeholder {
-			text-transform: none;
-		}
-	}
-`;
-
-export default SimpleSearch;

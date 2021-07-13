@@ -55,8 +55,8 @@ export const matchPairRates = (baseRates, quoteRates) => {
 export const calculateTimestampForPeriod = (periodInHours) =>
 	Math.trunc(subHours(new Date().getTime(), periodInHours).getTime() / 1000);
 
-export const calculateTotalVolumeForExchanges = (baseCurrencyKey, quoteCurrencyKey, exchanges) =>
-	exchanges
+export const calculateTotalVolumeForExchanges = (baseCurrencyKey, quoteCurrencyKey, exchanges) => {
+	return exchanges
 		.filter(
 			(exchange) =>
 				(exchange.fromCurrencyKey === quoteCurrencyKey &&
@@ -65,6 +65,11 @@ export const calculateTotalVolumeForExchanges = (baseCurrencyKey, quoteCurrencyK
 					exchange.toCurrencyKey === quoteCurrencyKey)
 		)
 		.reduce((totalVolume, exchange) => {
-			totalVolume += exchange.fromAmountInUSD;
+			if (quoteCurrencyKey != "oUSD") {
+				totalVolume += exchange.toAmountInUSD;
+			} else {
+				totalVolume += exchange.fromAmountInUSD;
+			}
 			return totalVolume;
 		}, 0);
+}

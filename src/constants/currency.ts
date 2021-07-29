@@ -87,6 +87,10 @@ import { ReactComponent as iDEFIIcon } from '@synthetixio/assets/synths/iDEFI.sv
 import { ReactComponent as sEURIcon } from '@synthetixio/assets/synths/sEUR.svg';
 // import { ReactComponent as sJPYIcon } from '@synthetixio/assets/synths/sJPY.svg';
 import { ReactComponent as sUSDIcon } from 'assets/currencies/svg/oUSD.svg';
+import { ReactComponent as oCAKEIcon } from 'assets/currencies/svg/oCAKE.svg';
+import { ReactComponent as oDOTIcon } from 'assets/currencies/svg/oDOT.svg';
+import { ReactComponent as oICPIcon } from 'assets/currencies/svg/oICP.svg';
+
 import { ReactComponent as sAUDIcon } from '@synthetixio/assets/synths/sAUD.svg';
 // import { ReactComponent as sGBPIcon } from '@synthetixio/assets/synths/sGBP.svg';
 // import { ReactComponent as sCHFIcon } from '@synthetixio/assets/synths/sCHF.svg';
@@ -146,6 +150,9 @@ export const SYNTHS = [
 	//'sEUR',
 	// 'sJPY',
 	'oUSD',
+	'oCAKE',
+	'oDOT',
+	'oICP',
 	//'sAUD',
 	// 'sGBP',
 	// 'sCHF',
@@ -178,6 +185,9 @@ export const CRYPTO_CURRENCY = [
 	//'TRX',
 	'DASH',
 	'ETC',
+	'CAKE',
+	'DOT',
+	'ICP'
 ];
 
 export const CRYPTO_CURRENCY_MAP = keyBy(CRYPTO_CURRENCY);
@@ -214,6 +224,9 @@ export const CRYPTO_SYNTHS_BY_MC = {
 	//[SYNTHS_MAP.iLTC]: 19,
 	// [SYNTHS_MAP.iEOS]: 20,
 	[SYNTHS_MAP.iBNB]: 21,
+	[SYNTHS_MAP.oCAKE]: 22,
+	[SYNTHS_MAP.oDOT]: 23,
+	[SYNTHS_MAP.oICP]: 24
 	//[SYNTHS_MAP.iXTZ]: 22,
 	// [SYNTHS_MAP.iXMR]: 23,
 	//[SYNTHS_MAP.iADA]: 24,
@@ -231,6 +244,9 @@ export const currencyKeyToIconMap = {
 	[CRYPTO_CURRENCY_MAP.LEND]: { AssetIcon: LENDIcon },
 	[CRYPTO_CURRENCY_MAP.REN]: { AssetIcon: RENIcon },
 	[CRYPTO_CURRENCY_MAP.COMP]: { AssetIcon: COMPIcon },
+	[SYNTHS_MAP.oCAKE]: { SynthIcon: oCAKEIcon, AssetIcon: oCAKEIcon },
+	[SYNTHS_MAP.oDOT]: { SynthIcon: oDOTIcon, AssetIcon: oDOTIcon },
+	[SYNTHS_MAP.oICP]: { SynthIcon: oICPIcon, AssetIcon: oICPIcon },
 
 	[SYNTHS_MAP.oBTC]: { SynthIcon: sBTCIcon, AssetIcon: BTCIcon },
 	[SYNTHS_MAP.oETH]: { SynthIcon: sETHIcon, AssetIcon: ETHIcon },

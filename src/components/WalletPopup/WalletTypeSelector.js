@@ -68,7 +68,7 @@ const WalletTypeSelector = ({
 			if (walletStatus.walletType === BSCWALLET) {
 				onBSCWalletNetworkChange(async (accounts) => {
 					if (accounts && accounts.length > 0) {
-						const signer = new snxJSConnector.signers[METAMASK]({});
+						const signer = new snxJSConnector.signers[BSCWALLET]({});
 						snxJSConnector.setContractSettings({
 							networkId: 56,//walletStatus.networkId,
 							signer,

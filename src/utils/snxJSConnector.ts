@@ -130,6 +130,48 @@ const connectToBSCWallet = async (networkId: NetworkId, networkName: string) => 
 	}
 };
 
+const connectToMathWallet = async (networkId: NetworkId, networkName: string) => {
+	const walletState = {
+		walletType: SUPPORTED_WALLETS_MAP.MATHWALLET,
+		unlocked: false,
+	};
+	try {
+		// Otherwise we enable ethereum if needed (modern browsers)
+		//@ts-ignore
+		if (window.ethereum.isMathWallet) {
+			//@ts-ignore
+			window.ethereum.autoRefreshOnNetworkChange = true;
+			//@ts-ignore
+			await window.ethereum.enable();
+		}
+		//@ts-ignore
+		const account = await window.ethereum.address;
+		if (account) {
+			return {
+				...walletState,
+				currentWallet: account,
+				walletType: 'MathWallet',
+				unlocked: true,
+				networkId,
+				networkName: "bsc" //networkName.toLowerCase(),
+			};
+		} else {
+			return {
+				...walletState,
+				unlockError: 'Please connect to MathWallet',
+			};
+		}
+		// We updateWalletStatus with all the infos
+	} catch (e) {
+		console.log(e);
+		return {
+			...walletState,
+			unlockError: e.message,
+		};
+	}
+};
+
+
 const connectToCoinbase = async (networkId: NetworkId, networkName: string) => {
 	const walletState = {
 		walletType: SUPPORTED_WALLETS_MAP.COINBASE,
@@ -272,6 +314,9 @@ export const setSigner = ({
 	derivationPath: string;
 	networkName: string;
 }) => {
+	//type = type == "MathWallet" ? type = "Metamask" : type;
+	console.log(`Type is ${type}`)
+	console.log(snxJSConnector.signers)
 	// @ts-ignore
 	const signer = new snxJSConnector.signers[type](
 		getSignerConfig({ type, networkId, derivationPath, networkName })
@@ -307,7 +352,9 @@ export const connectToWallet = async ({
 		case SUPPORTED_WALLETS_MAP.BSCWALLET:
 			return connectToBSCWallet(networkId, name);
 		case SUPPORTED_WALLETS_MAP.METAMASK:
-			return connectToMetamask(networkId, name);			
+			return connectToMetamask(networkId, name);	
+		case SUPPORTED_WALLETS_MAP.MATHWALLET:
+			return connectToMathWallet(networkId, name);						
 		case SUPPORTED_WALLETS_MAP.COINBASE:
 			return connectToCoinbase(networkId, name);
 		case SUPPORTED_WALLETS_MAP.WALLET_CONNECT:

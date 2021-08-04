@@ -72,7 +72,7 @@ const connectToMetamask = async (networkId: NetworkId, networkName: string) => {
 				currentWallet: accounts[0],
 				unlocked: true,
 				networkId,
-				networkName: "bsc",//networkName.toLowerCase(),
+				networkName: "bsc" //networkName.toLowerCase(),
 			};
 		} else {
 			return {
@@ -81,6 +81,46 @@ const connectToMetamask = async (networkId: NetworkId, networkName: string) => {
 			};
 		}
 		// We updateWalletReducer with all the infos
+	} catch (e) {
+		console.log(e);
+		return {
+			...walletState,
+			unlockError: e.message,
+		};
+	}
+};
+
+const connectToBSCWallet = async (networkId: NetworkId, networkName: string) => {
+	const walletState = {
+		walletType: SUPPORTED_WALLETS_MAP.BSCWALLET,
+		unlocked: false,
+	};
+	try {
+		// Otherwise we enable ethereum if needed (modern browsers)
+		//@ts-ignore
+		if (window.BinanceChain) {
+			//@ts-ignore
+			window.BinanceChain.autoRefreshOnNetworkChange = true;
+			//@ts-ignore
+			await window.BinanceChain.enable();
+		}
+		const accounts = await snxJSConnector.signer.getNextAddresses();
+		if (accounts && accounts.length > 0) {
+			return {
+				...walletState,
+				currentWallet: accounts[0],
+				walletType: 'BSCWallet',
+				unlocked: true,
+				networkId,
+				networkName: "bsc" //networkName.toLowerCase(),
+			};
+		} else {
+			return {
+				...walletState,
+				unlockError: 'Please connect to BSC Wallet',
+			};
+		}
+		// We updateWalletStatus with all the infos
 	} catch (e) {
 		console.log(e);
 		return {
@@ -264,8 +304,10 @@ export const connectToWallet = async ({
 	setSigner({ type: wallet, networkId, derivationPath, networkName: name });
 
 	switch (wallet) {
+		case SUPPORTED_WALLETS_MAP.BSCWALLET:
+			return connectToBSCWallet(networkId, name);
 		case SUPPORTED_WALLETS_MAP.METAMASK:
-			return connectToMetamask(networkId, name);
+			return connectToMetamask(networkId, name);			
 		case SUPPORTED_WALLETS_MAP.COINBASE:
 			return connectToCoinbase(networkId, name);
 		case SUPPORTED_WALLETS_MAP.WALLET_CONNECT:

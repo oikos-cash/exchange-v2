@@ -28,6 +28,7 @@ export const PORTIS_APP_ID = '26e198be-a8bb-4240-ad78-ae88579085bc';
 
 export type WalletType =
 	| 'METAMASK'
+	| 'BSCWALLET'
 	| 'TREZOR'
 	| 'LEDGER'
 	| 'COINBASE'
@@ -36,6 +37,7 @@ export type WalletType =
 
 export const SUPPORTED_WALLETS_MAP: Record<WalletType, string> = {
 	METAMASK: 'Metamask',
+	BSCWALLET: 'BSCWallet',
 	TREZOR: 'Trezor',
 	LEDGER: 'Ledger',
 	COINBASE: 'Coinbase',
@@ -141,8 +143,26 @@ export function onMetamaskNetworkChange(cb: () => void) {
 	window.ethereum.on('networkChanged', listener);
 }
 
+//@ts-ignore
+export function onBSCWalletNetworkChange(cb) {
+	//@ts-ignore
+	if (!window.BinanceChain) return;
+	const listener = throttle(cb, 1000);
+	//@ts-ignore
+	window.BinanceChain.on('networkChanged', listener);
+}
+
 export function hasMetamaskInstalled() {
 	return window.ethereum?.isMetaMask || false;
 }
+
+export function hasBSCWalletInstalled() {
+	//@ts-ignore	
+	console.log(window.BinanceChain?.isMetaMask)
+	//@ts-ignore
+	return window.BinanceChain?.isMetaMask || false;
+}
+
+
 
 export const isMainNet = (networkId: NetworkId) => networkId === 56;

@@ -9,6 +9,7 @@ import {
 	SUPPORTED_WALLETS,
 	SUPPORTED_WALLETS_MAP,
 	onMetamaskAccountChange,
+	onBSCWalletNetworkChange,
 } from 'utils/networkUtils';
 import { updateWalletReducer, resetWalletReducer } from 'ducks/wallet/walletDetails';
 import { toggleWalletPopup } from 'ducks/ui';
@@ -19,16 +20,19 @@ import { headingH3CSS, headingH5CSS } from 'components/Typography/Heading';
 //import { ReactComponent as CoinbaseWallet } from 'assets/images/wallets/coinbase.svg';
 import { ReactComponent as LedgerWallet } from 'assets/images/wallets/ledger.svg';
 import { ReactComponent as MetamaskWallet } from 'assets/images/wallets/metamask.svg';
+import { ReactComponent as BSCWallet } from 'assets/images/wallets/BSCWallet.svg';
+
 import { ReactComponent as TrezorWallet } from 'assets/images/wallets/trezor.svg';
 import { ReactComponent as WalletConnect } from 'assets/images/wallets/walletConnect.svg';
 import { ReactComponent as Portis } from 'assets/images/wallets/portis.svg';
 
 import { media } from 'shared/media';
 
-const { METAMASK, LEDGER/*, TREZOR, COINBASE, WALLET_CONNECT, PORTIS*/ } = SUPPORTED_WALLETS_MAP;
+const { METAMASK, BSCWALLET, LEDGER /*, TREZOR, COINBASE, WALLET_CONNECT, PORTIS*/ } = SUPPORTED_WALLETS_MAP;
 
 const walletTypeToIconMap = {
 	[METAMASK]: MetamaskWallet,
+	[BSCWALLET]: BSCWallet,
 	/*[LEDGER]: LedgerWallet,
 	[TREZOR]: TrezorWallet,
 	[COINBASE]: MetamaskWallet,
@@ -61,6 +65,18 @@ const WalletTypeSelector = ({
 					}
 				});
 			}
+			if (walletStatus.walletType === BSCWALLET) {
+				onBSCWalletNetworkChange(async (accounts) => {
+					if (accounts && accounts.length > 0) {
+						const signer = new snxJSConnector.signers[METAMASK]({});
+						snxJSConnector.setContractSettings({
+							networkId: 56,//walletStatus.networkId,
+							signer,
+						});
+						updateWalletReducer({ currentWallet: accounts[0] });
+					}
+				});
+			}			
 			toggleWalletPopup(false);
 		} else selectAddressScreen();
 	};

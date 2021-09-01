@@ -5,7 +5,7 @@ export const LINKS = {
 	Tokens: 'https://docs.oikos.cash/tokens/',
 	Trading: {
 		DexAG: 'https://dex.ag/',
-		PancakeswapoUSD: 'https://pancakeswap.finance/swap?inputCurrency=BNB&outputCurrency=0x6b175474e89094c44da98b954eedeac495271d0f',
+		PancakeswapoUSD: 'https://pancakeswap.finance/swap/swap?inputCurrency=BNB&outputCurrency=0x6b175474e89094c44da98b954eedeac495271d0f',
 		Pancakeswap: 'https://pancakeswap.finance/',
 		OneInchLink: (base: CurrencyKey, quote: CurrencyKey) =>
 			`https://1inch.exchange/#/${base}/${quote}`,

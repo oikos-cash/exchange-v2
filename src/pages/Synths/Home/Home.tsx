@@ -7,8 +7,8 @@ import Hero from './Hero';
 export const Home: FC = () => (
 	<>
 		<Hero />
+		{/*<NewUserPromo />*/}
 		<SynthsSection />
-		<NewUserPromo />
 	</>
 );
 

@@ -13,7 +13,7 @@ const ADD_PENDING_TRANSACTION = 'TRANSACTION/ADD_PENDING_TRANSACTION';
 const REMOVE_PENDING_TRANSACTION = 'TRANSACTION/REMOVE_PENDING_TRANSACTION';
 
 const defaultState = {
-	gasPrice:  10,
+	gasPrice:  5,
 	gasLimit: DEFAULT_GAS_LIMIT,
 	gasSpeed: {},
 	transactions: [],

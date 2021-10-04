@@ -26,10 +26,8 @@ export const NewUserPromo = () => {
 	const { t } = useTranslation();
 
 	return (
-		<Container >
-			<Title>{t('home.new-user-promo.title')}</Title>
-			<Subtitle>{t('home.new-user-promo.subtitle')}</Subtitle>
-			<PromoCards >
+		<Container style={{backgroundColor:"#0E0D14", padding:"0 0"}}>
+			<PromoCards style={{backgroundColor:"#0E0D14", padding:"0 0"}}>
 				{/*<Link to={LINKS.Trading.DexAG} isExternal={true}>
 					<PromoCard>
 						<BuysETHIcon style={{}} />
@@ -42,9 +40,9 @@ export const NewUserPromo = () => {
 					</PromoCard>
 						</Link>*/}
 				<Link to={ROUTES.Loans}>
-					<PromoCard>
-						<BorrowsETHIcon />
-						<PromoCardLabel>
+					<PromoCard style={{backgroundColor:"#0E0D14", color:"white"}}>
+						<BorrowsETHIcon style={{marginTop:"-20px"}}/>
+						<PromoCardLabel style={{ color:"white", width:"180px"}}>
 							{t('common.currency.borrow-currency', {
 								currencyKey: SYNTHS_MAP.oBNB,
 							})}
@@ -52,16 +50,17 @@ export const NewUserPromo = () => {
 					</PromoCard>
 				</Link>
 				<Link to={LINKS.Trading.PancakeswapoUSD} isExternal={true} >
-					<PromoCard>
-						<BuysUSDIcon />
-						<PromoCardLabel>
+					<PromoCard  style={{backgroundColor:"#0E0D14", color:"white"}}>
+						<BuysUSDIcon style={{marginTop:"-20px"}}/>
+						<PromoCardLabel style={{ color:"white"}}>
 							{t('common.currency.buy-currencyA-with-currencyB', {
 								currencyKeyA: SYNTHS_MAP.oUSD,
 								currencyKeyB: CRYPTO_CURRENCY_MAP.BNB,
 							})}
 						</PromoCardLabel>
 					</PromoCard>
-				</Link>				
+				</Link>	
+							
 			</PromoCards>
 		</Container>
 	);
@@ -109,7 +108,7 @@ const PromoCard = styled.div`
 	box-shadow: 0px 4px 11px rgba(209, 209, 232, 0.25);
 	border-radius: 2px;
 	box-sizing: border-box;
-	height: 180px;
+	height: 160px;
 	grid-template-rows: 1fr auto;
 	justify-items: center;
 	${shiftUpHoverEffectCSS};

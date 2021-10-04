@@ -8,8 +8,8 @@ import ExchangeFeatures from './ExchangeFeatures';
 const Home: FC = () => (
 	<>
 		<Hero />
-		<MarketsSection isOnSplashPage={true} />
 		<NewUserPromo />
+		<MarketsSection isOnSplashPage={true} />
 		{/*<ExchangeFeatures />*/}
 	</>
 );

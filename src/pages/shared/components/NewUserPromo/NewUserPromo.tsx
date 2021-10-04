@@ -39,16 +39,6 @@ export const NewUserPromo = () => {
 						</PromoCardLabel>
 					</PromoCard>
 						</Link>*/}
-				<Link to={ROUTES.Loans}>
-					<PromoCard style={{backgroundColor:"#0E0D14", color:"white"}}>
-						<BorrowsETHIcon style={{marginTop:"-20px"}}/>
-						<PromoCardLabel style={{ color:"white", width:"180px"}}>
-							{t('common.currency.borrow-currency', {
-								currencyKey: SYNTHS_MAP.oBNB,
-							})}
-						</PromoCardLabel>
-					</PromoCard>
-				</Link>
 				<Link to={LINKS.Trading.PancakeswapoUSD} isExternal={true} >
 					<PromoCard  style={{backgroundColor:"#0E0D14", color:"white"}}>
 						<BuysUSDIcon style={{marginTop:"-20px"}}/>
@@ -60,7 +50,16 @@ export const NewUserPromo = () => {
 						</PromoCardLabel>
 					</PromoCard>
 				</Link>	
-							
+				<Link to={ROUTES.Loans}>
+					<PromoCard style={{backgroundColor:"#0E0D14", color:"white"}}>
+						<BorrowsETHIcon style={{marginTop:"-20px"}}/>
+						<PromoCardLabel style={{ color:"white", width:"180px"}}>
+							{t('common.currency.borrow-currency', {
+								currencyKey: SYNTHS_MAP.oBNB,
+							})}
+						</PromoCardLabel>
+					</PromoCard>
+				</Link>							
 			</PromoCards>
 		</Container>
 	);

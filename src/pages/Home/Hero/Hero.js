@@ -9,11 +9,14 @@ import { darkTheme } from 'styles/theme';
 export const Hero = () => {
 	const { t } = useTranslation();
 
+//t('home.hero.title')
+//t('home.hero.subtitle')
+
 	return (
 		<Container>
 			<Content>
-				<HeroTitle>{t('home.hero.title')}</HeroTitle>
-				<HeroSubtitle>{t('home.hero.subtitle')}</HeroSubtitle>
+				<HeroTitle>{"Welcome to Oikos Exchange"}</HeroTitle>
+				<HeroSubtitle>{"To get started obtain oUSD or oBNB by choosing from one of the options below"}</HeroSubtitle>
 			</Content>
 		</Container>
 	);

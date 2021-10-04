@@ -8,12 +8,13 @@ import { darkTheme } from 'styles/theme';
 
 export const Hero = () => {
 	const { t } = useTranslation();
-
+	//t('home.hero.title')
+	//t('home.hero.subtitle').
 	return (
 		<Container>
 			<Content>
-				<HeroTitle>{t('home.hero.title')}</HeroTitle>
-				<HeroSubtitle>{t('home.hero.subtitle')}</HeroSubtitle>
+				<HeroTitle>{"Craft a diverse portfolio of assets"}</HeroTitle>
+				<HeroSubtitle>{"On-chain exposure to crypto derivatives with zero slippage and infinite liquidity"}</HeroSubtitle>
 			</Content>
 		</Container>
 	);

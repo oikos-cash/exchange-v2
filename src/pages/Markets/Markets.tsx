@@ -7,6 +7,7 @@ import Hero from './Hero/index.js';
 export const Markets = () => (
 	<>
 	    <Hero />
+		<NewUserPromo />
 		<MarketsSection />
 	</>
 );

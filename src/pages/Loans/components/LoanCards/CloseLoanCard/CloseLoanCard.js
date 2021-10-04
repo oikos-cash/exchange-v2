@@ -39,6 +39,7 @@ export const CloseLoanCard = ({
 	contractType,
 	notify,
 }) => {
+	console.log(gasInfo)
 	const { t } = useTranslation();
 
 	const [gasLimit] = useState(gasInfo.gasLimit);
@@ -92,7 +93,7 @@ export const CloseLoanCard = ({
 			console.log(`closing loan ${loanIDStr}`)
 			//TODO fix gas price gasInfo.gasPrice
 			let tx = await ContractWithSigner.closeLoan(loanIDStr, {
-				gasPrice: 15 * GWEI_UNIT,
+				gasPrice: 5 * GWEI_UNIT,
 				gasLimit: 600000,
 			});
 /*

@@ -4,6 +4,8 @@ import memoizeOne from 'memoize-one';
 // Crypto
 import { ReactComponent as BTCIcon } from 'assets/currencies/crypto/BTC.svg';
 import { ReactComponent as ETHIcon } from 'assets/currencies/crypto/ETH.svg';
+import { ReactComponent as VBNBIcon } from 'assets/currencies/crypto/VBNB.svg';
+
 import { ReactComponent as XRPIcon } from 'assets/currencies/crypto/XRP.svg';
 import { ReactComponent as BCHIcon } from 'assets/currencies/crypto/BCH.svg';
 import { ReactComponent as LTCIcon } from 'assets/currencies/crypto/LTC.svg';
@@ -187,7 +189,8 @@ export const CRYPTO_CURRENCY = [
 	'ETC',
 	'CAKE',
 	'DOT',
-	'ICP'
+	'ICP',
+	'VBNB'
 ];
 
 export const CRYPTO_CURRENCY_MAP = keyBy(CRYPTO_CURRENCY);
@@ -238,7 +241,7 @@ export const CRYPTO_SYNTHS_BY_MC = {
 
 export const currencyKeyToIconMap = {
 	[CRYPTO_CURRENCY_MAP.BNB]: { AssetIcon: BNBIcon },
-
+	[CRYPTO_CURRENCY_MAP.VBNB]: { AssetIcon: VBNBIcon },
 	//[CRYPTO_CURRENCY_MAP.SNX]: { AssetIcon: SNXIcon },
 	[CRYPTO_CURRENCY_MAP.KNC]: { AssetIcon: KNCIcon },
 	[CRYPTO_CURRENCY_MAP.LEND]: { AssetIcon: LENDIcon },

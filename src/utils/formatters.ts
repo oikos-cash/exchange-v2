@@ -4,7 +4,7 @@ import format from 'date-fns/format';
 
 import snxJSConnector from './snxJSConnector';
 import { CurrencyKey } from 'constants/currency';
-import { BigNumberish } from 'ethers/utils';
+import { BigNumberish } from 'ethers-utils';
 
 const DEFAULT_CURRENCY_DECIMALS = 2;
 export const FIAT_CURRENCY_DECIMALS = 2;
@@ -78,9 +78,14 @@ export const bytesFormatter = (input: string) =>
 export const parseBytes32String = (input: string) =>
 	(snxJSConnector as any).ethersUtils.parseBytes32String(input);
 
+//@ts-ignore
 export const bigNumberFormatter = (value: BigNumberish) =>
 	Number((snxJSConnector as any).utils.formatEther(value));
 
+//@ts-ignore
+export const bigNumberFormatter1 = (value: BigNumberish) =>
+	value / 10 ** 8;
+	
 export const getAddress = (addr: string) => (snxJSConnector as any).ethersUtils.getAddress(addr);
 
 export const formatUnits = (amt: number, decimals:number) => (snxJSConnector as any).ethersUtils.formatUnits(amt, decimals=18);

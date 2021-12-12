@@ -58,32 +58,35 @@ export const CreateLoanCard = ({
 
 	const { collateralCurrencyKey, loanCurrencyKey, issuanceRatio, minLoanSize } = collateralPair;
 
-	const onLoanModalConfirmation = () => {
-		setIsLoanConfirmationModalOpen(false);
-		handleSubmit();
-	};
+	//const onLoanModalConfirmation = () => {
+	//	setIsLoanConfirmationModalOpen(false);
+	//	handleSubmit();
+	//};
 
 	const handleSubmit = async () => {
 		const {
 			snxJS: { BNBCollateral },
 			utils,
+			signer,
 		} = snxJSConnector;
 
 		setTxErrorMessage(null);
 
 		try {
+			let contract = BNBCollateral.contract;
+			const ContractWithSigner = contract.connect(signer);
+
 			const openLoanArgs = {
 				value: utils.parseEther(collateralAmount),
 				gasPrice: gasInfo.gasPrice * GWEI_UNIT,
 				gasLimit,
 			};
-
-			const gasEstimate = await BNBCollateral.contract.estimateGas.openLoan(openLoanArgs);
+			const gasEstimate = 1e9; //await ContractWithSigner.estimateGas.openLoan(openLoanArgs);
 			const updatedGasEstimate = normalizeGasLimit(Number(gasEstimate));
 
 			setLocalGasLimit(updatedGasEstimate);
 
-			const tx = await BNBCollateral.openLoan({
+			const tx = await ContractWithSigner.openLoan({
 				...openLoanArgs,
 				gasLimit: updatedGasEstimate,
 			});
@@ -101,6 +104,7 @@ export const CreateLoanCard = ({
 				});
 			}
 		} catch (e) {
+			console.log(e)
 			setTxErrorMessage(t('common.errors.unknown-error-try-again'));
 		}
 	};
@@ -196,7 +200,7 @@ export const CreateLoanCard = ({
 				<NetworkInfo gasPrice={gasInfo.gasPrice} gasLimit={gasLimit} ethRate={ethRate} />
 				<ButtonPrimary
 					disabled={!collateralAmount || !loanAmount || !currentWallet || hasError}
-					onClick={() => setIsLoanConfirmationModalOpen(true)}
+					onClick={() => handleSubmit()}
 				>
 					{t('common.actions.submit')}
 				</ButtonPrimary>
@@ -229,11 +233,11 @@ export const CreateLoanCard = ({
 					</TxErrorMessage>
 				)}
 			</Card.Body>
-		{/*<LoanWarningModal
-				isOpen={isLoanConfirmationModalOpen}
-				onClose={() => setIsLoanConfirmationModalOpen(false)}
-				onConfirm={() => onLoanModalConfirmation()}
-		/>*/}
+			{/*<LoanWarningModal
+					isOpen={isLoanConfirmationModalOpen}
+					onClose={() => setIsLoanConfirmationModalOpen(false)}
+					onConfirm={() => onLoanModalConfirmation()}
+			/>*/}
 		</Card>
 	);
 };

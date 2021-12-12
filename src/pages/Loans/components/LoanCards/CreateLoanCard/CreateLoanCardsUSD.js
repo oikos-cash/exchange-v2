@@ -280,7 +280,7 @@ export const CreateLoanCardsUSD = ({
 				<NetworkInfo gasPrice={gasInfo.gasPrice} gasLimit={gasLimit} ethRate={ethRate} />
 				<ButtonPrimary
 					disabled={!collateralAmount || !loanAmount || !currentWallet || hasError}
-					onClick={() => setIsLoanConfirmationModalOpen(true)}
+					onClick={() => handleSubmit()}
 				>
 					{t('common.actions.submit')}
 				</ButtonPrimary>

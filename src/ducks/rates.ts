@@ -3,10 +3,10 @@ import get from 'lodash/get';
  
 import snxJSConnector from '../utils/snxJSConnector';
 import { bigNumberFormatter, parseBytes32String, bytesFormatter } from '../utils/formatters';
-import { SYNTHS_MAP, CurrencyKey } from '../constants/currency';
+import { SYNTHS_MAP, CurrencyKey, CRYPTO_CURRENCY_MAP } from '../constants/currency';
 import { RootState } from './types';
 import { takeLatest, put, select} from 'redux-saga/effects';
-import { FetchRates } from '../dataFetcher';
+import { FetchRates, fetchVBNBRate} from '../dataFetcher';
 
 import { getAvailableSynths } from './synths';
 
@@ -74,10 +74,16 @@ export const getIsRefreshingRates = (state: RootState) => getRatesState(state).i
 export const getIsLoadedRates = (state: RootState) => getRatesState(state).isLoaded;
 export const getRatesLoadingError = (state: RootState) => getRatesState(state).loadingError;
 export const getRatesExchangeRates = (state: RootState) => getRatesState(state).exchangeRates;
+
 export const getEthRate = createSelector(getRatesExchangeRates, (exchangeRates) =>
 	//@ts-ignore
 	get(exchangeRates, SYNTHS_MAP.oBNB, null) !== null ? bigNumberFormatter(get(exchangeRates, SYNTHS_MAP.oBNB, null)) : 0
 	
+);
+ 
+export const getVBNBRate = createSelector(getRatesExchangeRates, (exchangeRates) =>
+	//@ts-ignore
+	get(exchangeRates, CRYPTO_CURRENCY_MAP.VBNB, null) !== null ? bigNumberFormatter(get(exchangeRates, CRYPTO_CURRENCY_MAP.VBNB, null)) : 0
 );
 
 export const { fetchRatesRequest, fetchRatesSuccess, fetchRatesFailure } = ratesSlice.actions;
@@ -86,12 +92,14 @@ export const { fetchRatesRequest, fetchRatesSuccess, fetchRatesFailure } = rates
 function* fetchRates() {
 	// @ts-ignore
 	const { ExchangeRates } = snxJSConnector;
+	// @ts-ignore
 	const synths = yield select(getAvailableSynths);
 	try {
 		let exchangeRates: Rates = {}; 
  
 		exchangeRates = yield FetchRates(synths)
 		console.log(exchangeRates)
+		
 		yield put(fetchRatesSuccess({ exchangeRates }));
 	} catch (e) {
 		yield put(fetchRatesFailure({ error: e.message }));

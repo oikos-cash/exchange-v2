@@ -1,5 +1,5 @@
 import { CurrencyKey } from 'constants/currency';
-import { BigNumberish } from 'ethers/utils';
+import { BigNumberish } from 'ethers-utils';
 
 export type Phase = 'bidding' | 'trading' | 'maturity' | 'expiry';
 
@@ -25,10 +25,15 @@ export type OptionValue = {
 };
 
 export type BNOptionValue = {
+	//@ts-ignore
 	totalLongBN: BigNumberish;
+	//@ts-ignore
 	totalShortBN: BigNumberish;
+	//@ts-ignore
 	depositedBN: BigNumberish;
+	//@ts-ignore
 	feeBN: BigNumberish;
+	//@ts-ignore
 	refundFeeBN: BigNumberish;
 };
 

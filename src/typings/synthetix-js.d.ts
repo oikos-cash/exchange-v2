@@ -1,7 +1,7 @@
 declare module '@oikos/oikos-js-bsc' {
 	import { JsonRpcSigner, Web3Provider } from 'ethers/providers';
 	import { ethers } from 'ethers';
-	import { BigNumberish } from 'ethers/utils';
+	import { BigNumberish } from 'ethers-utils';
 
 	export interface ContractSettings {
 		networkId: 56;

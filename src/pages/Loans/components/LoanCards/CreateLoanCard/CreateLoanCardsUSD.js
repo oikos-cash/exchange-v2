@@ -19,9 +19,10 @@ import { getGasInfo } from 'ducks/transaction';
 import { getNetworkId, getWalletInfo } from 'ducks/wallet/walletDetails';
 import { getWalletBalancesMap } from 'ducks/wallet/walletBalances';
 import { fetchLoans } from 'ducks/loans/myLoans';
-import { getEthRate } from 'ducks/rates';
+import { getEthRate, getVBNBRate } from 'ducks/rates';
 
 import LoanWarningModal from '../LoanWarningModal';
+import BN from 'bignumber.js';
 
 import {
 	FormInputRow,
@@ -57,6 +58,8 @@ export const CreateLoanCardsUSD = ({
 }) => {
 	const { t } = useTranslation();
 
+
+
 	const [collateralAmount, setCollateralAmount] = useState('');
 	const [loanAmount, setLoanAmount] = useState('');
 
@@ -74,41 +77,101 @@ export const CreateLoanCardsUSD = ({
 		handleSubmit();
 	};
 
+	const checkApproval = async () => {
+		try {
+			const {
+				snxJS: { VBNBCollateraloUSD },
+				vBNBContract
+			} = snxJSConnector;
+		
+			let contract = VBNBCollateraloUSD.contract;
+			let allowance = await vBNBContract.allowance(currentWallet, contract.address);
+	
+			console.log(`Current allowance is ${allowance}`);
+			return allowance
+		}catch(err){
+			console.log(err);
+		}
+
+
+	};
+	
+	const approve = async () => {
+		try {
+			const {
+				snxJS: { VBNBCollateraloUSD },
+				vBNBContract,
+				signer
+			} = snxJSConnector;
+			
+			let contract = vBNBContract;
+			const ContractWithSigner = contract.connect(signer);
+
+			const gasEstimate = await ContractWithSigner.estimateGas.approve(
+				VBNBCollateraloUSD.contract.address, 
+				"0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+			);
+
+			const updatedGasEstimate = normalizeGasLimit(Number(gasEstimate));
+
+			setLocalGasLimit(updatedGasEstimate);			
+			
+			let tx = await ContractWithSigner.approve(VBNBCollateraloUSD.contract.address, 
+				"0xffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+			)
+ 
+		}catch(err){
+			console.log(err);
+		}
+
+	}
 	const handleSubmit = async () => {
 		const { utils, signer } = snxJSConnector;
 
 		setTxErrorMessage(null);
 
 		try {
-			const loan = utils.parseEther(loanAmount.toString());
-			const collateral = utils.parseEther(collateralAmount.toString());
+			const allowance = await checkApproval();
 
-			const ContractWithSigner = contract.connect(signer);
+			if (allowance > 0) {
 
-			const gasEstimate = await ContractWithSigner.estimate.openLoan(loan, { value: collateral });
-
-			const updatedGasEstimate = normalizeGasLimit(Number(gasEstimate));
-
-			setLocalGasLimit(updatedGasEstimate);
-
-			const tx = await ContractWithSigner.openLoan(loan, {
-				value: collateral,
-				gasLimit: updatedGasEstimate,
-				gasPrice: gasInfo.gasPrice * GWEI_UNIT,
-			});
-
-			if (notify) {
-				const { emitter } = notify.hash(tx.hash);
-				emitter.on('txConfirmed', () => {
-					setTransactionHash(tx.hash);
-					setCollateralAmount('');
-					setLoanAmount('');
-					fetchLoans();
-					return {
-						onclick: () => window.open(getEtherscanTxLink(networkId, tx.hash), '_blank'),
-					};
+				const loan = utils.parseEther(loanAmount.toString());
+				const collateral = collateralAmount * (10**(8));  //utils.parseEther(collateralAmount.toString());
+	
+				const ContractWithSigner = contract.connect(signer);
+				const gasEstimate = await ContractWithSigner.estimateGas.openLoan(loan, collateral);
+				const updatedGasEstimate = normalizeGasLimit(Number(gasEstimate));
+	
+				setLocalGasLimit(updatedGasEstimate);
+	
+				const tx = await ContractWithSigner
+				.openLoan(
+					loan, 
+					collateral, {
+					gasLimit: updatedGasEstimate,
+					gasPrice: gasInfo.gasPrice * GWEI_UNIT,
 				});
+	 
+				if (notify) {
+					const { emitter } = notify.hash(tx.hash);
+					emitter.on('txConfirmed', () => {
+						setTransactionHash(tx.hash);
+						setCollateralAmount('');
+						setLoanAmount('');
+						fetchLoans();
+						return {
+							onclick: () => window.open(getEtherscanTxLink(networkId, tx.hash), '_blank'),
+						};
+					});
+				}
+			} else {
+				setTxErrorMessage(
+					"Must approve the loan contract first"
+				);
+
+				await approve();
 			}
+
 		} catch (e) {
 			setTxErrorMessage(t('common.errors.unknown-error-try-again'));
 		}
@@ -287,7 +350,7 @@ const StyledLink = styled(DataSmall)`
 
 const mapStateToProps = (state) => ({
 	gasInfo: getGasInfo(state),
-	ethRate: getEthRate(state),
+	ethRate: getVBNBRate(state),
 	walletInfo: getWalletInfo(state),
 	walletBalance: getWalletBalancesMap(state),
 	contract: getContract(state),

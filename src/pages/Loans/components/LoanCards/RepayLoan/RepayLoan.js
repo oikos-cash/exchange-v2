@@ -5,7 +5,7 @@ import Card from 'components/Card';
 import { ButtonPrimary } from 'components/Button';
 import { TxErrorMessage } from '../commonStyles';
 import { DataSmall, HeadingSmall } from 'components/Typography';
-import { getEthRate } from 'ducks/rates';
+import { getEthRate, getVBNBRate } from 'ducks/rates';
 import { getWalletBalancesMap } from 'ducks/wallet/walletBalances';
 import { getNetworkId, getWalletInfo } from 'ducks/wallet/walletDetails';
 import { useTranslation } from 'react-i18next';
@@ -38,17 +38,25 @@ const RepayLoan = ({
 	networkId,
 	fetchLoans,
 	ethRate,
+	vbnbRate,
 	walletInfo: { currentWallet },
 	collateralPair,
 	contract,
 	contractType,
 	notify,
 }) => {
+	let rate
+	if (contractType === 'oBNB') {
+		rate = ethRate;
+	} else {
+		rate = vbnbRate;
+	}
+
 	let collateralAmount = selectedLoan.collateralAmount;
 	let loanAmount = selectedLoan.loanAmount;
 	let currentInterest = selectedLoan.currentInterest;
 	let loanID = selectedLoan.loanID;
-	let currentCRatio = ((collateralAmount * ethRate) / (loanAmount + currentInterest)) * 100;
+	let currentCRatio = ((collateralAmount * rate) / (loanAmount + currentInterest)) * 100;
 
 	const { t } = useTranslation();
 	const [gasLimit, setLocalGasLimit] = useState(gasInfo.gasLimit);
@@ -76,7 +84,7 @@ const RepayLoan = ({
 			const ContractWithSigner = contract.connect(signer);
 
 			const repayAmountBN = utils.parseEther(repayAmount.toString());
-			let gasEstimate = await ContractWithSigner.estimate.repayLoan(
+			let gasEstimate = await ContractWithSigner.estimateGas.repayLoan(
 				currentWallet,
 				loanIDStr,
 				repayAmountBN
@@ -106,9 +114,9 @@ const RepayLoan = ({
 	};
 
 	useEffect(() => {
-		const newLoanAmount = (100 * (collateralAmount * ethRate)) / Number(cRatio) - currentInterest;
+		const newLoanAmount = (100 * (collateralAmount * rate)) / Number(cRatio) - currentInterest;
 		setRepayAmount(loanAmount - newLoanAmount);
-	}, [cRatio, collateralAmount, currentInterest, ethRate, loanAmount]);
+	}, [cRatio, collateralAmount, currentInterest, rate, loanAmount]);
 
 	useEffect(() => {
 		setRepayAmountError(null);
@@ -258,6 +266,7 @@ const StyledLink = styled(DataSmall)`
 const mapStateToProps = (state) => ({
 	gasInfo: getGasInfo(state),
 	ethRate: getEthRate(state),
+	vbnbRate: getVBNBRate(state),
 	walletInfo: getWalletInfo(state),
 	walletBalance: getWalletBalancesMap(state),
 	contract: getContract(state),

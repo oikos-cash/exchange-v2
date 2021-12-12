@@ -5,7 +5,7 @@ import Card from 'components/Card';
 import { ButtonPrimary } from 'components/Button';
 import { TxErrorMessage } from '../commonStyles';
 import { DataSmall, HeadingSmall } from 'components/Typography';
-import { getEthRate } from 'ducks/rates';
+import { getEthRate, getVBNBRate } from 'ducks/rates';
 import { getWalletBalancesMap } from 'ducks/wallet/walletBalances';
 import { getNetworkId, getWalletInfo } from 'ducks/wallet/walletDetails';
 import { useTranslation } from 'react-i18next';
@@ -38,6 +38,7 @@ const ModifyCollateral = ({
 	gasInfo,
 	networkId,
 	ethRate,
+	vbnbRate,
 	fetchLoans,
 	walletInfo: { currentWallet },
 	collateralPair,
@@ -46,11 +47,18 @@ const ModifyCollateral = ({
 	notify,
 	type,
 }) => {
+	let rate
+	if (contractType === 'oBNB') {
+		rate = ethRate;
+	} else {
+		rate = vbnbRate;
+	}
+
 	let collateralAmount = selectedLoan.collateralAmount;
 	let loanAmount = selectedLoan.loanAmount;
 	let currentInterest = selectedLoan.currentInterest;
 	let loanID = selectedLoan.loanID;
-	let currentCRatio = ((collateralAmount * ethRate) / (loanAmount + currentInterest)) * 100;
+	let currentCRatio = ((collateralAmount * rate) / (loanAmount + currentInterest)) * 100;
 
 	const { t } = useTranslation();
 	const [gasLimit, setLocalGasLimit] = useState(gasInfo.gasLimit);
@@ -76,19 +84,24 @@ const ModifyCollateral = ({
 			const loanIDStr = loanID?.toString();
 
 			const ContractWithSigner = contract.connect(signer);
-
 			const collateralDifferenceBN = utils.parseEther(collateralDifference.toString());
 			let gasEstimate;
+			let scaledCollateral = Number(collateralDifference) * 10e8;
+			let y = Math.trunc(scaledCollateral).toString().split('').slice(0, -1).join('')
+
+			console.log(`Scaled collateral is ${ y}`)
+			 
 			if (type === ActionTypes.ADD) {
-				gasEstimate = await ContractWithSigner.estimate.depositCollateral(
+				gasEstimate = await ContractWithSigner.estimateGas.depositCollateral(
 					currentWallet,
 					loanIDStr,
-					{
-						value: collateralDifferenceBN,
-					}
+					y
+					//{
+					//	//value: collateralDifferenceBN,
+					//}
 				);
 			} else {
-				gasEstimate = await ContractWithSigner.estimate.withdrawCollateral(
+				gasEstimate = await ContractWithSigner.estimateGas.withdrawCollateral(
 					loanIDStr,
 					collateralDifferenceBN
 				);
@@ -99,8 +112,8 @@ const ModifyCollateral = ({
 
 			let tx;
 			if (type === ActionTypes.ADD) {
-				tx = await ContractWithSigner.depositCollateral(currentWallet, loanIDStr, {
-					value: collateralDifferenceBN,
+				tx = await ContractWithSigner.depositCollateral(currentWallet, loanIDStr, y, {
+					//value: collateralDifferenceBN,
 					gasPrice: gasInfo.gasPrice * GWEI_UNIT,
 					gasLimit: updatedGasEstimate,
 				});
@@ -122,16 +135,17 @@ const ModifyCollateral = ({
 				});
 			}
 		} catch (e) {
+			console.log(e)
 			setTxErrorMessage(t('common.errors.unknown-error-try-again'));
 		}
 	};
 
 	useEffect(() => {
-		const newCollateral = ((Number(cRatio) / 100) * (loanAmount + currentInterest)) / ethRate;
+		const newCollateral = ((Number(cRatio) / 100) * (loanAmount + currentInterest)) / rate;
 		setCollateralDifference(
 			type === ActionTypes.ADD ? newCollateral - collateralAmount : collateralAmount - newCollateral
 		);
-	}, [cRatio, collateralAmount, currentInterest, ethRate, loanAmount, type]);
+	}, [cRatio, collateralAmount, currentInterest, rate, loanAmount, type]);
 
 	useEffect(() => {
 		setCollateralAmountErrorMessage(null);
@@ -291,6 +305,7 @@ const StyledLink = styled(DataSmall)`
 const mapStateToProps = (state) => ({
 	gasInfo: getGasInfo(state),
 	ethRate: getEthRate(state),
+	vbnbRate: getVBNBRate(state),
 	walletInfo: getWalletInfo(state),
 	walletBalance: getWalletBalancesMap(state),
 	contract: getContract(state),

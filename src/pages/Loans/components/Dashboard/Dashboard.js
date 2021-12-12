@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 import { Trans, useTranslation } from 'react-i18next';
@@ -36,7 +36,7 @@ import { EMPTY_VALUE } from 'constants/placeholder';
 import Spinner from 'components/Spinner';
 
 import { getEtherscanAddressLink } from 'utils/explorers';
-import { getEthRate } from 'ducks/rates';
+import { getEthRate, getVBNBRate } from 'ducks/rates';
 
 export const Dashboard = ({
 	walletInfo: { currentWallet },
@@ -49,9 +49,10 @@ export const Dashboard = ({
 	contractType,
 	contract,
 	ethRate,
+	vbnbRate
 }) => {
 	const { t } = useTranslation();
-
+ 
 	const {
 		collateralCurrencyKey,
 		loanCurrencyKey,
@@ -64,6 +65,8 @@ export const Dashboard = ({
 		totalIssuedSynths,
 		lockedCollateralAmount,
 	} = collateralPair;
+
+	console.log(collateralPair);
 
 	const loanInfoItems = [
 		{
@@ -114,10 +117,12 @@ export const Dashboard = ({
 			value: formatCurrency(lockedCollateralAmount, 0),
 		},
 		{
-			label: t('common.wallet.eth-value'),
-			value: (ethRate !== null ? formatCurrency(ethRate) : 0),
+			label: collateralCurrencyKey === "VBNB" ? "VBNB PRICE (USD)" : t('common.wallet.eth-value'),
+			value: collateralCurrencyKey === "VBNB" ? vbnbRate : (ethRate !== null ? formatCurrency(ethRate) : 0),
 		},
 	];
+	console.log(walletBalance)
+	const _collateralCurrencyKey = collateralCurrencyKey == "VBNB" ? "vbnb" : "BNB";
 
 	return (
 		<>
@@ -136,14 +141,14 @@ export const Dashboard = ({
 							>
 								{t('loans.dashboard.tabs.oBNB')}
 							</StyledButton>
-							{/*<StyledButton
+							{<StyledButton
 								isActive={contractType === 'oUSD'}
 								size="sm"
 								palette="secondary"
 								onClick={() => setSelectedContractType('oUSD')}
 							>
 								{t('loans.dashboard.tabs.oUSD')}
-							</StyledButton>*/}
+							</StyledButton>}
 						</FlexDiv>
 					</>
 					{isRefreshingLoansContractInfo && <Spinner size="sm" />}
@@ -188,7 +193,7 @@ export const Dashboard = ({
 						</td>
 						<td>
 							{currentWallet
-								? formatCurrency(getCurrencyKeyBalance(walletBalance, collateralCurrencyKey))
+								? collateralCurrencyKey == "VBNB" ? walletBalance.vbnb.balance : formatCurrency(getCurrencyKeyBalance(walletBalance, collateralCurrencyKey))
 								: EMPTY_VALUE}
 						</td>
 					</tr>
@@ -282,6 +287,7 @@ const mapStateToProps = (state) => ({
 	contractType: getContractType(state),
 	contract: getContract(state),
 	ethRate: getEthRate(state),
+	vbnbRate: getVBNBRate(state),
 });
 
 const mapDispatchToProps = {

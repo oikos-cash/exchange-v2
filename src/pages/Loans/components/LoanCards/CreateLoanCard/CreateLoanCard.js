@@ -229,11 +229,11 @@ export const CreateLoanCard = ({
 					</TxErrorMessage>
 				)}
 			</Card.Body>
-			<LoanWarningModal
+		{/*<LoanWarningModal
 				isOpen={isLoanConfirmationModalOpen}
 				onClose={() => setIsLoanConfirmationModalOpen(false)}
 				onConfirm={() => onLoanModalConfirmation()}
-			/>
+		/>*/}
 		</Card>
 	);
 };

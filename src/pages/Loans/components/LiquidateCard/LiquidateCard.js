@@ -55,13 +55,13 @@ const LiquidateCard = ({
 
 	const handleSubmit = async () => {
 		const {
-			snxJS: { EtherCollateralsUSD },
+			snxJS: { VBNBCollateraloUSD },
 			utils,
 		} = snxJSConnector;
 
 		setTxErrorMessage(null);
 
-		let contract = EtherCollateralsUSD.contract;
+		let contract = VBNBCollateraloUSD.contract;
  		try {
 			const loanIDStr = selectedLiquidation.loanId.toString();
 			const loanOwner = selectedLiquidation.account;

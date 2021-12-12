@@ -2,7 +2,7 @@ import { createSlice, createSelector } from '@reduxjs/toolkit';
 import { takeLatest, put, select } from 'redux-saga/effects';
 import orderBy from 'lodash/orderBy';
 
-import { fetchSynthsBalance, fetchEthBalance } from '../../dataFetcher';
+import { fetchSynthsBalance, fetchEthBalance, fetchVBNBBalance } from '../../dataFetcher';
 import { CRYPTO_CURRENCY_MAP } from 'constants/currency';
 import { toBigNumber } from '../../utils/formatters';
 import { getAvailableSynths } from '../synths';
@@ -111,14 +111,16 @@ function* fetchWalletBalances() {
 
 	if (currentWalletAddress != null) {
 		try {
-			console.log(synths)
-			const [synthsBalance, bnbBalance] = yield Promise.all([
+			//console.log(synths)
+			const [synthsBalance, bnbBalance, vbnbBalance]  = yield Promise.all([
 				fetchSynthsBalance(currentWalletAddress, synths),
 				fetchEthBalance(currentWalletAddress),
+				fetchVBNBBalance(currentWalletAddress)
 			]);
-
-			const balances = { synths: synthsBalance, bnb: bnbBalance };
+			const balances = { synths: synthsBalance, bnb: bnbBalance, vbnb: vbnbBalance};
+			
 			console.log(balances)
+			
 			yield put(fetchWalletBalancesSuccess({ balances }));
 
 			return true;

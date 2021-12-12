@@ -1,6 +1,8 @@
 import { OikosJs, ContractSettings } from '@oikos/oikos-js-bsc';
-
 import { ethers } from 'ethers';
+import {IERC20} from './contracts/IERC20';
+
+
 import {
 	getEthereumNetwork,
 	INFURA_JSON_RPC_URLS,
@@ -9,10 +11,9 @@ import {
 	PORTIS_APP_ID,
 	NetworkId,
 } from './networkUtils';
-import { synthSummaryUtilContract } from './contracts/synthSummaryUtilContract';
-import binaryOptionsMarketDataContract from './contracts/binaryOptionsMarketDataContract';
+//import { synthSummaryUtilContract } from './contracts/synthSummaryUtilContract';
+//import binaryOptionsMarketDataContract from './contracts/binaryOptionsMarketDataContract';
 
-console.log(OikosJs)
 type SnxJSConnector = {
 	initialized: boolean;
 	snxJS: OikosJs;
@@ -28,7 +29,13 @@ type SnxJSConnector = {
 	setContractSettings: (contractSettings: ContractSettings) => void;
 	binaryOptionsUtils: OikosJs['binaryOptionsUtils'];
 	contractSettings: ContractSettings;
+	vBNBContract: ethers.Contract;
 };
+
+let vBNBAddress = "0xa07c5b74c9b40447a954e1466938b865b6bbea36";
+
+let url = "https://bsc-dataseed.binance.org";
+let customHttpProvider = new ethers.providers.JsonRpcProvider(url);
 
 // @ts-ignore
 const snxJSConnector: SnxJSConnector = {
@@ -46,6 +53,8 @@ const snxJSConnector: SnxJSConnector = {
 		this.binaryOptionsUtils = this.snxJS.binaryOptionsUtils;
 		this.ethers = ethers;
 		this.contractSettings = contractSettings;
+		//@ts-ignore
+		this.vBNBContract = new ethers.Contract(vBNBAddress, IERC20.abi, customHttpProvider);
 		/*this.synthSummaryUtilContract = new ethers.Contract(
 			synthSummaryUtilContract.addresses[contractSettings.networkId],
 			synthSummaryUtilContract.abi,

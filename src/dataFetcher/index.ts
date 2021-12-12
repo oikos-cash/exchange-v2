@@ -7,11 +7,15 @@ import snxJSConnector from 'utils/snxJSConnector';
 import { bytesFormatter, bigNumberFormatter, parseBytes32String } from 'utils/formatters';
 
 import { SYNTHS_MAP, CurrencyKey } from 'constants/currency';
-import { BigNumberish } from 'ethers/utils';
+
+import { BigNumberish } from 'ethers-utils';
 import { takeLatest, put, select} from 'redux-saga/effects';
 
+
 const getNetworkPrices = async () => {
-	return await getGasInfo();
+	let result = await getGasInfo();
+	console.log(result)
+	return result
 };
 
 const getFrozenSynths = async () => {
@@ -40,6 +44,7 @@ export const fetchSynthsBalance = async (walletAddress: string, availableSynths:
 		CurrencyKey,
 		{
 			balance: number;
+			// @ts-ignore
 			balanceBN: BigNumberish;
 			usdBalance: number;
 		}
@@ -132,7 +137,24 @@ export const fetchEthBalance = async (walletAddress: string) => {
 	};
 };
 
+export const fetchVBNBBalance = async (walletAddress: string) => {
+
+	const balance = await snxJSConnector.vBNBContract.balanceOf(walletAddress);
+
+	return { 
+		balance: balance / 10 ** (8),
+	}; 
+};
+
 export type Rates = Record<CurrencyKey, number>;
+
+export const fetchVBNBRate = async ()  => {
+
+   //@ts-ignore
+   const vBNBRate = await snxJSConnector.snxJS.ExchangeRates.rateForCurrency( bytesFormatter("VBNB"));
+	console.log(vBNBRate)
+   return vBNBRate
+}
 
 export const FetchRates = async (availableSynths: Array<{name: string}>)  => {
  
@@ -143,7 +165,6 @@ export const FetchRates = async (availableSynths: Array<{name: string}>)  => {
 
 	//@ts-ignore
 	const synthRates = await snxJSConnector.snxJS.ExchangeRates.ratesForCurrencies(
-		
 		//@ts-ignore
 		availableSynths.map(synth => {
 			console.log( bytesFormatter(synth.name))
@@ -151,12 +172,21 @@ export const FetchRates = async (availableSynths: Array<{name: string}>)  => {
 		})
 	);
 
+	try {
+		let vBNBRate = await fetchVBNBRate();
+		//console.log(vBNBRate)
+		exchangeRates["VBNB"] = vBNBRate;
+
+	}catch (err) {
+		console.log(err)
+	}
+
 	availableSynths.forEach((synth, i) => {
 
 		exchangeRates[synth.name] = synthRates[i]
 	})
 
-	console.log(exchangeRates)
+
 	 
 	return exchangeRates
 }

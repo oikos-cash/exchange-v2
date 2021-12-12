@@ -20,6 +20,7 @@ import { getNetworkId, getWalletInfo } from 'ducks/wallet/walletDetails';
 import { getWalletBalancesMap } from 'ducks/wallet/walletBalances';
 import { fetchLoans } from 'ducks/loans/myLoans';
 import { getEthRate } from 'ducks/rates';
+import { getContract } from 'ducks/loans/contractInfo';
 
 import LoanWarningModal from '../LoanWarningModal';
 
@@ -44,9 +45,10 @@ export const CreateLoanCard = ({
 	walletBalance,
 	collateralPair,
 	notify,
+	contract
 }) => {
 	const { t } = useTranslation();
-
+	console.log(contract);
 	const [collateralAmount, setCollateralAmount] = useState('');
 	const [loanAmount, setLoanAmount] = useState('');
 
@@ -65,23 +67,25 @@ export const CreateLoanCard = ({
 
 	const handleSubmit = async () => {
 		const {
-			snxJS: { BNBCollateral },
 			utils,
 			signer,
+			BNBCollateralContract
 		} = snxJSConnector;
 
 		setTxErrorMessage(null);
+		console.log(`Got collateral amount ${collateralAmount}`)
+
+
 
 		try {
-			let contract = BNBCollateral.contract;
-			const ContractWithSigner = contract.connect(signer);
-
 			const openLoanArgs = {
 				value: utils.parseEther(collateralAmount),
 				gasPrice: gasInfo.gasPrice * GWEI_UNIT,
 				gasLimit,
 			};
-			const gasEstimate = 1e9; //await ContractWithSigner.estimateGas.openLoan(openLoanArgs);
+			
+			const ContractWithSigner = BNBCollateralContract.connect(signer);
+			const gasEstimate = await ContractWithSigner.estimateGas.openLoan(openLoanArgs);
 			const updatedGasEstimate = normalizeGasLimit(Number(gasEstimate));
 
 			setLocalGasLimit(updatedGasEstimate);
@@ -260,6 +264,7 @@ const mapStateToProps = (state) => ({
 	ethRate: getEthRate(state),
 	walletInfo: getWalletInfo(state),
 	walletBalance: getWalletBalancesMap(state),
+	contract: getContract(state),
 	networkId: getNetworkId(state),
 });
 

@@ -139,6 +139,7 @@ export const CreateLoanCardsUSD = ({
 				const collateral = collateralAmount * (10**(8));  //utils.parseEther(collateralAmount.toString());
 	
 				const ContractWithSigner = contract.connect(signer);
+				console.log(ContractWithSigner)
 				const gasEstimate = await ContractWithSigner.estimateGas.openLoan(loan, collateral);
 				const updatedGasEstimate = normalizeGasLimit(Number(gasEstimate));
 	

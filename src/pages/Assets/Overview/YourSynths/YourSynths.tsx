@@ -41,12 +41,13 @@ import { CRYPTO_CURRENCY_MAP, SYNTHS_MAP, CurrencyKey, USD_SIGN } from 'constant
 import Spinner from 'components/Spinner';
 import BaseTradingPairs from 'components/BaseTradingPairs';
 
-import { BigNumberish } from 'ethers/utils';
+import { BigNumberish } from 'ethers-utils';
 import { LINKS } from 'constants/links';
 import { navigateToSynthOverview } from 'constants/routes';
 
 type SynthWalletBalance = {
 	balance: number;
+	// @ts-ignore
 	balanceBN: BigNumberish;
 	name: CurrencyKey;
 	portfolioPercent: number;

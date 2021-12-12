@@ -1,6 +1,7 @@
 import { OikosJs, ContractSettings } from '@oikos/oikos-js-bsc';
 import { ethers } from 'ethers';
-import {IERC20} from './contracts/IERC20';
+import { IERC20 } from './contracts/IERC20';
+import { BNBCollateralContract } from './contracts/BNBCollateralContract';
 
 
 import {
@@ -30,9 +31,12 @@ type SnxJSConnector = {
 	binaryOptionsUtils: OikosJs['binaryOptionsUtils'];
 	contractSettings: ContractSettings;
 	vBNBContract: ethers.Contract;
+	BNBCollateralContract: ethers.Contract;
+
 };
 
 let vBNBAddress = "0xa07c5b74c9b40447a954e1466938b865b6bbea36";
+let BNBCollateral = "0x7F110C0e1256705cf87E660f2a01889A647189bd";
 
 let url = "https://bsc-dataseed.binance.org";
 let customHttpProvider = new ethers.providers.JsonRpcProvider(url);
@@ -55,6 +59,9 @@ const snxJSConnector: SnxJSConnector = {
 		this.contractSettings = contractSettings;
 		//@ts-ignore
 		this.vBNBContract = new ethers.Contract(vBNBAddress, IERC20.abi, customHttpProvider);
+		//@ts-ignore
+		this.BNBCollateralContract = new ethers.Contract(BNBCollateral, BNBCollateralContract.abi, customHttpProvider);
+
 		/*this.synthSummaryUtilContract = new ethers.Contract(
 			synthSummaryUtilContract.addresses[contractSettings.networkId],
 			synthSummaryUtilContract.abi,

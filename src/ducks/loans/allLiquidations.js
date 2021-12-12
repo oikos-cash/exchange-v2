@@ -55,13 +55,13 @@ const {
 
 export const fetchLiquidations = () => async (dispatch, getState) => {
 	const {
-		snxJS: { EtherCollateralsUSD },
+		snxJS: { VBNBCollateraloUSD },
 	} = snxJSConnector;
 
 	const state = getState();
 	const ethRate = getEthRate(state);
 
-	let contract = EtherCollateralsUSD.contract;
+	let contract = VBNBCollateraloUSD.contract;
 	const C_RATIO = bigNumberFormatter(await contract.collateralizationRatio()) / 100;
 	const PENALTY = bigNumberFormatter(await contract.liquidationPenalty());
 

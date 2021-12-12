@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 import snxJSConnector from '../../utils/snxJSConnector';
-import { bigNumberFormatter } from '../../utils/formatters';
+import { bigNumberFormatter, bigNumberFormatter1} from '../../utils/formatters';
 
 import { CRYPTO_CURRENCY_MAP, SYNTHS_MAP } from '../../constants/currency';
 
@@ -13,7 +13,7 @@ export const contractInfoSlice = createSlice({
 		isLoading: false,
 		isLoaded: false,
 		isRefreshing: false,
-		contractType: 'oBNB',
+		contractType: "oBNB",
 		contract: null,
 	},
 	reducers: {
@@ -65,31 +65,37 @@ const {
 
 export const fetchLoansContractInfo = () => async (dispatch, getState) => {
 	const {
-		snxJS: { BNBCollateral, EtherCollateralsUSD },
+		snxJS: { BNBCollateral, VBNBCollateraloUSD },
+		vBNBContract
 	} = snxJSConnector;
 	let contract;
 
-	console.log(snxJSConnector.snxJS)
 	const state = getState();
 	const { contractType } = state.loans.contractInfo;
 
+	console.log(`Got contract type ${contractType}`)
+
 	if (contractType === 'oBNB') {
 		contract = BNBCollateral.contract;
-	}// else {
-	//	contract = EtherCollateralsUSD.contract;
-	//}
+	} else {
+		contract = VBNBCollateraloUSD.contract;
+	}
+
+	console.log(contract)
 
 	dispatch(setContract({ contract }));
 	dispatch(fetchLoansContractInfoRequest());
 
 	try {
+		 
 		const [contractInfo, lockedETHBalance] = await Promise.all([
 			contract.getContractInfo(),
-			snxJSConnector.provider.getBalance(contract.address),
+			contractType === "oBNB" ? snxJSConnector.provider.getBalance(contract.address) : vBNBContract.balanceOf(contract.address),
 		]);
 
+		console.log(`Contrat type is ${contractType}`)
 		const collateralPair = {
-			collateralCurrencyKey: CRYPTO_CURRENCY_MAP.BNB,
+			collateralCurrencyKey:  contractType === 'oBNB' ? CRYPTO_CURRENCY_MAP.BNB : "VBNB",
 			loanCurrencyKey: contractType === 'oBNB' ? SYNTHS_MAP.oBNB : SYNTHS_MAP.oUSD,
 			minLoanSize:
 				contractType === 'oBNB'
@@ -102,8 +108,10 @@ export const fetchLoansContractInfo = () => async (dispatch, getState) => {
 			totalOpenLoanCount: Number(contractInfo._totalOpenLoanCount),
 			issueLimit: bigNumberFormatter(contractInfo._issueLimit),
 			totalIssuedSynths: bigNumberFormatter(contractInfo._totalIssuedSynths),
-			lockedCollateralAmount: bigNumberFormatter(lockedETHBalance),
+			lockedCollateralAmount: contractType === "oBNB" ? bigNumberFormatter(lockedETHBalance) : bigNumberFormatter1(lockedETHBalance),
 		};
+
+		console.log(collateralPair)
 
 		dispatch(fetchLoansContractInfoSuccess({ collateralPair }));
 	} catch (e) {

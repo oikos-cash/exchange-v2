@@ -3,7 +3,7 @@ import keyBy from 'lodash/keyBy';
 import snxJSConnector from '../../utils/snxJSConnector';
 import { getWalletInfo } from '../wallet/walletDetails';
 import { bigNumberFormatter } from '../../utils/formatters';
-import { getEthRate } from 'ducks/rates';
+import { getEthRate, getVBNBRate } from 'ducks/rates';
 import snxData from '@oikos/oikos-data-bsc';
 
 export const LOAN_STATUS = {
@@ -76,33 +76,53 @@ const {
 
 export const fetchLoans = () => async (dispatch, getState) => {
 	const {
-		snxJS: { BNBCollateral, EtherCollateralsUSD },
+		snxJS: { BNBCollateral, VBNBCollateraloUSD },
 	} = snxJSConnector;
 
 	const state = getState();
 	const ethRate = getEthRate(state);
+	const vbnbRate = getVBNBRate(state);
+
 	const walletInfo = getWalletInfo(state);
 
 	const { contractType } = state.loans.contractInfo;
 
-	let contract = contractType === 'oBNB' ? BNBCollateral.contract : EtherCollateralsUSD.contract;
+	let contract = contractType === 'oBNB' ? BNBCollateral.contract : VBNBCollateraloUSD.contract;
 
 	dispatch(fetchLoansRequest());
 
 	try {
+		let loansData, rate
+
 		let loansResponse = await snxData.etherCollateral.loans({
 			account: walletInfo.currentWallet,
 			//collateralMinted: contractType,
 		});
 
-		const loans = loansResponse.map(async (loan) => {
+		let loansResponse2 = await snxData.vbnbCollateral.loans({
+			account: walletInfo.currentWallet,
+			//collateralMinted: contractType,
+		});
+
+		if (contractType === 'oBNB') {
+			loansData = loansResponse;
+			rate = ethRate;
+		} else {
+			loansData = loansResponse2;
+			rate = vbnbRate;
+		}
+
+		const loans = loansData.map(async (loan) => {
 			const loanMetaData = await contract.getLoan(loan.account, loan.id);
-			console.log(loanMetaData)
+			//console.log(loanMetaData)
 			const currentInterest = bigNumberFormatter(
 				loanMetaData.interest ?? loanMetaData.accruedInterest
 			);
 			const collateralAmount = bigNumberFormatter(loanMetaData.collateralAmount);
-			const cRatio = (((ethRate) * 1) / ((loan.amount * (ethRate)) + currentInterest)) * 100;
+			const cRatio = contractType === "oBNB" ? (((rate) * 1) / ((loan.amount * (rate)) + currentInterest)) * 100 :
+			(150 * (100/150) / ((loan.amount  / (rate / 10e18) / 10e18 ) / bigNumberFormatter(loanMetaData.collateralAmount)))	
+ 
+			//console.log(`(150 * (${(loan.amount  / (rate / 10e18) / 10e18 ) / bigNumberFormatter(loanMetaData.collateralAmount)})  / (100/150)`)
 			const totalFees = bigNumberFormatter(loanMetaData.totalFees);
 			
 			let partialLiquidations = [];
